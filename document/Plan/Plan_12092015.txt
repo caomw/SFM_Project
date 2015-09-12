@@ -1,0 +1,17 @@
+﻿Plan
+VyTK : 
+	+ Import data
+	+ Manager Management (manager features)
+TrungHD :
+	+ Plan
+	+ Staff Management (staff features)
+PhucTQ : 
+	+ Import Student Points
+
+AnhLT : 
+	+ Send Email to Student
+	+ Matching : Compare Plan with statement of 	   tuition fees to see the difference -> Notify to 	   student 
+
+KhoaVNA :
+	+ Export Excel + Pdf
+	+ Student Manager : student features 
