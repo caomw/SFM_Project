@@ -29,7 +29,11 @@ public class UserService implements UserDetailsService{
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SystemUser user = userRepository.findByUsername(username);
-        return buildUserForAuthentication(user);
+        User _user =  buildUserForAuthentication(user);
+
+        System.out.println("Role : " + _user.getAuthorities().iterator().next().getAuthority());
+
+        return _user;
     }
 
     private User buildUserForAuthentication(SystemUser sysUser){
