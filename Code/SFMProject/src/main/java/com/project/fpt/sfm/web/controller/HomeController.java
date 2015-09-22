@@ -48,4 +48,36 @@ public class HomeController {
 
         return "home";
     }
+
+    @RequestMapping("/student/profile")
+    public String studentProfile(Model model){
+        model.addAttribute("content", "student/student-profile");
+        model.addAttribute("sidebar", "student/student-sidebar");
+
+        return "home";
+    }
+
+    @RequestMapping("/student/donghocphi")
+    public String studentDongHocPhi(Model model){
+        model.addAttribute("content", "student/trangthaidonghocphi");
+        model.addAttribute("sidebar", "student/student-sidebar");
+
+        return "home";
+    }
+
+    @RequestMapping("/student/donghoclai")
+    public String studentDongHocLai(Model model){
+        model.addAttribute("content", "student/trangthaidonghoclai");
+        model.addAttribute("sidebar", "student/student-sidebar");
+
+        return "home";
+    }
+
+    @RequestMapping("/student/xemlaivay")
+    public String studentXemlaivay(Model model){
+        model.addAttribute("content", "student/xemlaivay");
+        model.addAttribute("sidebar", "student/student-sidebar");
+
+        return "home";
+    }
 }
