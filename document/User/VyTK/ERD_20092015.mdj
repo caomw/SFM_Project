@@ -4007,6 +4007,45 @@
 					"name": "StudentProgress"
 				}
 			]
+		},
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFP+g7DqI3Qt0Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model1",
+			"ownedElements": [
+				{
+					"_type": "UMLUseCaseDiagram",
+					"_id": "AAAAAAFP+g7Dqo3REos=",
+					"_parent": {
+						"$ref": "AAAAAAFP+g7DqI3Qt0Y="
+					},
+					"name": "UseCaseDiagram1",
+					"visible": true,
+					"defaultDiagram": false
+				},
+				{
+					"_type": "UMLPackage",
+					"_id": "AAAAAAFP+g996o3VONI=",
+					"_parent": {
+						"$ref": "AAAAAAFP+g7DqI3Qt0Y="
+					},
+					"name": "Package1",
+					"visibility": "public"
+				},
+				{
+					"_type": "UMLUseCaseSubject",
+					"_id": "AAAAAAFP+g+8bY3+qCw=",
+					"_parent": {
+						"$ref": "AAAAAAFP+g7DqI3Qt0Y="
+					},
+					"name": "UseCaseSubject1",
+					"visibility": "public"
+				}
+			],
+			"visibility": "public"
 		}
 	]
 }

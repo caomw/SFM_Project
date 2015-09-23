@@ -47,7 +47,27 @@ Review Prototype:
 	_ Ve lai cac prototype.
 	_ Ten sinh vien, trang thai hien hanh (dang hoc hay bi dinh chi, dang hoc bong hay vay tin dung), ngay bat dau nhap hoc.
 *** Lien lac lai voi Phuc de xac nhan lai cac cong viec trong nhom va xu ly cac task da miss
-	
-	
-	
+
+23-09-2015
+Review report:
+	_
+Review prototype:
+	_ Hoc ky chuyen nganh 1 (bat dau tu ngay nao den ngay nao) - Student popup
+	_ Khong duoc update email - Update information
+	_ Them phan so sanh so tien du kien dong ban dau voi so tien dong thuc te se chenh lech bao nhieu phan tram
+	_ Thong ke them 1 mon hoc hoc sinh do hoc lai may lan
+	_ Ghi chu phai co them thong tin ngay thang khi sinh vien dong tien hoc (de biet hoc lai mon hoc do khi nao, trong hoc ky may....)
+	_ Sua lai thanh Student's information form (trong staff)
+	_ Thiet ke them nut chon hoac chon form hoac chon import (1 thoi diem chi co 1 thong tin duoc quan tam)
+	_ Ðia chi + thiet ke google API (Thanh pho truoc, quan huyen, roi moi den dia chi)
+	_ Chinh lai dau sao sau label
+	_ Chuyen nganh bat dau -> Tieng anh dau vao
+	_ Chuyen file excel mau thanh link click tu dong download luon
+	_ Chuyen he thong thanh tieng Viet
+	_ Lam giao dien huong den than thien cho nguoi dung hon (Co the chon tab hoac menu con)
+	_ Manager (Search cai gi)
+	_ Sua lai thong tin sinh vien
+	_ Tim sinh vien A sap toi se dong bao nhieu tien
+	_ Truoc moi hoc ky nhan vien dao tao se import ban diem ve -> lay duoc danh sach ban diem -> so sanh voi DB -> truy van duoc hoc sinh A dang hoc cac mon j bao nhieu diem.
+	_ 
 	
