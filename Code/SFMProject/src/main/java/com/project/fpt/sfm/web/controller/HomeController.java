@@ -80,4 +80,28 @@ public class HomeController {
 
         return "home";
     }
+
+    @RequestMapping("/admin/hocphi")
+    public String adminHocPhi(Model model){
+       // model.addAttribute("content", "student/xemlaivay");
+        model.addAttribute("sidebar", "admin/admin-sidebar");
+
+        return "home";
+    }
+
+    @RequestMapping("/admin/hoclai")
+    public String adminHocLai(Model model){
+        // model.addAttribute("content", "student/xemlaivay");
+        model.addAttribute("sidebar", "admin/admin-sidebar");
+
+        return "home";
+    }
+
+    @RequestMapping("/admin")
+    public String admin(Model model){
+        // model.addAttribute("content", "student/xemlaivay");
+        model.addAttribute("sidebar", "admin/admin-sidebar");
+
+        return "home";
+    }
 }
