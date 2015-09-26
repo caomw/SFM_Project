@@ -70,4 +70,19 @@ Review prototype:
 	_ Tim sinh vien A sap toi se dong bao nhieu tien
 	_ Truoc moi hoc ky nhan vien dao tao se import ban diem ve -> lay duoc danh sach ban diem -> so sanh voi DB -> truy van duoc hoc sinh A dang hoc cac mon j bao nhieu diem.
 	_ 
+
+25-09-2015
+Review prototype:
+	_ Cac text input co do dai khac nhau
+	_ Staff chinh la ke toan
+	_ Phai hien thi du lieu cho staff thay cac du lieu da import thanh cong
+	_ Popup chi tiet danh sach sinh vien dang ngung hoc
+	_ Use case la 1 chuc nang chu k phai giao dien, view khong phai la 1 chuc nang
+	_ View tat ca mon hoc
+	_ InputStudent -> AddStudent (*Note: Use case la 1 chuc nang, khong phai 1 giao dien cung k phai la 1 step)
+	_ Export thong tin bao cao cho nha truong theo mau gi -> lien he anh Son
+	_ Manager -> Manage -> View trang thai cua 1 hoc sinh
+	_ Ve lai use case
+	_ 1 role admin quan ly account
+	_ Nghien cuu dependences
 	
