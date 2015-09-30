@@ -1,0 +1,104 @@
+09-09-2015: 
+	Xac nhan requirement tu giao vien huong dan
+	Phuc vang mat
+
+11-09-2015:
+_ Review report:
+	Muc 3: 3vai tro:
+		+ Dinh ky ke toan tinh plan -> lay thong tin tu phong dao tao -> moi thu deu la file excel nen kho xu ly
+		+ Cham, tim kiem kho khan, khong validation duoc voi nhau
+	Muc 5: De xuat quy trinh moi (khi hoc sinh moi nhap hoc thi quy trinh se nhu the nao)
+	He thong tu dong len plan cho tat ca cac sinh vien. Plan mon hoc + cac mon hoc lai + muc vay tin dung -> dua ra ke hoach du kien hoc phi truoc 3 tuan dau hoc ky moi
+	
+16-09-2015 (Phuc vang mat + Khong hoan thanh cac task leader da quy dinh)
+_Review report:
+	Canh le
+	fix: trimester -> semester
+	bo sung phan giai quyet van de (Cac van de xay ra trong qua trinh thuc hien va dua ra giai phap)
+	len plan cho software -> gap phai nhung kho khan -> dua ra giai phap
+	(vd: file excel rat nhieu va lung tung -> cach giai quyet de import hieu qua)
+	1.3.4.1: sua lai phan server
+	1.3.4.2: Muc dau tien: Microsoft Windows 7..............
+	2.1: Iteration -> Interation
+	3: Chua review
+_Review ERD:
+	Year->Term (Khoa 7C/8A)
+	Quan ly 1 student 1 khoa hoc trong 1 hoc ky. Vay quan ly trong 1 half (nua hoc ky) thi sao. Lam sao de truy van duoc 1 half do?
+	Muon tim plan dong hoc phi cua sinh vien A trong hoc ky B thi se truy van the nao?
+	Semester va Progress (phan biet)
+	Tim plan dong hoc phi sinh vien A o hoc ky Spring 2015 
+	Sap toi hoc ky 2016 plan cua sinh vien se nhu the nao?
+	//StudentMode trong StudentCourse la gi?
+	Thoi diem sinh vien truoc khi ra truong va sau khi ra truong la nhu nhau, chi can len plan tra no o cuoi moi lan sinh vien tra phi (Khi phong ke toan nhap vao
+	lai xuat cua nam thi chi viec tinh toan)
+
+18-09-2015 (Phuc vang mat + Khong hoan thanh cac task leader da quy dinh)
+Review report:
+	_ 1.3.2 
+		+Khong validation duoc behavior cua nguoi dung
+		+Khong nam ro quy tac tai chinh cua nha truong
+	_ 2.1: Tai sao lai chon waterfall model
+	_ 3.1.1 (Chinh lai)
+	_ Cap nhat template 2015 [(cms-hcm) => -50%]
+	_ Coding Convention (Chi tuan theo nhung gi co the code trong do an)
+Review DB:
+	_ Trong half 1 2015 sinh vien A thieu no mon nao (1 hoc ky co the chia lam nhieu phan).
+Review Prototype:
+	_ Ve lai cac prototype.
+	_ Ten sinh vien, trang thai hien hanh (dang hoc hay bi dinh chi, dang hoc bong hay vay tin dung), ngay bat dau nhap hoc.
+*** Lien lac lai voi Phuc de xac nhan lai cac cong viec trong nhom va xu ly cac task da miss
+
+23-09-2015
+Review report:
+	_
+Review prototype:
+	_ Hoc ky chuyen nganh 1 (bat dau tu ngay nao den ngay nao) - Student popup
+	_ Khong duoc update email - Update information
+	_ Them phan so sanh so tien du kien dong ban dau voi so tien dong thuc te se chenh lech bao nhieu phan tram
+	_ Thong ke them 1 mon hoc hoc sinh do hoc lai may lan
+	_ Ghi chu phai co them thong tin ngay thang khi sinh vien dong tien hoc (de biet hoc lai mon hoc do khi nao, trong hoc ky may....)
+	_ Sua lai thanh Student's information form (trong staff)
+	_ Thiet ke them nut chon hoac chon form hoac chon import (1 thoi diem chi co 1 thong tin duoc quan tam)
+	_ Ðia chi + thiet ke google API (Thanh pho truoc, quan huyen, roi moi den dia chi)
+	_ Chinh lai dau sao sau label
+	_ Chuyen nganh bat dau -> Tieng anh dau vao
+	_ Chuyen file excel mau thanh link click tu dong download luon
+	_ Chuyen he thong thanh tieng Viet
+	_ Lam giao dien huong den than thien cho nguoi dung hon (Co the chon tab hoac menu con)
+	_ Manager (Search cai gi)
+	_ Sua lai thong tin sinh vien
+	_ Tim sinh vien A sap toi se dong bao nhieu tien
+	_ Truoc moi hoc ky nhan vien dao tao se import ban diem ve -> lay duoc danh sach ban diem -> so sanh voi DB -> truy van duoc hoc sinh A dang hoc cac mon j bao nhieu diem.
+	_ 
+
+25-09-2015
+Review prototype:
+	_ Cac text input co do dai khac nhau
+	_ Staff chinh la ke toan
+	_ Phai hien thi du lieu cho staff thay cac du lieu da import thanh cong
+	_ Popup chi tiet danh sach sinh vien dang ngung hoc
+	_ Use case la 1 chuc nang chu k phai giao dien, view khong phai la 1 chuc nang
+	_ View tat ca mon hoc
+	_ InputStudent -> AddStudent (*Note: Use case la 1 chuc nang, khong phai 1 giao dien cung k phai la 1 step)
+	_ Export thong tin bao cao cho nha truong theo mau gi -> lien he anh Son
+	_ Manager -> Manage -> View trang thai cua 1 hoc sinh
+	_ Ve lai use case
+	_ 1 role admin quan ly account
+	_ Nghien cuu dependences
+
+30-09-2015
+Review use case:
+	_ Goal: Use case nay dung de gi, giup nguoi dung lam duoc chuc nang j
+	_ Trigger: chua co giao dien nen cac thanh phan nhu "click button" nen coi lai
+	_ Referent template
+Review GUI:
+	_ Trang hoc sinh hien thi dau tien nen la cac mon hoc dang no cua sinh vien hoac la cac khoan tien sinh vien do dang no
+	_ Hoc phi can dong truoc 3 tuan se duoc hien thi 1 bang thong bao, sinh vien bat buoc phai xem 1 lan truoc khi xem cac thong tin khac (tuong tu voi yeu cau feedback cua cms hien tai).
+	_ Xem lai form update thong tin ca nhan khi hien thi tren may chieu bi loi form hien thi
+	_ Nhung mon chua hoan thanh, nhung luoi tren header nen tao input search hoac filter theo hoc ky
+	_ Tien hoc phi phai co dong tu ngay nao den ngay nao
+	_ Danh sach dong hoc phi: Chuyen trang thay cho lua chon dung popup
+	_ Manager: Cho phep search bat ky thong tin nao, hien thi trang search nhu google (tranh tai nhieu du lieu).
+	_ Staff: Tuy thuoc vao loai staff ma man hinh hien thi se khac nhau (thu quy, dao tao, ke toan).
+	_ LTA: 
+	
