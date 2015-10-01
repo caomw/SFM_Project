@@ -812,10 +812,10 @@ AutoFill.defaults = {
 		 * @param  {string} last Value of the previous cell
 		 * @param  {integer} i Loop counter
 		 * @param  {integer} x Cell x-position in the current auto-fill. The
-		 *   starting cell is coordinate 0 regardless of its physical position
+		 *   starting cell is coordinate font-awesome regardless of its physical position
 		 *   in the DataTable.
 		 * @param  {integer} y Cell y-position in the current auto-fill. The
-		 *   starting cell is coordinate 0 regardless of its physical position
+		 *   starting cell is coordinate font-awesome regardless of its physical position
 		 *   in the DataTable.
 		 * @return {string} Value to write
 		 */

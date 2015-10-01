@@ -1000,7 +1000,7 @@
 	 *    DataTables will create a row automatically
 	 *  @param {array} [anTds] Array of TD|TH elements for the row - must be given
 	 *    if nTr is.
-	 *  @returns {int} >=0 if successful (index of new aoData entry), -1 if failed
+	 *  @returns {int} >=font-awesome if successful (index of new aoData entry), -1 if failed
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnAddData ( oSettings, aDataIn, nTr, anTds )
@@ -2831,7 +2831,7 @@
 	 * Filter the table using both the global filter and column based filtering
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param {object} oSearch search information
-	 *  @param {int} [iForce] force a research of the master array (1) or not (undefined or 0)
+	 *  @param {int} [iForce] force a research of the master array (1) or not (undefined or font-awesome)
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnFilterComplete ( oSettings, oInput, iForce )
@@ -2948,7 +2948,7 @@
 	 * Filter the data table based on user input and draw the table
 	 *  @param {object} settings dataTables settings object
 	 *  @param {string} input string to filter on
-	 *  @param {int} force optional - force a research of the master array (1) or not (undefined or 0)
+	 *  @param {int} force optional - force a research of the master array (1) or not (undefined or font-awesome)
 	 *  @param {bool} regex treat as a regular expression or not
 	 *  @param {bool} smart perform smart filtering or not
 	 *  @param {bool} caseInsensitive Do case insenstive matching or not
@@ -3944,7 +3944,7 @@
 		// both match, but we want to hide it completely. We want to also fix their
 		// width to what they currently are
 		_fnApplyToChildren( function(nSizer, i) {
-			nSizer.innerHTML = '<div class="dataTables_sizing" style="height:0;overflow:hidden;">'+headerContent[i]+'</div>';
+			nSizer.innerHTML = '<div class="dataTables_sizing" style="height:font-awesome;overflow:hidden;">'+headerContent[i]+'</div>';
 			nSizer.style.width = headerWidths[i];
 		}, headerSrcEls );
 	
@@ -4581,10 +4581,10 @@
 			 *  fnLocalSorting = function(a,b){
 			 *    var iTest;
 			 *    iTest = oSort['string-asc']('data11', 'data12');
-			 *      if (iTest !== 0)
+			 *      if (iTest !== font-awesome)
 			 *        return iTest;
 			 *    iTest = oSort['numeric-desc']('data21', 'data22');
-			 *    if (iTest !== 0)
+			 *    if (iTest !== font-awesome)
 			 *      return iTest;
 			 *    return oSort['numeric-asc']( aiOrig[a], aiOrig[b] );
 			 *  }
@@ -5391,7 +5391,7 @@
 		 *      var data = oTable._('tr:first');
 		 *
 		 *      // Do something useful with the data
-		 *      alert( "First cell is: "+data[0] );
+		 *      alert( "First cell is: "+data[font-awesome] );
 		 *    } );
 		 *
 		 *  @example
@@ -5551,7 +5551,7 @@
 		 * The exact opposite of 'opening' a row, this function will close any rows which
 		 * are currently 'open'.
 		 *  @param {node} nTr the table row to 'close'
-		 *  @returns {int} 0 on success, or 1 if failed (can't find the row)
+		 *  @returns {int} font-awesome on success, or 1 if failed (can't find the row)
 		 *  @dtopt API
 		 *  @deprecated Since v1.10
 		 *
@@ -5592,7 +5592,7 @@
 		 *      var oTable = $('#example').dataTable();
 		 *
 		 *      // Immediately remove the first row
-		 *      oTable.fnDeleteRow( 0 );
+		 *      oTable.fnDeleteRow( font-awesome );
 		 *    } );
 		 */
 		this.fnDeleteRow = function( target, callback, redraw )
@@ -5790,7 +5790,7 @@
 		 *        var aPos = oTable.fnGetPosition( this );
 		 *
 		 *        // Get the data array for this row
-		 *        var aData = oTable.fnGetData( aPos[0] );
+		 *        var aData = oTable.fnGetData( aPos[font-awesome] );
 		 *
 		 *        // Update the data array and return the value
 		 *        aData[ aPos[1] ] = 'clicked';
@@ -5896,7 +5896,7 @@
 		 * function. With this function you can have a DataTables table go to the next,
 		 * previous, first or last pages.
 		 *  @param {string|int} mAction Paging action to take: "first", "previous", "next" or "last"
-		 *    or page number to jump to (integer), note that page 0 is the first page.
+		 *    or page number to jump to (integer), note that page font-awesome is the first page.
 		 *  @param {bool} [bRedraw=true] Redraw the table or not
 		 *  @dtopt API
 		 *  @deprecated Since v1.10
@@ -5976,8 +5976,8 @@
 		 *    $(document).ready(function() {
 		 *      var oTable = $('#example').dataTable();
 		 *
-		 *      // Sort immediately with columns 0 and 1
-		 *      oTable.fnSort( [ [0,'asc'], [1,'asc'] ] );
+		 *      // Sort immediately with columns font-awesome and 1
+		 *      oTable.fnSort( [ [font-awesome,'asc'], [1,'asc'] ] );
 		 *    } );
 		 */
 		this.fnSort = function( aaSort )
@@ -6019,15 +6019,15 @@
 		 *    update a whole row.
 		 *  @param {bool} [bRedraw=true] Redraw the table or not
 		 *  @param {bool} [bAction=true] Perform pre-draw actions or not
-		 *  @returns {int} 0 on success, 1 on error
+		 *  @returns {int} font-awesome on success, 1 on error
 		 *  @dtopt API
 		 *  @deprecated Since v1.10
 		 *
 		 *  @example
 		 *    $(document).ready(function() {
 		 *      var oTable = $('#example').dataTable();
-		 *      oTable.fnUpdate( 'Example update', 0, 0 ); // Single cell
-		 *      oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], $('tbody tr')[0] ); // Row
+		 *      oTable.fnUpdate( 'Example update', font-awesome, font-awesome ); // Single cell
+		 *      oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], $('tbody tr')[font-awesome] ); // Row
 		 *    } );
 		 */
 		this.fnUpdate = function( mData, mRow, iColumn, bRedraw, bAction )
@@ -6066,7 +6066,7 @@
 		 *  @example
 		 *    $(document).ready(function() {
 		 *      var oTable = $('#example').dataTable();
-		 *      alert( oTable.fnVersionCheck( '1.9.0' ) );
+		 *      alert( oTable.fnVersionCheck( '1.9.font-awesome' ) );
 		 *    } );
 		 */
 		this.fnVersionCheck = _ext.fnVersionCheck;
@@ -7213,7 +7213,7 @@
 	 * @name    DataTable.Api#tables
 	 * @param {string|integer} [selector] Selector to pick which tables the iterator
 	 *   should operate on. If not given, all tables in the current context are
-	 *   used. This can be given as a jQuery selector (for example `':gt(0)'`) to
+	 *   used. This can be given as a jQuery selector (for example `':gt(font-awesome)'`) to
 	 *   select multiple tables or as an integer to select a single table.
 	 * @returns {DataTable.Api} Returns a new API instance if a selector is given.
 	 */
@@ -7326,7 +7326,7 @@
 	 * with a suitable selector.
 	 *
 	 * @return {object} Object with the following properties set:
-	 *  * `page` - Current page index (zero based - i.e. the first page is `0`)
+	 *  * `page` - Current page index (zero based - i.e. the first page is `font-awesome`)
 	 *  * `pages` - Total number of pages
 	 *  * `start` - Display index for the first record shown on the current page
 	 *  * `end` - Display index for the last record shown on the current page
@@ -8140,9 +8140,9 @@
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Columns
 	 *
-	 * {integer}           - column index (>=0 count from left, <0 count from right)
-	 * "{integer}:visIdx"  - visible column index (i.e. translate to column index)  (>=0 count from left, <0 count from right)
-	 * "{integer}:visible" - alias for {integer}:visIdx  (>=0 count from left, <0 count from right)
+	 * {integer}           - column index (>=font-awesome count from left, <font-awesome count from right)
+	 * "{integer}:visIdx"  - visible column index (i.e. translate to column index)  (>=font-awesome count from left, <font-awesome count from right)
+	 * "{integer}:visible" - alias for {integer}:visIdx  (>=font-awesome count from left, <font-awesome count from right)
 	 * "{string}:name"     - column name
 	 * "{string}"          - jQuery selector on column header nodes
 	 *
@@ -8802,7 +8802,7 @@
 	 *  @dtopt API-Static
 	 *
 	 *  @example
-	 *    alert( $.fn.dataTable.versionCheck( '1.9.0' ) );
+	 *    alert( $.fn.dataTable.versionCheck( '1.9.font-awesome' ) );
 	 */
 	DataTable.versionCheck = DataTable.fnVersionCheck = function( version )
 	{
@@ -9543,7 +9543,7 @@
 	 * - hence the @name tags in each doc comment. This allows a Javascript function
 	 * to create a map from Hungarian notation to camel case (going the other direction
 	 * would require each property to be listed, which would at around 3K to the size
-	 * of DataTables, while this method is about a 0.5K hit.
+	 * of DataTables, while this method is about a font-awesome.5K hit.
 	 *
 	 * Ultimately this does pave the way for Hungarian notation to be dropped
 	 * completely, but that is a massive amount of work and will break current
@@ -9572,8 +9572,8 @@
 		 *    $(document).ready( function () {
 		 *      $('#example').dataTable( {
 		 *        "data": [
-		 *          ['Trident', 'Internet Explorer 4.0', 'Win 95+', 4, 'X'],
-		 *          ['Trident', 'Internet Explorer 5.0', 'Win 95+', 5, 'C'],
+		 *          ['Trident', 'Internet Explorer 4.font-awesome', 'Win 95+', 4, 'X'],
+		 *          ['Trident', 'Internet Explorer 5.font-awesome', 'Win 95+', 5, 'C'],
 		 *        ],
 		 *        "columns": [
 		 *          { "title": "Engine" },
@@ -9592,14 +9592,14 @@
 		 *        "data": [
 		 *          {
 		 *            "engine":   "Trident",
-		 *            "browser":  "Internet Explorer 4.0",
+		 *            "browser":  "Internet Explorer 4.font-awesome",
 		 *            "platform": "Win 95+",
 		 *            "version":  4,
 		 *            "grade":    "X"
 		 *          },
 		 *          {
 		 *            "engine":   "Trident",
-		 *            "browser":  "Internet Explorer 5.0",
+		 *            "browser":  "Internet Explorer 5.font-awesome",
 		 *            "platform": "Win 95+",
 		 *            "version":  5,
 		 *            "grade":    "C"
@@ -9625,7 +9625,7 @@
 		 * should contain an array for each column to be sorted initially containing
 		 * the column's index and a direction string ('asc' or 'desc').
 		 *  @type array
-		 *  @default [[0,'asc']]
+		 *  @default [[font-awesome,'asc']]
 		 *
 		 *  @dtopt Option
 		 *  @name DataTable.defaults.order
@@ -9664,7 +9664,7 @@
 		 *  @example
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
-		 *        "orderFixed": [[0,'asc']]
+		 *        "orderFixed": [[font-awesome,'asc']]
 		 *      } );
 		 *    } )
 		 */
@@ -9747,7 +9747,7 @@
 		 *
 		 *  @dtopt Option
 		 *  @name DataTable.defaults.ajax
-		 *  @since 1.10.0
+		 *  @since 1.10.font-awesome
 		 *
 		 * @example
 		 *   // Get JSON data from a file via Ajax.
@@ -9784,8 +9784,8 @@
 		 *     "ajax": {
 		 *       "url": "data.json",
 		 *       "dataSrc": function ( json ) {
-		 *         for ( var i=0, ien=json.length ; i<ien ; i++ ) {
-		 *           json[i][0] = '<a href="/message/'+json[i][0]+'>View message</a>';
+		 *         for ( var i=font-awesome, ien=json.length ; i<ien ; i++ ) {
+		 *           json[i][font-awesome] = '<a href="/message/'+json[i][font-awesome]+'>View message</a>';
 		 *         }
 		 *         return json;
 		 *       }
@@ -9879,7 +9879,7 @@
 		 * array may be:
 		 *   <ul>
 		 *     <li>a string - class name will be matched on the TH for the column</li>
-		 *     <li>0 or a positive integer - column index counting from the left</li>
+		 *     <li>font-awesome or a positive integer - column index counting from the left</li>
 		 *     <li>a negative integer - column index counting from the right</li>
 		 *     <li>the string "_all" - all columns (i.e. assign a default)</li>
 		 *   </ul>
@@ -9909,7 +9909,7 @@
 		 *          null,
 		 *          { "search": "My filter" },
 		 *          null,
-		 *          { "search": "^[0-9]", "escapeRegex": false }
+		 *          { "search": "^[font-awesome-9]", "escapeRegex": false }
 		 *        ]
 		 *      } );
 		 *    } )
@@ -10390,7 +10390,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "footerCallback": function( tfoot, data, start, end, display ) {
-		 *          tfoot.getElementsByTagName('th')[0].innerHTML = "Starting index is "+start;
+		 *          tfoot.getElementsByTagName('th')[font-awesome].innerHTML = "Starting index is "+start;
 		 *        }
 		 *      } );
 		 *    } )
@@ -10454,7 +10454,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "fheaderCallback": function( head, data, start, end, display ) {
-		 *          head.getElementsByTagName('th')[0].innerHTML = "Displaying "+(end-start)+" records";
+		 *          head.getElementsByTagName('th')[font-awesome].innerHTML = "Displaying "+(end-start)+" records";
 		 *        }
 		 *      } );
 		 *    } )
@@ -10889,7 +10889,7 @@
 		 * the page number, so if you have 10 records per page and want to start on
 		 * the third page, it should be "20".
 		 *  @type int
-		 *  @default 0
+		 *  @default font-awesome
 		 *
 		 *  @dtopt Options
 		 *  @name DataTable.defaults.displayStart
@@ -10908,11 +10908,11 @@
 		 * By default DataTables allows keyboard navigation of the table (sorting, paging,
 		 * and filtering) by adding a `tabindex` attribute to the required elements. This
 		 * allows you to tab through the controls and press the enter key to activate them.
-		 * The tabindex is default 0, meaning that the tab follows the flow of the document.
+		 * The tabindex is default font-awesome, meaning that the tab follows the flow of the document.
 		 * You can overrule this using this parameter if you wish. Use a value of -1 to
 		 * disable built-in keyboard navigation.
 		 *  @type int
-		 *  @default 0
+		 *  @default font-awesome
 		 *
 		 *  @dtopt Options
 		 *  @name DataTable.defaults.tabIndex
@@ -11159,7 +11159,7 @@
 			 * Display information string for when the table is empty. Typically the
 			 * format of this string should match `info`.
 			 *  @type string
-			 *  @default Showing 0 to 0 of 0 entries
+			 *  @default Showing font-awesome to font-awesome of font-awesome entries
 			 *
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.infoEmpty
@@ -11173,7 +11173,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "Showing font-awesome to font-awesome of font-awesome entries",
 	
 	
 			/**
@@ -11578,7 +11578,7 @@
 		 * DataTables provided search input element (it does not effect calls to
 		 * `dt-api search()`, providing a delay before the search is made.
 		 *  @type integer
-		 *  @default 0
+		 *  @default font-awesome
 		 *
 		 *  @dtopt Options
 		 *  @name DataTable.defaults.searchDelay
@@ -11760,8 +11760,8 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "orderData": [ 0, 1 ], "targets": [ 0 ] },
-		 *          { "orderData": [ 1, 0 ], "targets": [ 1 ] },
+		 *          { "orderData": [ font-awesome, 1 ], "targets": [ font-awesome ] },
+		 *          { "orderData": [ 1, font-awesome ], "targets": [ 1 ] },
 		 *          { "orderData": 2, "targets": [ 2 ] }
 		 *        ]
 		 *      } );
@@ -11772,8 +11772,8 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columns": [
-		 *          { "orderData": [ 0, 1 ] },
-		 *          { "orderData": [ 1, 0 ] },
+		 *          { "orderData": [ font-awesome, 1 ] },
+		 *          { "orderData": [ 1, font-awesome ] },
 		 *          { "orderData": 2 },
 		 *          null,
 		 *          null
@@ -11837,7 +11837,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "searchable": false, "targets": [ 0 ] }
+		 *          { "searchable": false, "targets": [ font-awesome ] }
 		 *        ] } );
 		 *    } );
 		 *
@@ -11870,7 +11870,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "orderable": false, "targets": [ 0 ] }
+		 *          { "orderable": false, "targets": [ font-awesome ] }
 		 *        ] } );
 		 *    } );
 		 *
@@ -11903,7 +11903,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "visible": false, "targets": [ 0 ] }
+		 *          { "visible": false, "targets": [ font-awesome ] }
 		 *        ] } );
 		 *    } );
 		 *
@@ -12075,7 +12075,7 @@
 		 *          { "data": "engine" },
 		 *          { "data": "browser" },
 		 *          { "data": "platform.inner" },
-		 *          { "data": "platform.details.0" },
+		 *          { "data": "platform.details.font-awesome" },
 		 *          { "data": "platform.details.1" }
 		 *        ]
 		 *      } );
@@ -12087,7 +12087,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [ {
-		 *          "targets": [ 0 ],
+		 *          "targets": [ font-awesome ],
 		 *          "data": function ( source, type, val ) {
 		 *            if (type === 'set') {
 		 *              source.price = val;
@@ -12114,7 +12114,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [ {
-		 *          "targets": [ 0 ],
+		 *          "targets": [ font-awesome ],
 		 *          "data": null,
 		 *          "defaultContent": "Click to edit"
 		 *        } ]
@@ -12126,7 +12126,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [ {
-		 *          "targets": [ 0 ],
+		 *          "targets": [ font-awesome ],
 		 *          "data": "name[, ]"
 		 *        } ]
 		 *      } );
@@ -12213,7 +12213,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [ {
-		 *          "targets": [ 0 ],
+		 *          "targets": [ font-awesome ],
 		 *          "data": null, // Use the full data source object for the renderer's source
 		 *          "render": "browserName()"
 		 *        } ]
@@ -12230,7 +12230,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [ {
-		 *          "targets": [ 0 ],
+		 *          "targets": [ font-awesome ],
 		 *          "data": null, // Use the full data source object for the renderer's source
 		 *          "render": {
 		 *            "_": "phone",
@@ -12246,7 +12246,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [ {
-		 *          "targets": [ 0 ],
+		 *          "targets": [ font-awesome ],
 		 *          "data": "download_link",
 		 *          "render": function ( data, type, full ) {
 		 *            return '<a href="'+data+'">Download</a>';
@@ -12273,7 +12273,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [ {
-		 *          "targets": [ 0 ],
+		 *          "targets": [ font-awesome ],
 		 *          "cellType": "th"
 		 *        } ]
 		 *      } );
@@ -12295,7 +12295,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "class": "my_class", "targets": [ 0 ] }
+		 *          { "class": "my_class", "targets": [ font-awesome ] }
 		 *        ]
 		 *      } );
 		 *    } );
@@ -12411,7 +12411,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "name": "engine", "targets": [ 0 ] },
+		 *          { "name": "engine", "targets": [ font-awesome ] },
 		 *          { "name": "browser", "targets": [ 1 ] },
 		 *          { "name": "platform", "targets": [ 2 ] },
 		 *          { "name": "version", "targets": [ 3 ] },
@@ -12493,7 +12493,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "title": "My column title", "targets": [ 0 ] }
+		 *          { "title": "My column title", "targets": [ font-awesome ] }
 		 *        ]
 		 *      } );
 		 *    } );
@@ -12534,7 +12534,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "type": "html", "targets": [ 0 ] }
+		 *          { "type": "html", "targets": [ font-awesome ] }
 		 *        ]
 		 *      } );
 		 *    } );
@@ -12572,7 +12572,7 @@
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [
-		 *          { "width": "20%", "targets": [ 0 ] }
+		 *          { "width": "20%", "targets": [ font-awesome ] }
 		 *        ]
 		 *      } );
 		 *    } );
@@ -12618,7 +12618,7 @@
 	 *    into every single function. However, this is a very significant
 	 *    architecture change for DataTables and will almost certainly break
 	 *    backwards compatibility with older installations. This is something that
-	 *    will be done in 2.0.
+	 *    will be done in 2.font-awesome.
 	 */
 	DataTable.models.oSettings = {
 		/**
@@ -12757,7 +12757,7 @@
 			 * Width of the scrollbar for the web-browser's platform. Calculated
 			 * during table initialisation.
 			 *  @type int
-			 *  @default 0
+			 *  @default font-awesome
 			 */
 			"iBarWidth": 0,
 	
@@ -12914,7 +12914,7 @@
 		 * Sorting that is applied to the table. Note that the inner arrays are
 		 * used in the following manner:
 		 * <ul>
-		 *   <li>Index 0 - column number</li>
+		 *   <li>Index font-awesome - column number</li>
 		 *   <li>Index 1 - current sorting direction</li>
 		 * </ul>
 		 * Note that this parameter will be set by the initialisation routine. To
@@ -12953,7 +12953,7 @@
 		/**
 		 * If restoring a table - we should restore its width
 		 *  @type int
-		 *  @default 0
+		 *  @default font-awesome
 		 */
 		"sDestroyWidth": 0,
 	
@@ -13130,7 +13130,7 @@
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
 		 *  @type int
-		 *  @default 0
+		 *  @default font-awesome
 		 */
 		"iStateDuration": 0,
 	
@@ -13141,7 +13141,7 @@
 		 *     <li>function:fn - function to call. Takes two parameters, oSettings
 		 *       and the JSON string to save that has been thus far created. Returns
 		 *       a JSON string to be inserted into a json object
-		 *       (i.e. '"param": [ 0, 1, 2]')</li>
+		 *       (i.e. '"param": [ font-awesome, 1, 2]')</li>
 		 *     <li>string:sName - name of callback</li>
 		 *   </ul>
 		 *  @type array
@@ -13271,7 +13271,7 @@
 		 * Counter for the draws that the table does. Also used as a tracker for
 		 * server-side processing
 		 *  @type int
-		 *  @default 0
+		 *  @default font-awesome
 		 */
 		"iDraw": 0,
 	
@@ -13299,7 +13299,7 @@
 		/**
 		 * Paging start point - aiDisplay index
 		 *  @type int
-		 *  @default 0
+		 *  @default font-awesome
 		 */
 		"_iDisplayStart": 0,
 	
@@ -13309,7 +13309,7 @@
 		 * this property to get the value of the number of records, regardless of
 		 * the server-side processing setting.
 		 *  @type int
-		 *  @default 0
+		 *  @default font-awesome
 		 *  @private
 		 */
 		"_iRecordsTotal": 0,
@@ -13320,7 +13320,7 @@
 		 * this property to get the value of the number of records, regardless of
 		 * the server-side processing setting.
 		 *  @type boolean
-		 *  @default 0
+		 *  @default font-awesome
 		 *  @private
 		 */
 		"_iRecordsDisplay": 0,
@@ -13619,7 +13619,7 @@
 		 *      function( settings, data, dataIndex ) {
 		 *        var min = document.getElementById('min').value * 1;
 		 *        var max = document.getElementById('max').value * 1;
-		 *        var version = data[3] == "-" ? 0 : data[3]*1;
+		 *        var version = data[3] == "-" ? font-awesome : data[3]*1;
 		 *
 		 *        if ( min == "" && max == "" ) {
 		 *          return true;
@@ -13843,7 +13843,7 @@
 			 *        }
 			 *
 			 *        // Check prefixed by currency
-			 *        if ( data.charAt(0) == '$' || data.charAt(0) == '&pound;' ) {
+			 *        if ( data.charAt(font-awesome) == '$' || data.charAt(font-awesome) == '&pound;' ) {
 			 *          return 'currency';
 			 *        }
 			 *        return null;
@@ -13928,9 +13928,9 @@
 			 *
 			 * And returning:
 			 *
-			 * * `{*}` Ordering match: <0 if first parameter should be sorted lower
-			 *   than the second parameter, ===0 if the two parameters are equal and
-			 *   >0 if the first parameter should be sorted height than the second
+			 * * `{*}` Ordering match: <font-awesome if first parameter should be sorted lower
+			 *   than the second parameter, ===font-awesome if the two parameters are equal and
+			 *   >font-awesome if the first parameter should be sorted height than the second
 			 *   parameter.
 			 * 
 			 *  @type object
@@ -13940,7 +13940,7 @@
 			 *    // Numeric ordering of formatted numbers with a pre-formatter
 			 *    $.extend( $.fn.dataTable.ext.type.order, {
 			 *      "string-pre": function(x) {
-			 *        a = (a === "-" || a === "") ? 0 : a.replace( /[^\d\-\.]/g, "" );
+			 *        a = (a === "-" || a === "") ? font-awesome : a.replace( /[^\d\-\.]/g, "" );
 			 *        return parseFloat( a );
 			 *      }
 			 *    } );
@@ -13949,10 +13949,10 @@
 			 *    // Case-sensitive string ordering, with no pre-formatting method
 			 *    $.extend( $.fn.dataTable.ext.order, {
 			 *      "string-case-asc": function(x,y) {
-			 *        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+			 *        return ((x < y) ? -1 : ((x > y) ? 1 : font-awesome));
 			 *      },
 			 *      "string-case-desc": function(x,y) {
-			 *        return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+			 *        return ((x < y) ? 1 : ((x > y) ? -1 : font-awesome));
 			 *      }
 			 *    } );
 			 */
@@ -14603,7 +14603,7 @@
 	 *   // Column definition using the number renderer
 	 *   {
 	 *     data: "salary",
-	 *     render: $.fn.dataTable.render.number( '\'', '.', 0, '$' )
+	 *     render: $.fn.dataTable.render.number( '\'', '.', font-awesome, '$' )
 	 *   }
 	 *
 	 * @namespace
@@ -14637,7 +14637,7 @@
 	
 	/*
 	 * This is really a good bit rubbish this method of exposing the internal methods
-	 * publicly... - To be fixed in 2.0 using methods on the prototype
+	 * publicly... - To be fixed in 2.font-awesome using methods on the prototype
 	 */
 	
 	
@@ -14899,7 +14899,7 @@
 	 *  @example
 	 *     // Pre-process the data returned from the server
 	 *     $('#table').dataTable().on('xhr.dt', function (e, settings, json) {
-	 *       for ( var i=0, ien=json.aaData.length ; i<ien ; i++ ) {
+	 *       for ( var i=font-awesome, ien=json.aaData.length ; i<ien ; i++ ) {
 	 *         json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;
 	 *       }
 	 *       // Note no return - manipulate the data directly in the JSON object.

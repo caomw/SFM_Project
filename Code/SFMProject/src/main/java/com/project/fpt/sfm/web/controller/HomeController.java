@@ -10,11 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+    @RequestMapping("/")
+    public String index(Model model){
+        model.addAttribute("sidebar", "student/student-sidebar");
+        return "index";
+    }
+
+
     @RequestMapping("/home")
     public String homePage(Model model){
         model.addAttribute("sidebar", "student/student-sidebar");
-
-
         return "home";
     }
 
@@ -52,7 +57,7 @@ public class HomeController {
 
     @RequestMapping("/student/profile")
     public String studentProfile(Model model){
-        model.addAttribute("content", "student/update-profile");
+        model.addAttribute("content", "student/profile");
         model.addAttribute("sidebar", "student/student-sidebar");
 
         return "home";
@@ -61,6 +66,14 @@ public class HomeController {
     @RequestMapping("/student/donghocphi")
     public String studentDongHocPhi(Model model){
         model.addAttribute("content", "student/trangthaidonghocphi");
+        model.addAttribute("sidebar", "student/student-sidebar");
+
+        return "home";
+    }
+
+    @RequestMapping("/student/chitiet-donghocphi")
+    public String chitietdonghpcphi(Model model){
+        model.addAttribute("content", "student/chitiet-donghocphi");
         model.addAttribute("sidebar", "student/student-sidebar");
 
         return "home";
@@ -82,42 +95,42 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/admin/hocphi")
-    public String adminHocPhi(Model model){
-        model.addAttribute("content", "admin/hocphi");
-        model.addAttribute("sidebar", "admin/admin-sidebar");
+    @RequestMapping("/manager/hocphi")
+    public String managerHocPhi(Model model){
+        model.addAttribute("content", "manager/hocphi");
+        model.addAttribute("sidebar", "manager/manager-sidebar");
 
         return "home";
     }
 
-    @RequestMapping("/admin/hoclai")
-    public String adminHocLai(Model model){
+    @RequestMapping("/manager/hoclai")
+    public String managerHocLai(Model model){
         // model.addAttribute("content", "student/xemlaivay");
-        model.addAttribute("sidebar", "admin/admin-sidebar");
+        model.addAttribute("sidebar", "manager/manager-sidebar");
 
         return "home";
     }
 
-    @RequestMapping("/admin")
-    public String admin(Model model){
-        model.addAttribute("content", "admin/admin-home");
-        model.addAttribute("sidebar", "admin/admin-sidebar");
+    @RequestMapping("/manager")
+    public String manager(Model model){
+        model.addAttribute("content", "manager/manager-home");
+        model.addAttribute("sidebar", "manager/manager-sidebar");
 
         return "home";
     }
 
-    @RequestMapping("/admin/danh-sach-vay-tin-dung")
-    public String adminStudentLoansCredit(Model model){
-        model.addAttribute("content", "admin/admin-loans-credit");
-        model.addAttribute("sidebar", "admin/admin-sidebar");
+    @RequestMapping("/manager/danh-sach-vay-tin-dung")
+    public String managerStudentLoansCredit(Model model){
+        model.addAttribute("content", "manager/manager-loans-credit");
+        model.addAttribute("sidebar", "manager/manager-sidebar");
 
         return "home";
     }
 
-    @RequestMapping("/admin/danh-sach-tam-ngung-hoc")
+    @RequestMapping("/manager/danh-sach-tam-ngung-hoc")
     public String managerListSuspension(Model model){
-        model.addAttribute("content", "admin/manager-list-suspension");
-        model.addAttribute("sidebar", "admin/admin-sidebar");
+        model.addAttribute("content", "manager/manager-list-suspension");
+        model.addAttribute("sidebar", "manager/manager-sidebar");
 
         return "home";
     }

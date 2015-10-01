@@ -38,7 +38,7 @@ var factory = function( $, DataTable ) {
 
 
 //include ZeroClipboard.js
-/* ZeroClipboard 1.0.4
+/* ZeroClipboard 1.font-awesome.4
  * Author: Joseph Huckaby
  */
 
@@ -213,7 +213,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 		if (navigator.userAgent.match(/MSIE/)) {
 			// IE gets an OBJECT tag
 			var protocol = location.href.match(/^https/i) ? 'https://' : 'http://';
-			html += '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="'+protocol+'download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="'+width+'" height="'+height+'" id="'+this.movieId+'" align="middle"><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="false" /><param name="movie" value="'+ZeroClipboard_TableTools.moviePath+'" /><param name="loop" value="false" /><param name="menu" value="false" /><param name="quality" value="best" /><param name="bgcolor" value="#ffffff" /><param name="flashvars" value="'+flashvars+'"/><param name="wmode" value="transparent"/></object>';
+			html += '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="'+protocol+'download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,font-awesome,font-awesome,font-awesome" width="'+width+'" height="'+height+'" id="'+this.movieId+'" align="middle"><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="false" /><param name="movie" value="'+ZeroClipboard_TableTools.moviePath+'" /><param name="loop" value="false" /><param name="menu" value="false" /><param name="quality" value="best" /><param name="bgcolor" value="#ffffff" /><param name="flashvars" value="'+flashvars+'"/><param name="wmode" value="transparent"/></object>';
 		}
 		else {
 			// all other browsers get an EMBED tag
@@ -537,7 +537,7 @@ TableTools = function( oDT, oOpts )
 		 * A unique ID is assigned to each button in each instance
 		 * @property buttonCounter
 		 *  @type	 int
-		 * @default  0
+		 * @default  font-awesome
 		 */
 		"buttonCounter": 0,
 
@@ -2546,7 +2546,7 @@ TableTools.prototype = {
 			nTheadSize, nTfootSize;
 
 		/* Copy the header in the thead in the body table, this way we show one single table when
-		 * in print view. Note that this section of code is more or less verbatim from DT 1.7.0
+		 * in print view. Note that this section of code is more or less verbatim from DT 1.7.font-awesome
 		 */
 		nTheadSize = oSetDT.nTable.getElementsByTagName('thead');
 		if ( nTheadSize.length > 0 )
@@ -3170,7 +3170,7 @@ if ( typeof $.fn.dataTable == "function" &&
 }
 else
 {
-	alert( "Warning: TableTools requires DataTables 1.9.0 or newer - www.datatables.net/download");
+	alert( "Warning: TableTools requires DataTables 1.9.font-awesome or newer - www.datatables.net/download");
 }
 
 $.fn.DataTable.TableTools = TableTools;
@@ -3200,7 +3200,7 @@ if ( typeof $.fn.dataTable == "function" &&
 }
 else
 {
-	alert( "Warning: TableTools 2 requires DataTables 1.9.0 or newer - www.datatables.net/download");
+	alert( "Warning: TableTools 2 requires DataTables 1.9.font-awesome or newer - www.datatables.net/download");
 }
 
 

@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
 /*!
- *   AdminLTE v2.3.0
+ *   AdminLTE v2.3.font-awesome
  *   Author: Almsaeed Studio
  *	 Website: Almsaeed Studio <http://almsaeedstudio.com>
  *   License: Open source - MIT
@@ -52,7 +52,7 @@ body {
 }
 /*
  * Content Wrapper - contains the main content
- * ```.right-side has been deprecated as of v2.0.0 in favor of .content-wrapper  ```
+ * ```.right-side has been deprecated as of v2.font-awesome.font-awesome in favor of .content-wrapper  ```
  */
 .content-wrapper,
 .right-side,

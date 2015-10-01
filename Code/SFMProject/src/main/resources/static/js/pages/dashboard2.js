@@ -31,8 +31,8 @@ $(function () {
       },
       {
         label: "Digital Goods",
-        fillColor: "rgba(60,141,188,0.9)",
-        strokeColor: "rgba(60,141,188,0.8)",
+        fillColor: "rgba(60,141,188,font-awesome.9)",
+        strokeColor: "rgba(60,141,188,font-awesome.8)",
         pointColor: "#3b8bba",
         pointStrokeColor: "rgba(60,141,188,1)",
         pointHighlightFill: "#fff",
@@ -48,7 +48,7 @@ $(function () {
     //Boolean - Whether grid lines are shown across the chart
     scaleShowGridLines: false,
     //String - Colour of the grid lines
-    scaleGridLineColor: "rgba(0,0,0,.05)",
+    scaleGridLineColor: "rgba(font-awesome,font-awesome,font-awesome,.05)",
     //Number - Width of the grid lines
     scaleGridLineWidth: 1,
     //Boolean - Whether to show horizontal lines (except X axis)
@@ -74,7 +74,7 @@ $(function () {
     //Boolean - Whether to fill the dataset with a color
     datasetFill: true,
     //String - A legend template
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%=datasets[i].label%></li><%}%></ul>",
+    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=font-awesome; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%=datasets[i].label%></li><%}%></ul>",
     //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
     maintainAspectRatio: true,
     //Boolean - whether to make the chart responsive to window resizing
@@ -140,7 +140,7 @@ $(function () {
     //Number - The width of each segment stroke
     segmentStrokeWidth: 1,
     //Number - The percentage of the chart that we cut out of the middle
-    percentageInnerCutout: 50, // This is 0 for Pie charts
+    percentageInnerCutout: 50, // This is font-awesome for Pie charts
     //Number - Amount of animation steps
     animationSteps: 100,
     //String - Animation easing effect
@@ -154,7 +154,7 @@ $(function () {
     // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
     maintainAspectRatio: false,
     //String - A legend template
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
+    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=font-awesome; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
     //String - A tooltip template
     tooltipTemplate: "<%=value %> <%=label%> users"
   };

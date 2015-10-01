@@ -1,13 +1,12 @@
-<!--Main Content-->
 <div class="content-wrapper bg-white" style="min-height: 916px;">
     <!-- Main content -->
     <section class="content">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <h2 class="text-center">Danh Sách Đóng Tiền Học Phí</h2>
+                <h2 class="text-center">Đóng Tiền Học Phí</h2>
 
                 <div class="box box-borderless">
-                    <table class="table table-hover table-bordered table-text-center">
+                    <table class="table table-hover table-bordered table-responsive table-text-center">
                         <tbody>
                         <tr>
                             <th style="width: 10px">STT</th>
@@ -18,116 +17,45 @@
                             <th>Xem Chi Tiết</th>
                         </tr>
 
-                        <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                        <tr>
                             <td>1.</td>
-                            <td>CHuyên Ngành 1</td>
-                            <td>12,000,000 VNĐ</td>
+                            <td>SE60964</td>
+                            <td>Trần Khắc Vỹ</td>
                             <td>Đã Nộp</td>
                             <td>09/07/2015</td>
-                            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="collapse-row">
-                                <div class="my-row accordian-body collapse" id="demo1">
-                                    <div class="col-md-10 col-md-offset-1">
-                                        <table class="table borderless collapse-table">
-                                            <tbody>
-                                            <tr>
-                                                <td width="30%"><label>Họ Và Tên</label></td>
-                                                <td>Trần Khắc Vỹ</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>MSSV</label></td>
-                                                <td>SE60964</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>CMND</label></td>
-                                                <td>241999000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Nội Dung Đóng Tiền</label></td>
-                                                <td>Chuyên Ngành 1</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Học Kỳ</label></td>
-                                                <td>Fall 2015 (03/05/2015 - 03/08/2015)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Mức Học Phí</label></td>
-                                                <td>24,000,000 VNĐ</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Các Khoản Trừ</label></td>
-                                                <td>12,000,000 VNĐ</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Học Phí Cần Nộp</label></td>
-                                                <td>12,000,000 VNĐ</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Học Phí Đã Nộp</label></td>
-                                                <td>12,000,000 VNĐ</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Trạng Thái</label></td>
-                                                <td>Nộp Đủ</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Thiếu/Dư</label></td>
-                                                <td>0 VNĐ</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Ngày Chuyển Khoản</label></td>
-                                                <td>06/07/2011</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Ngân Hàng</label></td>
-                                                <td>Đông Á</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-
-
-
-
-
-
-                                </div>
-                            </td>
+                            <td><a href="#" data-toggle="modal"
+                                   data-target="#modalTuition">Chi Tiết</a></td>
                         </tr>
 
                         <tr>
                             <td>1.</td>
-                            <td>CHuyên Ngành 1</td>
-                            <td>12,000,000 VNĐ</td>
+                            <td>SE60964</td>
+                            <td>Trần Khắc Vỹ</td>
                             <td>Đã Nộp</td>
                             <td>09/07/2015</td>
-                            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                            <td><a href="#">Chi Tiết</a></td>
                         </tr>
 
                         <tr>
                             <td>1.</td>
-                            <td>CHuyên Ngành 1</td>
-                            <td>12,000,000 VNĐ</td>
+                            <td>SE60964</td>
+                            <td>Trần Khắc Vỹ</td>
                             <td>Chưa Nộpa</td>
                             <td>09/07/2015</td>
-                            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                            <td><a href="#">Chi Tiết</a></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <!--
+                <!--Model Detail-->
                 <div class="modal fade" id="modalTuition" role="dialog">
                     <div class="modal-dialog modal-nor">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close"
                                         data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title text-center"><b>Thông Tin
-                                    Nộp Học Phí</b></h4>
+                                <h4 class="modal-title text-center"><b>Thông Tin Nộp Học Phí</b></h4>
                             </div>
                             <div class="modal-body">
                                 <table class="table borderless">
@@ -159,8 +87,7 @@
                                         <td colspan="4">Tín Dụng 50%</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><b>Nội Dung Đóng
-                                            Tiền</b></td>
+                                        <td colspan="2"><b>Nội Dung Đóng Tiền</b></td>
                                         <td colspan="4">Chuyên Ngành 1</td>
                                     </tr>
                                     <tr>
@@ -190,8 +117,7 @@
                                         <td colspan="4">Nộp Đủ</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><b>Ngày Chuyển Khoản</b>
-                                        </td>
+                                        <td colspan="2"><b>Ngày Chuyển Khoản</b></td>
                                         <td colspan="4">12/6/2011</td>
                                     </tr>
                                     <tr>
@@ -204,7 +130,7 @@
                         </div>
                     </div>
                 </div>
--->
+
 
                 <!-- /.box -->
             </div>

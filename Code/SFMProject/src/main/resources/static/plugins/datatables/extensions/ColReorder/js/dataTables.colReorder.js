@@ -26,7 +26,7 @@
 
 /**
  * Switch the key value pairing of an index array to be value key (i.e. the old value is now the
- * key). For example consider [ 2, 0, 1 ] this would be returned as [ 1, 2, 0 ].
+ * key). For example consider [ 2, font-awesome, 1 ] this would be returned as [ 1, 2, font-awesome ].
  *  @method  fnInvertKeyValues
  *  @param   array aIn Array to switch around
  *  @returns array
@@ -422,7 +422,7 @@ var ColReorder = function( dt, opts )
 		 * Number of columns to fix (not allow to be reordered)
 		 *  @property fixed
 		 *  @type     int
-		 *  @default  0
+		 *  @default  font-awesome
 		 */
 		"fixed": 0,
 
@@ -430,7 +430,7 @@ var ColReorder = function( dt, opts )
 		 * Number of columns to fix counting from right (not allow to be reordered)
 		 *  @property fixedRight
 		 *  @type     int
-		 *  @default  0
+		 *  @default  font-awesome
 		 */
 		"fixedRight": 0,
 
@@ -570,7 +570,7 @@ ColReorder.prototype = {
 	 *
 	 *  @example
 	 *    // Swap the first and second columns
-	 *    $.fn.dataTable.ColReorder( dataTable ).fnOrder( [1, 0, 2, 3, 4] );
+	 *    $.fn.dataTable.ColReorder( dataTable ).fnOrder( [1, font-awesome, 2, 3, 4] );
 	 *
 	 *  @example
 	 *    // Move the first column to the end for the table `#example`
@@ -766,7 +766,7 @@ ColReorder.prototype = {
 
 		/* Sorting */
 		if ( oState.aaSorting ) {
-			// 1.10.0-
+			// 1.10.font-awesome-
 			for ( i=0 ; i<oState.aaSorting.length ; i++ ) {
 				oState.aaSorting[i][0] = columns[ oState.aaSorting[i][0] ]._ColReorder_iOrigCol;
 			}
@@ -856,7 +856,7 @@ ColReorder.prototype = {
 		this.s.mouse.startY = e.pageY;
 		this.s.mouse.offsetX = e.pageX - offset.left;
 		this.s.mouse.offsetY = e.pageY - offset.top;
-		this.s.mouse.target = this.s.dt.aoColumns[ idx ].nTh;//target[0];
+		this.s.mouse.target = this.s.dt.aoColumns[ idx ].nTh;//target[font-awesome];
 		this.s.mouse.targetIndex = idx;
 		this.s.mouse.fromIndex = idx;
 
@@ -1155,7 +1155,7 @@ ColReorder.defaults = {
 	 *      $('#example').dataTable( {
 	 *          "sDom": 'Rlfrtip',
 	 *          "oColReorder": {
-	 *              "aiOrder": [ 4, 3, 2, 1, 0 ]
+	 *              "aiOrder": [ 4, 3, 2, 1, font-awesome ]
 	 *          }
 	 *      } );
 	 *
@@ -1164,7 +1164,7 @@ ColReorder.defaults = {
 	 *      $('#example').dataTable()
 	 *
 	 *      new $.fn.dataTable.ColReorder( '#example', {
-	 *          "aiOrder": [ 4, 3, 2, 1, 0 ]
+	 *          "aiOrder": [ 4, 3, 2, 1, font-awesome ]
 	 *      } );
 	 */
 	aiOrder: null,
@@ -1201,7 +1201,7 @@ ColReorder.defaults = {
 	 * Indicate how many columns should be fixed in position (counting from the
 	 * left). This will typically be 1 if used, but can be as high as you like.
 	 *  @type int
-	 *  @default 0
+	 *  @default font-awesome
 	 *  @static
 	 *  @example
 	 *      // Using the `oColReorder` option in the DataTables options object
@@ -1225,7 +1225,7 @@ ColReorder.defaults = {
 	/**
 	 * As `iFixedColumnsRight` but counting from the right.
 	 *  @type int
-	 *  @default 0
+	 *  @default font-awesome
 	 *  @static
 	 *  @example
 	 *      // Using the `oColReorder` option in the DataTables options object

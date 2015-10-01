@@ -62,7 +62,7 @@ var factory = function( $, DataTable ) {
  *    are defined by {@link Scroller.defaults}
  *
  *  @requires jQuery 1.7+
- *  @requires DataTables 1.9.0+
+ *  @requires DataTables 1.9.font-awesome+
  *
  *  @example
  *    $(document).ready(function() {
@@ -104,14 +104,14 @@ var Scroller = function ( oDTSettings, oOpts ) {
 		/**
 		 * Pixel location of the top of the drawn table in the viewport
 		 *  @type     int
-		 *  @default  0
+		 *  @default  font-awesome
 		 */
 		"tableTop": 0,
 
 		/**
 		 * Pixel location of the bottom of the drawn table in the viewport
 		 *  @type     int
-		 *  @default  0
+		 *  @default  font-awesome
 		 */
 		"tableBottom": 0,
 
@@ -119,7 +119,7 @@ var Scroller = function ( oDTSettings, oOpts ) {
 		 * Pixel location of the boundary for when the next data set should be loaded and drawn
 		 * when scrolling up the way.
 		 *  @type     int
-		 *  @default  0
+		 *  @default  font-awesome
 		 *  @private
 		 */
 		"redrawTop": 0,
@@ -129,7 +129,7 @@ var Scroller = function ( oDTSettings, oOpts ) {
 		 * when scrolling down the way. Note that this is actually calculated as the offset from
 		 * the top.
 		 *  @type     int
-		 *  @default  0
+		 *  @default  font-awesome
 		 *  @private
 		 */
 		"redrawBottom": 0,
@@ -137,14 +137,14 @@ var Scroller = function ( oDTSettings, oOpts ) {
 		/**
 		 * Auto row height or not indicator
 		 *  @type     bool
-		 *  @default  0
+		 *  @default  font-awesome
 		 */
 		"autoHeight": true,
 
 		/**
 		 * Number of rows calculated as visible in the visible viewport
 		 *  @type     int
-		 *  @default  0
+		 *  @default  font-awesome
 		 */
 		"viewportRows": 0,
 
@@ -153,7 +153,7 @@ var Scroller = function ( oDTSettings, oOpts ) {
 		 * and when the user scrolls the viewport in order to stop the cookie set taking too much
 		 * CPU!
 		 *  @type     int
-		 *  @default  0
+		 *  @default  font-awesome
 		 */
 		"stateTO": null,
 
@@ -174,14 +174,14 @@ var Scroller = function ( oDTSettings, oOpts ) {
 			/**
 			 * Height of rows in the table
 			 *  @type     int
-			 *  @default  0
+			 *  @default  font-awesome
 			 */
 			row: null,
 
 			/**
 			 * Pixel height of the viewport
 			 *  @type     int
-			 *  @default  0
+			 *  @default  font-awesome
 			 */
 			viewport: null
 		},
@@ -1102,12 +1102,12 @@ Scroller.defaults = /** @lends Scroller.defaults */{
 	/**
 	 * Scroller uses the boundary scaling factor to decide when to redraw the table - which it
 	 * typically does before you reach the end of the currently loaded data set (in order to
-	 * allow the data to look continuous to a user scrolling through the data). If given as 0
+	 * allow the data to look continuous to a user scrolling through the data). If given as font-awesome
 	 * then the table will be redrawn whenever the viewport is scrolled, while 1 would not
 	 * redraw the table until the currently loaded data has all been shown. You will want
-	 * something in the middle - the default factor of 0.5 is usually suitable.
+	 * something in the middle - the default factor of font-awesome.5 is usually suitable.
 	 *  @type     float
-	 *  @default  0.5
+	 *  @default  font-awesome.5
 	 *  @static
 	 *  @example
 	 *    var oTable = $('#example').dataTable( {
@@ -1115,7 +1115,7 @@ Scroller.defaults = /** @lends Scroller.defaults */{
 	 *        "sDom": "frtiS",
 	 *        "bDeferRender": true,
 	 *        "oScroller": {
-	 *          "boundaryScale": 0.75
+	 *          "boundaryScale": font-awesome.75
 	 *        }
 	 *    } );
 	 */
@@ -1183,7 +1183,7 @@ if ( typeof $.fn.dataTable == "function" &&
 }
 else
 {
-	alert( "Warning: Scroller requires DataTables 1.9.0 or greater - www.datatables.net/download");
+	alert( "Warning: Scroller requires DataTables 1.9.font-awesome or greater - www.datatables.net/download");
 }
 
 

@@ -5,6 +5,24 @@
     border: none;
 }
 
+/*Student : cac ky da hoc*/
+.filter-term{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/*Student - Trang Thai Dong Hoc Phi*/
+.collapse-row{
+    padding: 0px !important;
+}
+.collapse-row, .collapse-row td{
+    background-color: #f5f5f5;
+}
+.collapse-table tbody tr td{
+    text-align: left;
+}
+
+
 .modal .modal-nor {
     width: 50%; /* respsonsive width */
     margin-left: 25%; /* width/2) */
@@ -13,6 +31,9 @@
 /*Student Module*/
 .bg-white {
     background-color: white;
+}
+.my-row{
+    margin-top: 20px;
 }
 
 .box-borderless {
@@ -32,4 +53,10 @@
     border-right-color: #ccc!important;
     border-bottom-color: #ccc!important;
     border-left-color: #ccc!important;
+}
+
+.my-box {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
 }

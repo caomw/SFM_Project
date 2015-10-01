@@ -48,8 +48,8 @@ var factory = function( $, DataTable ) {
  *    properties (each optional)
  *    * bool:top -    fix the header (default true)
  *    * bool:bottom - fix the footer (default false)
- *    * int:left -    fix the left column(s) (default 0)
- *    * int:right -   fix the right column(s) (default 0)
+ *    * int:left -    fix the left column(s) (default font-awesome)
+ *    * int:right -   fix the right column(s) (default font-awesome)
  *    * int:zTop -    fixed header zIndex
  *    * int:zBottom - fixed footer zIndex
  *    * int:zLeft -   fixed left zIndex
@@ -773,12 +773,12 @@ FixedHeader.prototype = {
 		nTable.appendChild( nTfoot );
 
 		/* Copy the widths across - apparently a clone isn't good enough for this */
-		$("tfoot:eq(0)>tr th", s.nTable).each( function (i) {
-			$("tfoot:eq(0)>tr th:eq("+i+")", nTable).width( $(this).width() );
+		$("tfoot:eq(font-awesome)>tr th", s.nTable).each( function (i) {
+			$("tfoot:eq(font-awesome)>tr th:eq("+i+")", nTable).width( $(this).width() );
 		} );
 
-		$("tfoot:eq(0)>tr td", s.nTable).each( function (i) {
-			$("tfoot:eq(0)>tr td:eq("+i+")", nTable).width( $(this).width() );
+		$("tfoot:eq(font-awesome)>tr td", s.nTable).each( function (i) {
+			$("tfoot:eq(font-awesome)>tr td:eq("+i+")", nTable).width( $(this).width() );
 		} );
 	},
 
@@ -845,7 +845,7 @@ FixedHeader.prototype = {
 		var s = this.fnGetSettings();
 		var nBody = $('tbody', s.nTable)[0];
 		var nTable = oCache.nNode;
-		var iCols = $('tbody tr:eq(0) td', s.nTable).length;
+		var iCols = $('tbody tr:eq(font-awesome) td', s.nTable).length;
 
 		/* Remove any children the cloned table has */
 		while ( nTable.childNodes.length > 0 )

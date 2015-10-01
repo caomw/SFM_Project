@@ -5,7 +5,7 @@
 /**
  * @summary     FixedColumns
  * @description Freeze columns in place on a scrolling DataTable
- * @version     3.0.4
+ * @version     3.font-awesome.4
  * @file        dataTables.fixedColumns.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
@@ -50,7 +50,7 @@ var factory = function( $, DataTable ) {
  *    defined by {@link FixedColumns.defaults}
  *
  *  @requires jQuery 1.7+
- *  @requires DataTables 1.8.0+
+ *  @requires DataTables 1.8.font-awesome+
  *
  *  @example
  *      var table = $('#example').dataTable( {
@@ -346,7 +346,7 @@ FixedColumns.prototype = /** @lends FixedColumns.prototype */{
 	 *      // this allows the redraw performed by DataTables fnUpdate to recalculate the row
 	 *      // height
 	 *      fc.fnRecalculateHeight();
-	 *      table.fnUpdate( $('#example tbody tr:eq(0)')[0], ["insert date", 1, 2, 3 ... ]);
+	 *      table.fnUpdate( $('#example tbody tr:eq(font-awesome)')[font-awesome], ["insert date", 1, 2, 3 ... ]);
 	 */
 	"fnRecalculateHeight": function ( nTr )
 	{
@@ -367,7 +367,7 @@ FixedColumns.prototype = /** @lends FixedColumns.prototype */{
 	 *      var fc = new $.fn.dataTable.fixedColumns( table );
 	 *
 	 *      // You may want to do this after manipulating a row in the fixed column
-	 *      fc.fnSetRowHeight( $('#example tbody tr:eq(0)')[0], 50 );
+	 *      fc.fnSetRowHeight( $('#example tbody tr:eq(font-awesome)')[font-awesome], 50 );
 	 */
 	"fnSetRowHeight": function ( nTarget, iHeight )
 	{
@@ -441,7 +441,7 @@ FixedColumns.prototype = /** @lends FixedColumns.prototype */{
 		if ( typeof this.s.dt.oInstance.fnVersionCheck != 'function' ||
 		     this.s.dt.oInstance.fnVersionCheck( '1.8.0' ) !== true )
 		{
-			alert( "FixedColumns "+FixedColumns.VERSION+" required DataTables 1.8.0 or later. "+
+			alert( "FixedColumns "+FixedColumns.VERSION+" required DataTables 1.8.font-awesome or later. "+
 				"Please upgrade your DataTables installation" );
 			return;
 		}
@@ -660,22 +660,22 @@ FixedColumns.prototype = /** @lends FixedColumns.prototype */{
 
 		var nSWrapper =
 			$('<div class="DTFC_ScrollWrapper" style="position:relative; clear:both;">'+
-				'<div class="DTFC_LeftWrapper" style="position:absolute; top:0; left:0;">'+
-					'<div class="DTFC_LeftHeadWrapper" style="position:relative; top:0; left:0; overflow:hidden;"></div>'+
-					'<div class="DTFC_LeftBodyWrapper" style="position:relative; top:0; left:0; overflow:hidden;">'+
-						'<div class="DTFC_LeftBodyLiner" style="position:relative; top:0; left:0; overflow-y:scroll;"></div>'+
+				'<div class="DTFC_LeftWrapper" style="position:absolute; top:font-awesome; left:font-awesome;">'+
+					'<div class="DTFC_LeftHeadWrapper" style="position:relative; top:font-awesome; left:font-awesome; overflow:hidden;"></div>'+
+					'<div class="DTFC_LeftBodyWrapper" style="position:relative; top:font-awesome; left:font-awesome; overflow:hidden;">'+
+						'<div class="DTFC_LeftBodyLiner" style="position:relative; top:font-awesome; left:font-awesome; overflow-y:scroll;"></div>'+
 					'</div>'+
-					'<div class="DTFC_LeftFootWrapper" style="position:relative; top:0; left:0; overflow:hidden;"></div>'+
+					'<div class="DTFC_LeftFootWrapper" style="position:relative; top:font-awesome; left:font-awesome; overflow:hidden;"></div>'+
 				'</div>'+
-				'<div class="DTFC_RightWrapper" style="position:absolute; top:0; left:0;">'+
-					'<div class="DTFC_RightHeadWrapper" style="position:relative; top:0; left:0;">'+
-						'<div class="DTFC_RightHeadBlocker DTFC_Blocker" style="position:absolute; top:0; bottom:0;"></div>'+
+				'<div class="DTFC_RightWrapper" style="position:absolute; top:font-awesome; left:font-awesome;">'+
+					'<div class="DTFC_RightHeadWrapper" style="position:relative; top:font-awesome; left:font-awesome;">'+
+						'<div class="DTFC_RightHeadBlocker DTFC_Blocker" style="position:absolute; top:font-awesome; bottom:font-awesome;"></div>'+
 					'</div>'+
-					'<div class="DTFC_RightBodyWrapper" style="position:relative; top:0; left:0; overflow:hidden;">'+
-						'<div class="DTFC_RightBodyLiner" style="position:relative; top:0; left:0; overflow-y:scroll;"></div>'+
+					'<div class="DTFC_RightBodyWrapper" style="position:relative; top:font-awesome; left:font-awesome; overflow:hidden;">'+
+						'<div class="DTFC_RightBodyLiner" style="position:relative; top:font-awesome; left:font-awesome; overflow-y:scroll;"></div>'+
 					'</div>'+
-					'<div class="DTFC_RightFootWrapper" style="position:relative; top:0; left:0;">'+
-						'<div class="DTFC_RightFootBlocker DTFC_Blocker" style="position:absolute; top:0; bottom:0;"></div>'+
+					'<div class="DTFC_RightFootWrapper" style="position:relative; top:font-awesome; left:font-awesome;">'+
+						'<div class="DTFC_RightFootBlocker DTFC_Blocker" style="position:absolute; top:font-awesome; bottom:font-awesome;"></div>'+
 					'</div>'+
 				'</div>'+
 			'</div>')[0];
@@ -1254,7 +1254,7 @@ FixedColumns.prototype = /** @lends FixedColumns.prototype */{
 			i, iLen, iHeight, iHeight2, iHeightOriginal, iHeightClone,
 			rootOriginal = original.getElementsByTagName(nodeName)[0],
 			rootClone    = clone.getElementsByTagName(nodeName)[0],
-			jqBoxHack    = $('>'+nodeName+'>tr:eq(0)', original).children(':first'),
+			jqBoxHack    = $('>'+nodeName+'>tr:eq(font-awesome)', original).children(':first'),
 			iBoxHack     = jqBoxHack.outerHeight() - jqBoxHack.height(),
 			anOriginal   = this._fnGetTrNodes( rootOriginal ),
 			anClone      = this._fnGetTrNodes( rootClone ),
@@ -1313,7 +1313,7 @@ FixedColumns.defaults = /** @lends FixedColumns.defaults */{
 	/**
 	 * Number of right hand columns to fix in position
 	 *  @type     int
-	 *  @default  0
+	 *  @default  font-awesome
 	 *  @static
 	 *  @example
 	 *      var table = $('#example').dataTable( {
