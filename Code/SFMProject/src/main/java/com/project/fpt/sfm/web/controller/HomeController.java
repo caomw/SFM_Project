@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     public String index(Model model){
         model.addAttribute("sidebar", "student/student-sidebar");
         return "index";
@@ -139,35 +139,5 @@ public class HomeController {
     /**
      * STAFF
      */
-    @RequestMapping("/staff/nhap-thong-tin-sinh-vien")
-    public String addStudentInformation(Model model){
-        model.addAttribute("content", "staff/add-student-information");
-        model.addAttribute("sidebar", "staff/staff-sidebar");
 
-        return "home";
-    }
-
-    @RequestMapping("/staff/nhap-ket-qua-hoc-tap")
-    public String addStudyResult(Model model){
-        model.addAttribute("content", "staff/add-study-result");
-        model.addAttribute("sidebar", "staff/staff-sidebar");
-
-        return "home";
-    }
-
-    @RequestMapping("/staff/nhap-thong-tin-tai-chinh")
-    public String addStudentFinance(Model model){
-        model.addAttribute("content", "staff/add-finance-information");
-        model.addAttribute("sidebar", "staff/staff-sidebar");
-
-        return "home";
-    }
-
-    @RequestMapping("/staff")
-    public String staff(Model model){
-        //model.addAttribute("content", "staff/add-finance-information");
-        model.addAttribute("sidebar", "staff/staff-sidebar");
-
-        return "home";
-    }
 }
