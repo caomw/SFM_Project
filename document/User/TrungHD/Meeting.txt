@@ -101,4 +101,37 @@ Review GUI:
 	_ Manager: Cho phep search bat ky thong tin nao, hien thi trang search nhu google (tranh tai nhieu du lieu).
 	_ Staff: Tuy thuoc vao loai staff ma man hinh hien thi se khac nhau (thu quy, dao tao, ke toan).
 	_ LTA: 
-	
+
+02-10-2015
+Review report 3:
+	_ 
+Review use case:
+	_ SRS rewrite	
+	_ [-30% Vy TK khong co use case] (Nho lam 1 2 cai nha m) 
+	_ View Finance Status: 
+		+ Sai Goal (Xem cua nhom Thao)
+		+ type of order number -> end
+		+ Detail transmission -> bao trong nhay doi
+		+ Display new view showing Detail transmission including
+		+ 
+	_ Khong dung tieng Viet
+	_ Phan cac khoang tru nen them chi tiet tru cac khoang nao (tin dung, lap top,...)
+	_ Header table chon mau dam hon
+	_ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
