@@ -257,32 +257,76 @@
 
                     <!--Excel File-->
                     <div id="importExcel" class="tab-pane fade">
-                        <form th:action="@{/staff/upload-student-information}" method="post" enctype="multipart/form-data">
-                            <div class="col-lg-6 col-sm-6 col-12">
+                        <!--THONG TIN SINH VIEN-->
+                        <div class="col-xs-12">
+                            <form th:action="@{/staff/upload-student-information}">
+                            <div class="col-lg-6 col-sm-6">
+                                method="post"
+                                enctype="multipart/form-data">
                                 <h4>Input Groups</h4>
+
                                 <div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-primary btn-file">
-                                        Browse&hellip; <input type="file" name="file" multiple="true" />
+                                        Browse&hellip; <input type="file"
+                                                              name="file"
+                                                              multiple="true"/>
                                     </span>
                                 </span>
-                                    <input type="text" class="form-control"
+                                    <input type="text"
+                                           class="form-control"
                                            readonly="true"/>
                                 </div>
                             <span class="help-block">
                                 Try selecting one or more files and watch the feedback
                             </span>
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}"/>
+
                             </div>
                             <div class="col-md-3 col-xs-3">
-                                <input type="submit" value="Import" class="btn btn-primary" style="margin-top: 40px;"/>
+                                <input type="submit" value="Import"
+                                       class="btn btn-primary"
+                                       style="margin-top: 40px;"/>
                             </div>
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                        </form>
+                            </form>
 
-                        <h2 th:if="${error} != null" th:text="${error}"></h2>
 
-                        <a href="/staff/download/student-information">Student Information</a>
+                            <!--THONG TIN TAI CHINH-->
+                            <form th:action="@{/staff/upload-student-finance-information}"
+                                  method="post" enctype="multipart/form-data">
+                                <div class="col-lg-6 col-sm-6">
+                                    <h4>Student Finance Information</h4>
 
+                                    <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse&hellip; <input type="file"
+                                                              name="file"
+                                                              multiple="true"/>
+                                    </span>
+                                </span>
+                                        <input type="text" class="form-control"
+                                               readonly="true"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-3">
+                                    <input type="submit" value="Import"
+                                           class="btn btn-primary"
+                                           style="margin-top: 40px;"/>
+                                </div>
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}"/>
+                            </form>
+
+                            <h2 th:if="${error} != null"
+                                th:text="${error}"></h2>
+
+                            <a href="/staff/download/student-information">Student
+                                Information</a>
+                        </div>
                     </div>
                 </div>
             </div>

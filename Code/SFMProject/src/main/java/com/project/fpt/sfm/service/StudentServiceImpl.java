@@ -2,10 +2,9 @@ package com.project.fpt.sfm.service;
 
 import com.project.fpt.sfm.common.Constant;
 import com.project.fpt.sfm.common.StringUtils;
-import com.project.fpt.sfm.entities.Role;
-import com.project.fpt.sfm.entities.Student;
-import com.project.fpt.sfm.entities.User;
+import com.project.fpt.sfm.entities.*;
 import com.project.fpt.sfm.processexcel.model.StudentDto;
+import com.project.fpt.sfm.repository.RoleRepository;
 import com.project.fpt.sfm.repository.StudentRepository;
 import com.project.fpt.sfm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,8 @@ public class StudentServiceImpl implements StudentService{
     StudentRepository studentRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     public void addStudentInDevelopmentMode(StudentDto studentDto) {
@@ -40,8 +41,10 @@ public class StudentServiceImpl implements StudentService{
         user.setIsActive(true);
         user.setNote(studentDto.getNote());
         Set<Role> roles = new HashSet<>();
-        Role studentRole = new Role(Constant.ROLE_STUDENT);
-        roles.add(studentRole);
+        Role studentRole = roleRepository.findByRoleName(Constant.ROLE_STUDENT);
+        if(studentRole != null) {
+            roles.add(studentRole);
+        }
         /**
          * Create Common Student
          */
@@ -50,24 +53,52 @@ public class StudentServiceImpl implements StudentService{
         student.setFullName(studentDto.getStudentName());
         student.setMajor(studentDto.getMajor());
         student.setTerm(studentDto.getTerm());
-        student.setClass_(studentDto.getClazz());
         student.setStudyStatus(studentDto.getStudentStatus());
-        student.setSpecial(studentDto.getSpecialize());
+        student.setNarrowSpecialization(studentDto.getSpecialize());
         /**
          * Create Student Type
          */
         String financeType = studentDto.getFinanceType();
         if(!"".equals(financeType)){
             String[] checkResult = StringUtils.checkStudentFinanceType(financeType);
+            int rate = Integer.parseInt(checkResult[1]);
             if(checkResult[0].equals(Constant.FINANCE_TYPE_NVD) || checkResult[0].equals(Constant.FINANCE_TYPE_SCHOLARSHIP)){
-                Role scholarshipRole = new Role(Constant.ROLE_SCHOLARSHIP_STUDENT);
-                roles.add(scholarshipRole);
+                Role scholarshipRole = roleRepository.findByRoleName(Constant.ROLE_SCHOLARSHIP_STUDENT);
+                if(scholarshipRole != null){
+                    roles.add(scholarshipRole);
+                }
+                /**
+                 * Add Scholarship Student
+                 */
+                ScholarshipStudent scholarshipStudent = new ScholarshipStudent();
+                scholarshipStudent.setScholarshipRate(rate);
+                scholarshipStudent.setStudent(student);
+                student.setScholarshipStudent(scholarshipStudent);
             }else if(checkResult[0].equals(Constant.FINANCE_TYPE_LOANS_CREDIT)){
-                Role loansCreditRole = new Role(Constant.ROLE_LOANS_CREDIT_STUDENT);
-                roles.add(loansCreditRole);
+                Role loansCreditRole =  roleRepository.findByRoleName(Constant.ROLE_LOANS_CREDIT_STUDENT);
+                if(loansCreditRole != null){
+                    roles.add(loansCreditRole);
+                }
+                /**
+                 * Add Loans Credit Student
+                 */
+                LoansStudent loansStudent = new LoansStudent();
+                loansStudent.setStudent(student);
+                loansStudent.setLoansRate(rate);
+                student.setLoansStudent(loansStudent);
             }else if(checkResult[0].equals(Constant.FINANCE_TYPE_INVESTING)){
-                Role investingRole = new Role(Constant.ROLE_INVESTING_STUDENT);
-                roles.add(investingRole);
+                Role investingRole = roleRepository.findByRoleName(Constant.ROLE_INVESTING_STUDENT);
+                if(investingRole != null){
+                    roles.add(investingRole);
+                }
+                /**
+                 * Add Investing Student
+                 */
+                InvestingStudent investingStudent = new InvestingStudent();
+                investingStudent.setStudent(student);
+                investingStudent.setInvestingRate(rate);
+                student.setInvestingStudent(investingStudent);
+
             }else{
                 System.out.println("wtf");
             }

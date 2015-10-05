@@ -5,7 +5,9 @@ import com.project.fpt.sfm.common.ExcelReport;
 import com.project.fpt.sfm.common.ExcelUtils;
 import com.project.fpt.sfm.common.StringUtils;
 import com.project.fpt.sfm.entities.Student;
+import com.project.fpt.sfm.processexcel.ParseStudentFinanceInformation;
 import com.project.fpt.sfm.processexcel.ParseStudentInformation;
+import com.project.fpt.sfm.processexcel.model.SessionTuitionDto;
 import com.project.fpt.sfm.processexcel.model.StudentDto;
 import com.project.fpt.sfm.service.StudentServiceImpl;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -85,6 +87,33 @@ public class StaffController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+//    Student finance Information
+
+    @RequestMapping(value = "/upload-student-finance-information", method = RequestMethod.POST)
+    public String importStudentFinanceInformation(@RequestParam("file") MultipartFile file, Model model) {
+        model.addAttribute("content", "staff/add-student-information");
+        model.addAttribute("sidebar", "staff/staff-sidebar");
+
+        if (!file.isEmpty()) {
+            try {
+                ParseStudentFinanceInformation parse = new ParseStudentFinanceInformation();
+                List<SessionTuitionDto> list = parse.parseCurrentFile(file);
+                for (SessionTuitionDto dto : list) {
+                    System.out.println(dto);
+                }
+
+                model.addAttribute("error", "Upload Thành Công !");
+            } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("error", "Something went wrong ! Please try again !");
+            }
+        } else {
+            model.addAttribute("error", "File not found !!!");
+        }
+
+        return "home";
     }
 
     @RequestMapping("/nhap-ket-qua-hoc-tap")

@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 4, 2015 1:25:52 PM by Hibernate Tools 4.3.1
+// Generated Oct 5, 2015 2:12:53 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;

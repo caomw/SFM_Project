@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 4, 2015 1:25:52 PM by Hibernate Tools 4.3.1
+// Generated Oct 5, 2015 2:12:53 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -27,11 +29,11 @@ public class SessionTuition  implements java.io.Serializable {
 
 
      private Integer sessionId;
+     private Paidamount paidamount;
      private StudySession studySession;
+     private Subtractamount subtractamount;
      private String totalMoney;
-     private String subtractMoney;
      private String realPayMoney;
-     private String paidMoney;
      private String bank;
      private Date transferDate;
      private boolean isPaidFull;
@@ -42,21 +44,21 @@ public class SessionTuition  implements java.io.Serializable {
     }
 
 	
-    public SessionTuition(StudySession studySession, String totalMoney, String subtractMoney, String realPayMoney, String paidMoney, boolean isPaidFull, boolean isActive) {
+    public SessionTuition(Paidamount paidamount, StudySession studySession, Subtractamount subtractamount, String totalMoney, String realPayMoney, boolean isPaidFull, boolean isActive) {
+        this.paidamount = paidamount;
         this.studySession = studySession;
+        this.subtractamount = subtractamount;
         this.totalMoney = totalMoney;
-        this.subtractMoney = subtractMoney;
         this.realPayMoney = realPayMoney;
-        this.paidMoney = paidMoney;
         this.isPaidFull = isPaidFull;
         this.isActive = isActive;
     }
-    public SessionTuition(StudySession studySession, String totalMoney, String subtractMoney, String realPayMoney, String paidMoney, String bank, Date transferDate, boolean isPaidFull, String note, boolean isActive) {
+    public SessionTuition(Paidamount paidamount, StudySession studySession, Subtractamount subtractamount, String totalMoney, String realPayMoney, String bank, Date transferDate, boolean isPaidFull, String note, boolean isActive) {
+       this.paidamount = paidamount;
        this.studySession = studySession;
+       this.subtractamount = subtractamount;
        this.totalMoney = totalMoney;
-       this.subtractMoney = subtractMoney;
        this.realPayMoney = realPayMoney;
-       this.paidMoney = paidMoney;
        this.bank = bank;
        this.transferDate = transferDate;
        this.isPaidFull = isPaidFull;
@@ -76,6 +78,16 @@ public class SessionTuition  implements java.io.Serializable {
         this.sessionId = sessionId;
     }
 
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="PaidMoneyID", nullable=false)
+    public Paidamount getPaidamount() {
+        return this.paidamount;
+    }
+    
+    public void setPaidamount(Paidamount paidamount) {
+        this.paidamount = paidamount;
+    }
+
 @OneToOne(fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
     public StudySession getStudySession() {
         return this.studySession;
@@ -83,6 +95,16 @@ public class SessionTuition  implements java.io.Serializable {
     
     public void setStudySession(StudySession studySession) {
         this.studySession = studySession;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="SubtractAmountID", nullable=false)
+    public Subtractamount getSubtractamount() {
+        return this.subtractamount;
+    }
+    
+    public void setSubtractamount(Subtractamount subtractamount) {
+        this.subtractamount = subtractamount;
     }
 
     
@@ -96,16 +118,6 @@ public class SessionTuition  implements java.io.Serializable {
     }
 
     
-    @Column(name="SubtractMoney", nullable=false, length=16777215)
-    public String getSubtractMoney() {
-        return this.subtractMoney;
-    }
-    
-    public void setSubtractMoney(String subtractMoney) {
-        this.subtractMoney = subtractMoney;
-    }
-
-    
     @Column(name="RealPayMoney", nullable=false, length=16777215)
     public String getRealPayMoney() {
         return this.realPayMoney;
@@ -113,16 +125,6 @@ public class SessionTuition  implements java.io.Serializable {
     
     public void setRealPayMoney(String realPayMoney) {
         this.realPayMoney = realPayMoney;
-    }
-
-    
-    @Column(name="PaidMoney", nullable=false, length=16777215)
-    public String getPaidMoney() {
-        return this.paidMoney;
-    }
-    
-    public void setPaidMoney(String paidMoney) {
-        this.paidMoney = paidMoney;
     }
 
     

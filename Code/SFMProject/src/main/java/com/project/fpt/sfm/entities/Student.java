@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 4, 2015 1:25:52 PM by Hibernate Tools 4.3.1
+// Generated Oct 5, 2015 2:12:53 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,9 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-
-import com.project.fpt.sfm.common.ExcelColumn;
-import com.project.fpt.sfm.common.ExcelReport;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -31,28 +30,27 @@ import org.hibernate.annotations.Parameter;
     ,catalog="sfm"
     , uniqueConstraints = @UniqueConstraint(columnNames="StudentCode") 
 )
-@ExcelReport(documentName = "StudentInformation", sheetName = "BasicInformation")
 public class Student  implements java.io.Serializable {
 
 
      private Integer studentId;
      private User user;
-     private String major;
-     private String studyStatus;
-     private String term;
-     private String special;
      private String fullName;
-     private Date dateOfBirth;
-     private String email;
      private String studentCode;
      private Boolean gender;
-     private String parentPhone;
-     private String parentEmail;
-     private Boolean isGraduated;
+     private Date dateOfBirth;
+     private String email;
      private String ssn;
      private String phoneNumber;
      private String address;
-     private String class_;
+     private String major;
+     private Boolean isGraduated;
+     private String studyStatus;
+     private String subMajor;
+     private String term;
+     private String narrowSpecialization;
+     private String parentPhone;
+     private String parentEmail;
      private ScholarshipStudent scholarshipStudent;
      private InvestingStudent investingStudent;
      private Set<StudySession> studySessions = new HashSet<StudySession>(0);
@@ -65,24 +63,24 @@ public class Student  implements java.io.Serializable {
     public Student(User user) {
         this.user = user;
     }
-    public Student(User user, String major, String studyStatus, String term, String special, String fullName, Date dateOfBirth, String email, String studentCode, Boolean gender, String parentPhone, String parentEmail, Boolean isGraduated, String ssn, String phoneNumber, String address, String class_, ScholarshipStudent scholarshipStudent, InvestingStudent investingStudent, Set<StudySession> studySessions, LoansStudent loansStudent) {
+    public Student(User user, String fullName, String studentCode, Boolean gender, Date dateOfBirth, String email, String ssn, String phoneNumber, String address, String major, Boolean isGraduated, String studyStatus, String subMajor, String term, String narrowSpecialization, String parentPhone, String parentEmail, ScholarshipStudent scholarshipStudent, InvestingStudent investingStudent, Set<StudySession> studySessions, LoansStudent loansStudent) {
        this.user = user;
-       this.major = major;
-       this.studyStatus = studyStatus;
-       this.term = term;
-       this.special = special;
        this.fullName = fullName;
-       this.dateOfBirth = dateOfBirth;
-       this.email = email;
        this.studentCode = studentCode;
        this.gender = gender;
-       this.parentPhone = parentPhone;
-       this.parentEmail = parentEmail;
-       this.isGraduated = isGraduated;
+       this.dateOfBirth = dateOfBirth;
+       this.email = email;
        this.ssn = ssn;
        this.phoneNumber = phoneNumber;
        this.address = address;
-       this.class_ = class_;
+       this.major = major;
+       this.isGraduated = isGraduated;
+       this.studyStatus = studyStatus;
+       this.subMajor = subMajor;
+       this.term = term;
+       this.narrowSpecialization = narrowSpecialization;
+       this.parentPhone = parentPhone;
+       this.parentEmail = parentEmail;
        this.scholarshipStudent = scholarshipStudent;
        this.investingStudent = investingStudent;
        this.studySessions = studySessions;
@@ -105,59 +103,13 @@ public class Student  implements java.io.Serializable {
     public User getUser() {
         return this.user;
     }
-
-
+    
     public void setUser(User user) {
         this.user = user;
     }
 
     
-    @Column(name="Major", length=10)
-    @ExcelColumn(label = "Chuyên Ngành", order = 13)
-    public String getMajor() {
-        return this.major;
-    }
-    
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    
-    @Column(name="StudyStatus", length=30)
-    @ExcelColumn(label = "Trạng Thái", order = 14)
-    public String getStudyStatus() {
-        return this.studyStatus;
-    }
-    
-    public void setStudyStatus(String studyStatus) {
-        this.studyStatus = studyStatus;
-    }
-
-    
-    @Column(name="Term", length=10)
-    @ExcelColumn(label = "Khóa", order = 15)
-    public String getTerm() {
-        return this.term;
-    }
-    
-    public void setTerm(String term) {
-        this.term = term;
-    }
-
-    
-    @Column(name="Special", length=10)
-    @ExcelColumn(label = "Chuyên Ngành Hẹp", order = 7)
-    public String getSpecial() {
-        return this.special;
-    }
-    
-    public void setSpecial(String special) {
-        this.special = special;
-    }
-
-    
     @Column(name="FullName", length=64)
-    @ExcelColumn(label = "Họ & Tên", order = 2)
     public String getFullName() {
         return this.fullName;
     }
@@ -166,31 +118,8 @@ public class Student  implements java.io.Serializable {
         this.fullName = fullName;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="DateOfBirth", length=19)
-    @ExcelColumn(label = "Ngày Sinh", order = 4)
-    public Date getDateOfBirth() {
-        return this.dateOfBirth;
-    }
-    
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    
-    @Column(name="Email")
-    @ExcelColumn(label = "Email", order = 6)
-    public String getEmail() {
-        return this.email;
-    }
-    
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     
     @Column(name="StudentCode", unique=true, length=10)
-    @ExcelColumn(label = "MSSV", order = 1)
     public String getStudentCode() {
         return this.studentCode;
     }
@@ -201,7 +130,6 @@ public class Student  implements java.io.Serializable {
 
     
     @Column(name="Gender")
-    @ExcelColumn(label = "Giới Tính", order = 3)
     public Boolean getGender() {
         return this.gender;
     }
@@ -210,42 +138,28 @@ public class Student  implements java.io.Serializable {
         this.gender = gender;
     }
 
-    
-    @Column(name="ParentPhone", length=15)
-    @ExcelColumn(label = "Số Điện Thoại Phụ Huynh", order = 9)
-    public String getParentPhone() {
-        return this.parentPhone;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DateOfBirth", length=19)
+    public Date getDateOfBirth() {
+        return this.dateOfBirth;
     }
     
-    public void setParentPhone(String parentPhone) {
-        this.parentPhone = parentPhone;
-    }
-
-    
-    @Column(name="ParentEmail")
-    @ExcelColumn(label = "Email Phụ Huynh", order = 10)
-    public String getParentEmail() {
-        return this.parentEmail;
-    }
-    
-    public void setParentEmail(String parentEmail) {
-        this.parentEmail = parentEmail;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     
-    @Column(name="IsGraduated")
-    @ExcelColumn(label = "Trạng Thái Tốt Nghiệp", order = 11)
-    public Boolean getIsGraduated() {
-        return this.isGraduated;
+    @Column(name="Email")
+    public String getEmail() {
+        return this.email;
     }
     
-    public void setIsGraduated(Boolean isGraduated) {
-        this.isGraduated = isGraduated;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     
     @Column(name="SSN", length=10)
-    @ExcelColumn(label = "CMND", order = 12)
     public String getSsn() {
         return this.ssn;
     }
@@ -256,7 +170,6 @@ public class Student  implements java.io.Serializable {
 
     
     @Column(name="PhoneNumber", length=15)
-    @ExcelColumn(label = "Điện Thoại", order = 5)
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
@@ -267,7 +180,6 @@ public class Student  implements java.io.Serializable {
 
     
     @Column(name="Address", length=65535)
-    @ExcelColumn(label = "Địa Chỉ", order = 8)
     public String getAddress() {
         return this.address;
     }
@@ -277,16 +189,87 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="class", length=15)
-    public String getClass_() {
-        return this.class_;
+    @Column(name="Major", length=20)
+    public String getMajor() {
+        return this.major;
     }
     
-    public void setClass_(String class_) {
-        this.class_ = class_;
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    
+    @Column(name="IsGraduated")
+    public Boolean getIsGraduated() {
+        return this.isGraduated;
+    }
+    
+    public void setIsGraduated(Boolean isGraduated) {
+        this.isGraduated = isGraduated;
+    }
+
+    
+    @Column(name="StudyStatus", length=30)
+    public String getStudyStatus() {
+        return this.studyStatus;
+    }
+    
+    public void setStudyStatus(String studyStatus) {
+        this.studyStatus = studyStatus;
+    }
+
+    
+    @Column(name="SubMajor", length=45)
+    public String getSubMajor() {
+        return this.subMajor;
+    }
+    
+    public void setSubMajor(String subMajor) {
+        this.subMajor = subMajor;
+    }
+
+    
+    @Column(name="Term", length=10)
+    public String getTerm() {
+        return this.term;
+    }
+    
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    
+    @Column(name="NarrowSpecialization", length=20)
+    public String getNarrowSpecialization() {
+        return this.narrowSpecialization;
+    }
+    
+    public void setNarrowSpecialization(String narrowSpecialization) {
+        this.narrowSpecialization = narrowSpecialization;
+    }
+
+    
+    @Column(name="ParentPhone", length=15)
+    public String getParentPhone() {
+        return this.parentPhone;
+    }
+    
+    public void setParentPhone(String parentPhone) {
+        this.parentPhone = parentPhone;
+    }
+
+    
+    @Column(name="ParentEmail")
+    public String getParentEmail() {
+        return this.parentEmail;
+    }
+    
+    public void setParentEmail(String parentEmail) {
+        this.parentEmail = parentEmail;
     }
 
 @OneToOne(fetch=FetchType.LAZY, mappedBy="student")
+@Cascade(CascadeType.ALL)
     public ScholarshipStudent getScholarshipStudent() {
         return this.scholarshipStudent;
     }
@@ -296,6 +279,7 @@ public class Student  implements java.io.Serializable {
     }
 
 @OneToOne(fetch=FetchType.LAZY, mappedBy="student")
+@Cascade(CascadeType.ALL)
     public InvestingStudent getInvestingStudent() {
         return this.investingStudent;
     }
@@ -314,6 +298,7 @@ public class Student  implements java.io.Serializable {
     }
 
 @OneToOne(fetch=FetchType.LAZY, mappedBy="student")
+@Cascade(CascadeType.ALL)
     public LoansStudent getLoansStudent() {
         return this.loansStudent;
     }
