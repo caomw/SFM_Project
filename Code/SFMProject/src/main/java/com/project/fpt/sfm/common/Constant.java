@@ -9,6 +9,9 @@ public class Constant {
     /**
      * ROLE NAME
      */
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_MANAGER = "MANAGER";
+    public static final String ROLE_STAFF = "STAFF";
     public static final String ROLE_STUDENT = "STUDENT";
     public static final String ROLE_SCHOLARSHIP_STUDENT = "SCHOLARSHIP_STUDENT";
     public static final String ROLE_LOANS_CREDIT_STUDENT = "LOANSCREDIT_STUDENT";
