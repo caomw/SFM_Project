@@ -59,7 +59,7 @@ Review prototype:
 	_ Ghi chu phai co them thong tin ngay thang khi sinh vien dong tien hoc (de biet hoc lai mon hoc do khi nao, trong hoc ky may....)
 	_ Sua lai thanh Student's information form (trong staff)
 	_ Thiet ke them nut chon hoac chon form hoac chon import (1 thoi diem chi co 1 thong tin duoc quan tam)
-	_ Ãia chi + thiet ke google API (Thanh pho truoc, quan huyen, roi moi den dia chi)
+	_ Ðia chi + thiet ke google API (Thanh pho truoc, quan huyen, roi moi den dia chi)
 	_ Chinh lai dau sao sau label
 	_ Chuyen nganh bat dau -> Tieng anh dau vao
 	_ Chuyen file excel mau thanh link click tu dong download luon
@@ -70,7 +70,6 @@ Review prototype:
 	_ Tim sinh vien A sap toi se dong bao nhieu tien
 	_ Truoc moi hoc ky nhan vien dao tao se import ban diem ve -> lay duoc danh sach ban diem -> so sanh voi DB -> truy van duoc hoc sinh A dang hoc cac mon j bao nhieu diem.
 	_ 
-	
 
 25-09-2015
 Review prototype:
@@ -86,4 +85,74 @@ Review prototype:
 	_ Ve lai use case
 	_ 1 role admin quan ly account
 	_ Nghien cuu dependences
-		
+
+30-09-2015
+Review use case:
+	_ Goal: Use case nay dung de gi, giup nguoi dung lam duoc chuc nang j
+	_ Trigger: chua co giao dien nen cac thanh phan nhu "click button" nen coi lai
+	_ Referent template
+Review GUI:
+	_ Trang hoc sinh hien thi dau tien nen la cac mon hoc dang no cua sinh vien hoac la cac khoan tien sinh vien do dang no
+	_ Hoc phi can dong truoc 3 tuan se duoc hien thi 1 bang thong bao, sinh vien bat buoc phai xem 1 lan truoc khi xem cac thong tin khac (tuong tu voi yeu cau feedback cua cms hien tai).
+	_ Xem lai form update thong tin ca nhan khi hien thi tren may chieu bi loi form hien thi
+	_ Nhung mon chua hoan thanh, nhung luoi tren header nen tao input search hoac filter theo hoc ky
+	_ Tien hoc phi phai co dong tu ngay nao den ngay nao
+	_ Danh sach dong hoc phi: Chuyen trang thay cho lua chon dung popup
+	_ Manager: Cho phep search bat ky thong tin nao, hien thi trang search nhu google (tranh tai nhieu du lieu).
+	_ Staff: Tuy thuoc vao loai staff ma man hinh hien thi se khac nhau (thu quy, dao tao, ke toan).
+	_ LTA: 
+
+02-10-2015
+Review report 3:
+	_ 
+Review use case:
+	_ SRS rewrite	
+	_ -30% Vy TK khong co use case 
+	_ View Finance Status: 
+		+ Sai Goal (Xem cua nhom Thao)
+		+ type of order number -> end
+		+ Detail transmission -> bao trong nhay doi
+		+ Display new view showing Detail transmission including
+		+ 
+	_ Khong dung tieng Viet
+	_ Phan cac khoang tru nen them chi tiet tru cac khoang nao (tin dung, lap top,...)
+	_ Header table chon mau dam hon
+
+07-10-2015
+Review Use Case Spec
+
+TrungHD:
+	_ Ghi chu cac loai input du lieu phai co lenght, ngay thang phai co tu ngay may den ngay may,
+doi voi dang free text require phai ghi ro cac option lua chon. Doi voi dang option value va combo box phai liet ke, doi voi email phai su dung dinh dang email bang regular expression
+	_ muc 3 alternative 1 them alternative 2 neu nguoi ta khong confirm thi se nhu the nao
+	_ khong duoc de database ma phai chuyen thanh luu tru trong bo luu tru [stored]
+	_ Bat loi neu ng nhap nhap 1 file khong dung dinh dang nhu file yeu cau
+	_ Business rule: bo sung vao file excel
+
+VyTK:
+	_ 
+
+AnhLT:
+	_ "link" la control
+	_ "database" -> [stored]
+	_ Bo sung tuitition fees bao gom nhung gi trong do
+	_ "Search bar"	
+	_ "Pagination" khong phai bussiness rule [phan biet giua bussiness rule va giao dien]
+	_ "After-payed debt is calculated....."
+Khoa:
+	_ "link"
+	_ "User can sort table's items by...."
+	_ 
+
+
+
+
+
+
+
+
+
+
+
+
+
