@@ -260,5 +260,13 @@ public class StudentServiceImpl implements StudentService {
         return studentCourseRepository.findByStudentAndIsPass(student, false, sort);
     }
 
-
+    /**
+     * Save student.
+     * @param student
+     * @return
+     */
+    @Override
+    public Student saveStudent(Student student) {
+        return studentRepository.save(student);
+    }
 }

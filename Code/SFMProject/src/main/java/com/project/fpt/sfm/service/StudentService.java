@@ -76,4 +76,11 @@ public interface StudentService {
      * @return
      */
     List<StudentCourse> getListResitCourse(Student student);
+
+    /**
+     * Save student.
+     * @param student
+     * @return
+     */
+    Student saveStudent(Student student);
 }
