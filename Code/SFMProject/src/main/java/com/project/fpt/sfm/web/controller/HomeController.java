@@ -23,13 +23,13 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/student")
+    /*@RequestMapping("/student")
     public String studenPage(Model model){
         model.addAttribute("sidebar", "student/student-sidebar");
         model.addAttribute("content", "student/profile");
 
         return "home";
-    }
+    }*/
 
     @RequestMapping("/student/hocphidukien")
     public String studentHocPhiDuKien(Model model){
@@ -55,13 +55,13 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/student/profile")
+   /* @RequestMapping("/student/profile")
     public String studentProfile(Model model){
         model.addAttribute("content", "student/profile");
         model.addAttribute("sidebar", "student/student-sidebar");
 
         return "home";
-    }
+    }*/
 
     @RequestMapping("/student/donghocphi")
     public String studentDongHocPhi(Model model){

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,28 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       /* http.authorizeRequests()
-                .antMatchers("*//**").authenticated()
-                .antMatchers("/student**").hasAuthority("STUDENT")
-                .antMatchers("/staff**").hasAuthority("STAFF")
-                .antMatchers("/manager**").hasAuthority("MANAGER")
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/index")
-                .failureUrl("/login?error")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and()
-                .exceptionHandling().accessDeniedPage("/error/403");*/
         http.authorizeRequests()
-                .antMatchers("/**").authenticated()
+                .antMatchers("/","/public/**", "/resources/**","/resources/public/**")
+                .permitAll()
                 .antMatchers("/student**").hasAuthority("STUDENT")
                 .antMatchers("/staff**").hasAuthority("STAFF")
                 .antMatchers("/manager**").hasAuthority("MANAGER")
@@ -61,7 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/error/403");
+    }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/resources/**");
     }
 
     @Override

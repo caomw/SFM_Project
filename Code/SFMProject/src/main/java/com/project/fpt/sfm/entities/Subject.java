@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 5, 2015 2:12:53 PM by Hibernate Tools 4.3.1
+// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -32,40 +32,35 @@ public class Subject  implements java.io.Serializable {
      private String subjectNameE;
      private String subjectNameV;
      private String subjectCode;
-     private int numOfCredit;
-     private String type;
+     private String abbreviation;
+     private Integer numOfCredit;
      private String note;
-     private boolean isActive;
-     private int numOfLesson;
+     private Boolean isActive;
      private Set<Subject> subjectsForSubjectId = new HashSet<Subject>(0);
      private Set<Subject> subjectsForCompulsorySubjectId = new HashSet<Subject>(0);
      private Set<Course> courses = new HashSet<Course>(0);
+     private Set<SubjectInLevel> subjectInLevels = new HashSet<SubjectInLevel>(0);
 
     public Subject() {
     }
 
 	
-    public Subject(SubjectCategory subjectCategory, String subjectCode, int numOfCredit, String type, boolean isActive, int numOfLesson) {
+    public Subject(SubjectCategory subjectCategory) {
         this.subjectCategory = subjectCategory;
-        this.subjectCode = subjectCode;
-        this.numOfCredit = numOfCredit;
-        this.type = type;
-        this.isActive = isActive;
-        this.numOfLesson = numOfLesson;
     }
-    public Subject(SubjectCategory subjectCategory, String subjectNameE, String subjectNameV, String subjectCode, int numOfCredit, String type, String note, boolean isActive, int numOfLesson, Set<Subject> subjectsForSubjectId, Set<Subject> subjectsForCompulsorySubjectId, Set<Course> courses) {
+    public Subject(SubjectCategory subjectCategory, String subjectNameE, String subjectNameV, String subjectCode, String abbreviation, Integer numOfCredit, String note, Boolean isActive, Set<Subject> subjectsForSubjectId, Set<Subject> subjectsForCompulsorySubjectId, Set<Course> courses, Set<SubjectInLevel> subjectInLevels) {
        this.subjectCategory = subjectCategory;
        this.subjectNameE = subjectNameE;
        this.subjectNameV = subjectNameV;
        this.subjectCode = subjectCode;
+       this.abbreviation = abbreviation;
        this.numOfCredit = numOfCredit;
-       this.type = type;
        this.note = note;
        this.isActive = isActive;
-       this.numOfLesson = numOfLesson;
        this.subjectsForSubjectId = subjectsForSubjectId;
        this.subjectsForCompulsorySubjectId = subjectsForCompulsorySubjectId;
        this.courses = courses;
+       this.subjectInLevels = subjectInLevels;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -91,7 +86,7 @@ public class Subject  implements java.io.Serializable {
     }
 
     
-    @Column(name="SubjectNameE", length=45)
+    @Column(name="SubjectNameE", length=80)
     public String getSubjectNameE() {
         return this.subjectNameE;
     }
@@ -101,7 +96,7 @@ public class Subject  implements java.io.Serializable {
     }
 
     
-    @Column(name="SubjectNameV", length=45)
+    @Column(name="SubjectNameV", length=80)
     public String getSubjectNameV() {
         return this.subjectNameV;
     }
@@ -111,7 +106,7 @@ public class Subject  implements java.io.Serializable {
     }
 
     
-    @Column(name="SubjectCode", nullable=false, length=10)
+    @Column(name="SubjectCode", length=15)
     public String getSubjectCode() {
         return this.subjectCode;
     }
@@ -121,23 +116,23 @@ public class Subject  implements java.io.Serializable {
     }
 
     
-    @Column(name="NumOfCredit", nullable=false)
-    public int getNumOfCredit() {
-        return this.numOfCredit;
+    @Column(name="Abbreviation", length=15)
+    public String getAbbreviation() {
+        return this.abbreviation;
     }
     
-    public void setNumOfCredit(int numOfCredit) {
-        this.numOfCredit = numOfCredit;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     
-    @Column(name="Type", nullable=false, length=20)
-    public String getType() {
-        return this.type;
+    @Column(name="NumOfCredit")
+    public Integer getNumOfCredit() {
+        return this.numOfCredit;
     }
     
-    public void setType(String type) {
-        this.type = type;
+    public void setNumOfCredit(Integer numOfCredit) {
+        this.numOfCredit = numOfCredit;
     }
 
     
@@ -151,23 +146,13 @@ public class Subject  implements java.io.Serializable {
     }
 
     
-    @Column(name="IsActive", nullable=false)
-    public boolean isIsActive() {
+    @Column(name="IsActive")
+    public Boolean getIsActive() {
         return this.isActive;
     }
     
-    public void setIsActive(boolean isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
-    }
-
-    
-    @Column(name="NumOfLesson", nullable=false)
-    public int getNumOfLesson() {
-        return this.numOfLesson;
-    }
-    
-    public void setNumOfLesson(int numOfLesson) {
-        this.numOfLesson = numOfLesson;
     }
 
 @ManyToMany(fetch=FetchType.LAZY)
@@ -201,6 +186,15 @@ public class Subject  implements java.io.Serializable {
     
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="subject")
+    public Set<SubjectInLevel> getSubjectInLevels() {
+        return this.subjectInLevels;
+    }
+    
+    public void setSubjectInLevels(Set<SubjectInLevel> subjectInLevels) {
+        this.subjectInLevels = subjectInLevels;
     }
 
 

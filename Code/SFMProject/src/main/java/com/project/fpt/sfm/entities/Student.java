@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 5, 2015 2:12:53 PM by Hibernate Tools 4.3.1
+// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -17,8 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -28,23 +28,24 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name="student"
     ,catalog="sfm"
-    , uniqueConstraints = @UniqueConstraint(columnNames="StudentCode") 
+    , uniqueConstraints = {@UniqueConstraint(columnNames="StudentCode"), @UniqueConstraint(columnNames="SSN")} 
 )
 public class Student  implements java.io.Serializable {
 
 
      private Integer studentId;
      private User user;
+     private Major major;
      private String fullName;
      private String studentCode;
-     private Boolean gender;
+     private boolean gender;
      private Date dateOfBirth;
      private String email;
      private String ssn;
      private String phoneNumber;
      private String address;
-     private String major;
-     private Boolean isGraduated;
+     private String financeType;
+     private boolean isGraduated;
      private String studyStatus;
      private String subMajor;
      private String term;
@@ -52,19 +53,35 @@ public class Student  implements java.io.Serializable {
      private String parentPhone;
      private String parentEmail;
      private ScholarshipStudent scholarshipStudent;
-     private InvestingStudent investingStudent;
-     private Set<StudySession> studySessions = new HashSet<StudySession>(0);
-     private LoansStudent loansStudent;
+     private InvestmentStudent investmentStudent;
+     private Set<ResitCoursePayment> resitCoursePayments = new HashSet<ResitCoursePayment>(0);
+     private Set<Semester> semesters = new HashSet<Semester>(0);
+     private Set<TuitionPayment> tuitionPayments = new HashSet<TuitionPayment>(0);
+     private Set<StudentCourse> studentCourses = new HashSet<StudentCourse>(0);
+     private CreditStudent creditStudent;
 
     public Student() {
     }
 
 	
-    public Student(User user) {
+    public Student(User user, Major major, String fullName, String studentCode, boolean gender, String email, String ssn, String financeType, boolean isGraduated, String studyStatus, String subMajor, String term, String narrowSpecialization) {
         this.user = user;
+        this.major = major;
+        this.fullName = fullName;
+        this.studentCode = studentCode;
+        this.gender = gender;
+        this.email = email;
+        this.ssn = ssn;
+        this.financeType = financeType;
+        this.isGraduated = isGraduated;
+        this.studyStatus = studyStatus;
+        this.subMajor = subMajor;
+        this.term = term;
+        this.narrowSpecialization = narrowSpecialization;
     }
-    public Student(User user, String fullName, String studentCode, Boolean gender, Date dateOfBirth, String email, String ssn, String phoneNumber, String address, String major, Boolean isGraduated, String studyStatus, String subMajor, String term, String narrowSpecialization, String parentPhone, String parentEmail, ScholarshipStudent scholarshipStudent, InvestingStudent investingStudent, Set<StudySession> studySessions, LoansStudent loansStudent) {
+    public Student(User user, Major major, String fullName, String studentCode, boolean gender, Date dateOfBirth, String email, String ssn, String phoneNumber, String address, String financeType, boolean isGraduated, String studyStatus, String subMajor, String term, String narrowSpecialization, String parentPhone, String parentEmail, ScholarshipStudent scholarshipStudent, InvestmentStudent investmentStudent, Set<ResitCoursePayment> resitCoursePayments, Set<Semester> semesters, Set<TuitionPayment> tuitionPayments, Set<StudentCourse> studentCourses, CreditStudent creditStudent) {
        this.user = user;
+       this.major = major;
        this.fullName = fullName;
        this.studentCode = studentCode;
        this.gender = gender;
@@ -73,7 +90,7 @@ public class Student  implements java.io.Serializable {
        this.ssn = ssn;
        this.phoneNumber = phoneNumber;
        this.address = address;
-       this.major = major;
+       this.financeType = financeType;
        this.isGraduated = isGraduated;
        this.studyStatus = studyStatus;
        this.subMajor = subMajor;
@@ -82,9 +99,12 @@ public class Student  implements java.io.Serializable {
        this.parentPhone = parentPhone;
        this.parentEmail = parentEmail;
        this.scholarshipStudent = scholarshipStudent;
-       this.investingStudent = investingStudent;
-       this.studySessions = studySessions;
-       this.loansStudent = loansStudent;
+       this.investmentStudent = investmentStudent;
+       this.resitCoursePayments = resitCoursePayments;
+       this.semesters = semesters;
+       this.tuitionPayments = tuitionPayments;
+       this.studentCourses = studentCourses;
+       this.creditStudent = creditStudent;
     }
    
      @GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="user"))@Id @GeneratedValue(generator="generator")
@@ -108,8 +128,18 @@ public class Student  implements java.io.Serializable {
         this.user = user;
     }
 
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="MajorID", nullable=false)
+    public Major getMajor() {
+        return this.major;
+    }
     
-    @Column(name="FullName", length=64)
+    public void setMajor(Major major) {
+        this.major = major;
+    }
+
+    
+    @Column(name="FullName", nullable=false, length=64)
     public String getFullName() {
         return this.fullName;
     }
@@ -119,7 +149,7 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="StudentCode", unique=true, length=10)
+    @Column(name="StudentCode", unique=true, nullable=false, length=10)
     public String getStudentCode() {
         return this.studentCode;
     }
@@ -129,12 +159,12 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="Gender")
-    public Boolean getGender() {
+    @Column(name="Gender", nullable=false)
+    public boolean isGender() {
         return this.gender;
     }
     
-    public void setGender(Boolean gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
@@ -149,7 +179,7 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="Email")
+    @Column(name="Email", nullable=false)
     public String getEmail() {
         return this.email;
     }
@@ -159,7 +189,7 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="SSN", length=10)
+    @Column(name="SSN", unique=true, nullable=false, length=10)
     public String getSsn() {
         return this.ssn;
     }
@@ -189,27 +219,27 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="Major", length=20)
-    public String getMajor() {
-        return this.major;
+    @Column(name="FinanceType", nullable=false, length=15)
+    public String getFinanceType() {
+        return this.financeType;
     }
     
-    public void setMajor(String major) {
-        this.major = major;
+    public void setFinanceType(String financeType) {
+        this.financeType = financeType;
     }
 
     
-    @Column(name="IsGraduated")
-    public Boolean getIsGraduated() {
+    @Column(name="IsGraduated", nullable=false)
+    public boolean isIsGraduated() {
         return this.isGraduated;
     }
     
-    public void setIsGraduated(Boolean isGraduated) {
+    public void setIsGraduated(boolean isGraduated) {
         this.isGraduated = isGraduated;
     }
 
     
-    @Column(name="StudyStatus", length=30)
+    @Column(name="StudyStatus", nullable=false, length=30)
     public String getStudyStatus() {
         return this.studyStatus;
     }
@@ -219,7 +249,7 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="SubMajor", length=45)
+    @Column(name="SubMajor", nullable=false, length=45)
     public String getSubMajor() {
         return this.subMajor;
     }
@@ -229,7 +259,7 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="Term", length=10)
+    @Column(name="Term", nullable=false, length=10)
     public String getTerm() {
         return this.term;
     }
@@ -239,7 +269,7 @@ public class Student  implements java.io.Serializable {
     }
 
     
-    @Column(name="NarrowSpecialization", length=20)
+    @Column(name="NarrowSpecialization", nullable=false, length=20)
     public String getNarrowSpecialization() {
         return this.narrowSpecialization;
     }
@@ -269,7 +299,6 @@ public class Student  implements java.io.Serializable {
     }
 
 @OneToOne(fetch=FetchType.LAZY, mappedBy="student")
-@Cascade(CascadeType.ALL)
     public ScholarshipStudent getScholarshipStudent() {
         return this.scholarshipStudent;
     }
@@ -279,32 +308,57 @@ public class Student  implements java.io.Serializable {
     }
 
 @OneToOne(fetch=FetchType.LAZY, mappedBy="student")
-@Cascade(CascadeType.ALL)
-    public InvestingStudent getInvestingStudent() {
-        return this.investingStudent;
+    public InvestmentStudent getInvestmentStudent() {
+        return this.investmentStudent;
     }
     
-    public void setInvestingStudent(InvestingStudent investingStudent) {
-        this.investingStudent = investingStudent;
+    public void setInvestmentStudent(InvestmentStudent investmentStudent) {
+        this.investmentStudent = investmentStudent;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="student")
-    public Set<StudySession> getStudySessions() {
-        return this.studySessions;
+    public Set<ResitCoursePayment> getResitCoursePayments() {
+        return this.resitCoursePayments;
     }
     
-    public void setStudySessions(Set<StudySession> studySessions) {
-        this.studySessions = studySessions;
+    public void setResitCoursePayments(Set<ResitCoursePayment> resitCoursePayments) {
+        this.resitCoursePayments = resitCoursePayments;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="student")
+    public Set<Semester> getSemesters() {
+        return this.semesters;
+    }
+    
+    public void setSemesters(Set<Semester> semesters) {
+        this.semesters = semesters;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="student")
+    public Set<TuitionPayment> getTuitionPayments() {
+        return this.tuitionPayments;
+    }
+    
+    public void setTuitionPayments(Set<TuitionPayment> tuitionPayments) {
+        this.tuitionPayments = tuitionPayments;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="student")
+    public Set<StudentCourse> getStudentCourses() {
+        return this.studentCourses;
+    }
+    
+    public void setStudentCourses(Set<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 
 @OneToOne(fetch=FetchType.LAZY, mappedBy="student")
-@Cascade(CascadeType.ALL)
-    public LoansStudent getLoansStudent() {
-        return this.loansStudent;
+    public CreditStudent getCreditStudent() {
+        return this.creditStudent;
     }
     
-    public void setLoansStudent(LoansStudent loansStudent) {
-        this.loansStudent = loansStudent;
+    public void setCreditStudent(CreditStudent creditStudent) {
+        this.creditStudent = creditStudent;
     }
 
 

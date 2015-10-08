@@ -1,15 +1,13 @@
 package com.project.fpt.sfm.web.controller.staff;
 
-import com.project.fpt.sfm.common.ExcelColumn;
-import com.project.fpt.sfm.common.ExcelReport;
 import com.project.fpt.sfm.common.ExcelUtils;
-import com.project.fpt.sfm.common.StringUtils;
 import com.project.fpt.sfm.entities.Student;
-import com.project.fpt.sfm.processexcel.ParseStudentFinanceInformation;
+import com.project.fpt.sfm.entities.Subject;
 import com.project.fpt.sfm.processexcel.ParseStudentInformation;
-import com.project.fpt.sfm.processexcel.model.SessionTuitionDto;
+import com.project.fpt.sfm.processexcel.ParseSubject;
 import com.project.fpt.sfm.processexcel.model.StudentDto;
 import com.project.fpt.sfm.service.StudentServiceImpl;
+import com.project.fpt.sfm.service.SubjectService;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +30,8 @@ import java.util.List;
 public class StaffController {
     @Autowired
     StudentServiceImpl studentService;
+    @Autowired
+    SubjectService subjectService;
 
     @RequestMapping("")
     public String home(Model model) {
@@ -98,10 +98,16 @@ public class StaffController {
 
         if (!file.isEmpty()) {
             try {
-                ParseStudentFinanceInformation parse = new ParseStudentFinanceInformation();
+              /*  ParseStudentFinanceInformation parse = new ParseStudentFinanceInformation();
                 List<SessionTuitionDto> list = parse.parseCurrentFile(file);
                 for (SessionTuitionDto dto : list) {
                     System.out.println(dto);
+                }*/
+                ParseSubject parseSubject = new ParseSubject();
+                List<Subject> list = parseSubject.parseCurrentFile(file);
+                for(Subject s : list){
+                    subjectService.addSubject(s);
+                    //System.out.println(s);
                 }
 
                 model.addAttribute("error", "Upload Thành Công !");

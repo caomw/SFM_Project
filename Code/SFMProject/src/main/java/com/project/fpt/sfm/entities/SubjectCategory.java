@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 5, 2015 2:12:53 PM by Hibernate Tools 4.3.1
+// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -27,17 +27,13 @@ public class SubjectCategory  implements java.io.Serializable {
      private String categoryNameE;
      private String categoryNameV;
      private String note;
-     private boolean isActive;
+     private Boolean isActive;
      private Set<Subject> subjects = new HashSet<Subject>(0);
 
     public SubjectCategory() {
     }
 
-	
-    public SubjectCategory(boolean isActive) {
-        this.isActive = isActive;
-    }
-    public SubjectCategory(String categoryNameE, String categoryNameV, String note, boolean isActive, Set<Subject> subjects) {
+    public SubjectCategory(String categoryNameE, String categoryNameV, String note, Boolean isActive, Set<Subject> subjects) {
        this.categoryNameE = categoryNameE;
        this.categoryNameV = categoryNameV;
        this.note = note;
@@ -88,12 +84,12 @@ public class SubjectCategory  implements java.io.Serializable {
     }
 
     
-    @Column(name="IsActive", nullable=false)
-    public boolean isIsActive() {
+    @Column(name="IsActive")
+    public Boolean getIsActive() {
         return this.isActive;
     }
     
-    public void setIsActive(boolean isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 
