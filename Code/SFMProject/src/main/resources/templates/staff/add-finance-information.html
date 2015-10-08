@@ -2,55 +2,63 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2 class="text-center">Finance</h2>
-                <!--Tong Ket-->
-                <div class="col-xs-6 col-md-offset-3">
-                    <div class="box box-primary box-solid">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-center">Tổng Kết</h3>
+        <!--<div class="box">-->
+        <ul class="nav nav-pills nav-justified bg-aqua">
+            <!--Input By Form -->
+            <li class="active"><a data-toggle="pill" href="#inputForm">Nhập
+                Thông Tin Sinh Viên</a></li>
+            <!--Import Excel -->
+            <li><a data-toggle="pill" href="#importExcel">Import File
+                Excel</a></li>
+        </ul>
 
-                            <div class="box-tools pull-right">
-                                <button type="button"
-                                        class="btn btn-box-tool"
-                                        data-widget="collapse"><i
-                                        class="fa fa-minus"></i></button>
-                            </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body" style="display: block;">
-                            <table class="table table-hover borderless table-responsive">
-                                <tbody>
-                                <tr>
-                                    <td><b>Dự Toán Thu</b></td>
-                                    <td>500,000,000 (VNĐ)</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Tổng Số Tiền Đã Thu</b></td>
-                                    <td>498,000,000 (VNĐ)</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Thiếu</b></td>
-                                    <td>2,000,00 (VNĐ)</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Tổng Số Tiền Cho Vay</b></td>
-                                    <td>200,000,000 (VNĐ)</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
+        <div class="tab-content my-border">
+            <div id="inputForm" class="tab-pane fade in active">
+                <div class="panel-group">
+
                 </div>
-                <!-- /.box -->
             </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
 
+            <!--Excel File-->
+            <div id="importExcel" class="tab-pane fade">
+                <!--THONG TIN SINH VIEN-->
+                <form  method="POST" enctype="multipart/form-data" action="/staff/upload-student-finance-information">
+                    <div class="col-lg-6 col-sm-6">
+                        <h4>Import Thông Tin Tài Chính Sinh Viên</h4>
+
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-primary btn-file">
+                                Browse&hellip; <input type="file"
+                                                      name="file"
+                                                      multiple="true"/>
+                            </span>
+                        </span>
+                            <input type="text"
+                                   class="form-control"
+                                   readonly="true"/>
+                        </div>
+                    <span class="help-block">
+                        Try selecting one or more files and watch the feedback
+                    </span>
+                        <input type="hidden"
+                               th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}"/>
+
+                    </div>
+                    <div class="col-md-3 col-xs-3">
+                        <input type="submit" value="Import"
+                               class="btn btn-primary"
+                               style="margin-top: 40px;"/>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+        <!-- /.col -->
+        <!--</div>-->
+        <!-- /.row -->
     </section>
     <!-- /.content -->
 </div>

@@ -1,7 +1,9 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 5, 2015 2:12:53 PM by Hibernate Tools 4.3.1
+// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,31 +27,36 @@ public class StudentCourse  implements java.io.Serializable {
 
      private Integer studentCourseId;
      private Course course;
-     private StudySession studySession;
-     private String studyMode;
-     private Boolean isPass;
+     private Semester semester;
+     private Student student;
      private float mark;
-     private String note;
+     private boolean isPass;
      private boolean isActive;
-     private StudentResitCourse studentResitCourse;
+    private boolean isResit;
+     private String note;
+     private Set<ResitCoursePayment> resitCoursePayments = new HashSet<ResitCoursePayment>(0);
 
     public StudentCourse() {
     }
 
 	
-    public StudentCourse(float mark, boolean isActive) {
+    public StudentCourse(Course course, Semester semester, Student student, float mark, boolean isPass, boolean isActive) {
+        this.course = course;
+        this.semester = semester;
+        this.student = student;
         this.mark = mark;
+        this.isPass = isPass;
         this.isActive = isActive;
     }
-    public StudentCourse(Course course, StudySession studySession, String studyMode, Boolean isPass, float mark, String note, boolean isActive, StudentResitCourse studentResitCourse) {
+    public StudentCourse(Course course, Semester semester, Student student, float mark, boolean isPass, boolean isActive, String note, Set<ResitCoursePayment> resitCoursePayments) {
        this.course = course;
-       this.studySession = studySession;
-       this.studyMode = studyMode;
-       this.isPass = isPass;
+       this.semester = semester;
+       this.student = student;
        this.mark = mark;
-       this.note = note;
+       this.isPass = isPass;
        this.isActive = isActive;
-       this.studentResitCourse = studentResitCourse;
+       this.note = note;
+       this.resitCoursePayments = resitCoursePayments;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -65,7 +72,7 @@ public class StudentCourse  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="CourseID")
+    @JoinColumn(name="CourseID", nullable=false)
     public Course getCourse() {
         return this.course;
     }
@@ -75,33 +82,23 @@ public class StudentCourse  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="StudentSessionID")
-    public StudySession getStudySession() {
-        return this.studySession;
+    @JoinColumn(name="SemesterID", nullable=false)
+    public Semester getSemester() {
+        return this.semester;
     }
     
-    public void setStudySession(StudySession studySession) {
-        this.studySession = studySession;
-    }
-
-    
-    @Column(name="StudyMode", length=20)
-    public String getStudyMode() {
-        return this.studyMode;
-    }
-    
-    public void setStudyMode(String studyMode) {
-        this.studyMode = studyMode;
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
-    
-    @Column(name="IsPass")
-    public Boolean getIsPass() {
-        return this.isPass;
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="StudentID", nullable=false)
+    public Student getStudent() {
+        return this.student;
     }
     
-    public void setIsPass(Boolean isPass) {
-        this.isPass = isPass;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     
@@ -115,13 +112,13 @@ public class StudentCourse  implements java.io.Serializable {
     }
 
     
-    @Column(name="Note", length=65535)
-    public String getNote() {
-        return this.note;
+    @Column(name="IsPass", nullable=false)
+    public boolean isIsPass() {
+        return this.isPass;
     }
     
-    public void setNote(String note) {
-        this.note = note;
+    public void setIsPass(boolean isPass) {
+        this.isPass = isPass;
     }
 
     
@@ -134,13 +131,32 @@ public class StudentCourse  implements java.io.Serializable {
         this.isActive = isActive;
     }
 
-@OneToOne(fetch=FetchType.LAZY, mappedBy="studentCourse")
-    public StudentResitCourse getStudentResitCourse() {
-        return this.studentResitCourse;
+    @Column(name="IsResit", nullable=false)
+    public boolean isIsResit() {
+        return this.isResit;
+    }
+
+    public void setIsResit(boolean isResit) {
+        this.isResit = isResit;
+    }
+
+
+    @Column(name="Note", length=65535)
+    public String getNote() {
+        return this.note;
     }
     
-    public void setStudentResitCourse(StudentResitCourse studentResitCourse) {
-        this.studentResitCourse = studentResitCourse;
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="studentCourse")
+    public Set<ResitCoursePayment> getResitCoursePayments() {
+        return this.resitCoursePayments;
+    }
+    
+    public void setResitCoursePayments(Set<ResitCoursePayment> resitCoursePayments) {
+        this.resitCoursePayments = resitCoursePayments;
     }
 
 

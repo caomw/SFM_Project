@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Created by Khắc Vỹ on 10/4/2015.
  */
-public class StringUtils {
+public class Utils {
 
     /**
      * Generate the String has 8 characters
@@ -56,6 +56,12 @@ public class StringUtils {
             result[1] = "100";
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        int a = 70;
+        float x = (float)a/100;
+        System.out.println(x);
     }
 
 }

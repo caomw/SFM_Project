@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 5, 2015 2:12:53 PM by Hibernate Tools 4.3.1
+// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -29,37 +29,36 @@ public class Course  implements java.io.Serializable {
 
 
      private Integer courseId;
-     private Clazz clazz;
      private Subject subject;
-     private int haft;
+     private String clazz;
+     private int half;
      private Date startDate;
      private Date endDate;
+     private String courseStatus;
      private String note;
      private boolean isActive;
-     private String courseStatus;
      private Set<StudentCourse> studentCourses = new HashSet<StudentCourse>(0);
 
     public Course() {
     }
 
 	
-    public Course(Clazz clazz, Subject subject, int haft, Date startDate, Date endDate, boolean isActive) {
-        this.clazz = clazz;
+    public Course(Subject subject, String clazz, int half, String courseStatus, boolean isActive) {
         this.subject = subject;
-        this.haft = haft;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.clazz = clazz;
+        this.half = half;
+        this.courseStatus = courseStatus;
         this.isActive = isActive;
     }
-    public Course(Clazz clazz, Subject subject, int haft, Date startDate, Date endDate, String note, boolean isActive, String courseStatus, Set<StudentCourse> studentCourses) {
-       this.clazz = clazz;
+    public Course(Subject subject, String clazz, int half, Date startDate, Date endDate, String courseStatus, String note, boolean isActive, Set<StudentCourse> studentCourses) {
        this.subject = subject;
-       this.haft = haft;
+       this.clazz = clazz;
+       this.half = half;
        this.startDate = startDate;
        this.endDate = endDate;
+       this.courseStatus = courseStatus;
        this.note = note;
        this.isActive = isActive;
-       this.courseStatus = courseStatus;
        this.studentCourses = studentCourses;
     }
    
@@ -76,16 +75,6 @@ public class Course  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="ClassID", nullable=false)
-    public Clazz getClazz() {
-        return this.clazz;
-    }
-    
-    public void setClazz(Clazz clazz) {
-        this.clazz = clazz;
-    }
-
-@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="SubjectID", nullable=false)
     public Subject getSubject() {
         return this.subject;
@@ -96,17 +85,27 @@ public class Course  implements java.io.Serializable {
     }
 
     
-    @Column(name="Haft", nullable=false)
-    public int getHaft() {
-        return this.haft;
+    @Column(name="Clazz", nullable=false, length=30)
+    public String getClazz() {
+        return this.clazz;
     }
     
-    public void setHaft(int haft) {
-        this.haft = haft;
+    public void setClazz(String clazz) {
+        this.clazz = clazz;
+    }
+
+    
+    @Column(name="Half", nullable=false)
+    public int getHalf() {
+        return this.half;
+    }
+    
+    public void setHalf(int half) {
+        this.half = half;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="StartDate", nullable=false, length=19)
+    @Column(name="StartDate", length=19)
     public Date getStartDate() {
         return this.startDate;
     }
@@ -116,13 +115,23 @@ public class Course  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="EndDate", nullable=false, length=19)
+    @Column(name="EndDate", length=19)
     public Date getEndDate() {
         return this.endDate;
     }
     
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    
+    @Column(name="CourseStatus", nullable=false, length=30)
+    public String getCourseStatus() {
+        return this.courseStatus;
+    }
+    
+    public void setCourseStatus(String courseStatus) {
+        this.courseStatus = courseStatus;
     }
 
     
@@ -143,16 +152,6 @@ public class Course  implements java.io.Serializable {
     
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
-    }
-
-    
-    @Column(name="CourseStatus", length=20)
-    public String getCourseStatus() {
-        return this.courseStatus;
-    }
-    
-    public void setCourseStatus(String courseStatus) {
-        this.courseStatus = courseStatus;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="course")

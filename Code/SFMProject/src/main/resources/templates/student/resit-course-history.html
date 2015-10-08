@@ -7,7 +7,7 @@
 
                 <div class="my-box">
                     <!--Search form-->
-                    <div class="col-md-6 col-xs-6">
+                   <!-- <div class="col-md-6 col-xs-6">
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button type="button"
@@ -24,15 +24,15 @@
                                     <li><a href="#">Separated link</a></li>
                                 </ul>
                             </div>
-                            <!-- /btn-group -->
+                            &lt;!&ndash; /btn-group &ndash;&gt;
                             <input type="text" class="form-control"
                                    aria-label="..."/>
                            <span class="input-group-btn">
                                <button class="btn btn-primary">Search</button>
                            </span>
                         </div>
-                        <!-- /input-group -->
-                    </div>
+                        &lt;!&ndash; /input-group &ndash;&gt;
+                    </div>-->
                     <!--/Search form-->
                     <!-- /.col-lg-6 -->
                 </div>
@@ -49,59 +49,24 @@
                                 <th>Tên Môn</th>
                                 <th>Số Tín Chỉ</th>
                                 <th>Học Kỳ</th>
-                                <th>Lý Do</th>
                                 <th>Ghi Chú</th>
+                                <th>Thêm</th>
                             </tr>
-
-                            <tr>
-                                <td>1.</td>
-                                <td>
+                            <tr th:if="${listResitCourse.size() == 0}">
+                                <td colspan="7" class="text-center"><b>ĐANG CẬP NHẬT</b>
+                                </td>
+                            </tr>
+                            <tr th:each="item,i : ${listResitCourse}" th:with="sub=${item.course.subject}">
+                                <td th:text="${i.count}">1.</td>
+                                <td th:text="${sub.subjectCode}">
                                     PRJ
                                 </td>
-                                <td>Advance Java</td>
-                                <td>3</td>
-                                <td>Fall 2015</td>
-                                <td>Nợ Môn</td>
-                                <td></td>
+                                <td th:text="${sub.subjectNameE}">Advance Java</td>
+                                <td th:text="${sub.numOfCredit}">3</td>
+                                <td th:text="${item.semester.season.seasonName}">Fall 2015</td>
+                                <td th:text="${item.isResit} ? 'Học Lại' : '-'">Nợ Môn</td>
+                                <td>-</td>
                             </tr>
-
-                            <tr>
-                                <td>1.</td>
-                                <td>
-                                    PRJ
-                                </td>
-                                <td>Advance Java</td>
-                                <td>3</td>
-                                <td>Fall 2015</td>
-                                <td>Chưa Đủ Điều Kiện</td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td>1.</td>
-                                <td>
-                                    PRJ
-                                </td>
-                                <td>Advance Java</td>
-                                <td>3</td>
-                                <td>Summer 2015</td>
-                                <td>Nợ Môn</td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td>1.</td>
-                                <td>
-                                    PRJ
-                                </td>
-                                <td>Advance Java</td>
-                                <td>3</td>
-                                <td>Spring 2012</td>
-                                <td>Nợ Môn</td>
-                                <td></td>
-                            </tr>
-
-
                             </tbody>
                         </table>
                     </div>

@@ -20,8 +20,14 @@ public class Constant {
     /**
      * FINANCE TYPE
      */
+    public static final String FINANCE_TYPE_NORMAL = "BT";
     public static final String FINANCE_TYPE_NVD = "NVĐ";
     public static final String FINANCE_TYPE_SCHOLARSHIP = "HB";
     public static final String FINANCE_TYPE_LOANS_CREDIT = "TD";
     public static final String FINANCE_TYPE_INVESTING = "ĐT";
+
+    /**
+     * Max Page Size
+     */
+    public static final int MAX_PAGE_SIZE = 10;
 }

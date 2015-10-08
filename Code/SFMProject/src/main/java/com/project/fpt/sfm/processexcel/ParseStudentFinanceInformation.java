@@ -1,7 +1,6 @@
 package com.project.fpt.sfm.processexcel;
 
 import com.project.fpt.sfm.common.Constant;
-import com.project.fpt.sfm.entities.SessionTuition;
 import com.project.fpt.sfm.processexcel.model.SessionTuitionDto;
 import com.project.fpt.sfm.processexcel.model.StudentDto;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -28,7 +27,6 @@ public class ParseStudentFinanceInformation {
         ByteArrayInputStream inputStream = null;
         try {
             inputStream = new ByteArrayInputStream(file.getBytes());
-            //String fileName = file.getOriginalFilename();
             Workbook workbook = new HSSFWorkbook(inputStream);
             //get first sheet
             Sheet sheet = workbook.getSheetAt(0);
