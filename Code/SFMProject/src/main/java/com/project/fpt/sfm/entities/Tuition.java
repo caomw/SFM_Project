@@ -2,6 +2,8 @@ package com.project.fpt.sfm.entities;
 // Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -30,6 +32,7 @@ public class Tuition  implements java.io.Serializable {
      private int tuitionUsa;
      private String note;
      private boolean isActive;
+    @JsonIgnore
      private Set<TuitionPayment> tuitionPayments = new HashSet<TuitionPayment>(0);
 
     public Tuition() {

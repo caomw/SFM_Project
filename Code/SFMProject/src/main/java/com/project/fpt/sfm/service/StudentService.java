@@ -76,4 +76,27 @@ public interface StudentService {
      * @return
      */
     List<StudentCourse> getListResitCourse(Student student);
+
+    /**
+     * Get Next Season Of Student
+     *
+     * @param student
+     * @return
+     */
+    StudyLevel getNextStudyLevel(Student student);
+
+    /**
+     * Get Failed Course of student
+     *
+     * @param student
+     * @return
+     */
+    List<Subject> getFailedSubject(Student student);
+
+    /**
+     * Get list of student who is studying
+     *
+     * @return
+     */
+    List<Student> getStudyingStudent();
 }

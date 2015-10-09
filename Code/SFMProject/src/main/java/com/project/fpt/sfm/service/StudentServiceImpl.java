@@ -1,7 +1,6 @@
 package com.project.fpt.sfm.service;
 
 import com.project.fpt.sfm.common.Constant;
-import com.project.fpt.sfm.common.Utils;
 import com.project.fpt.sfm.entities.*;
 import com.project.fpt.sfm.processexcel.model.StudentDto;
 import com.project.fpt.sfm.repository.*;
@@ -11,9 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Khắc Vỹ on 10/3/2015.
@@ -44,6 +41,8 @@ public class StudentServiceImpl implements StudentService {
     CreditStudentRepository creditStudentRepository;
     @Autowired
     InvestmentStudentRepository investmentStudentRepository;
+    @Autowired
+    StudyLevelRepository studyLevelRepository;
 
     @Override
     public void addStudentInDevelopmentMode(StudentDto studentDto) {
@@ -226,7 +225,7 @@ public class StudentServiceImpl implements StudentService {
     public int getFinancialRateOfStudent(Student student) {
         int studentId = student.getStudentId();
         int rate = 0;
-        String financialType = student.getFinanceType();
+        String financialType = student.getFinancialType();
         switch (financialType) {
             case Constant.FINANCE_TYPE_NVD:
                 rate = 100;
@@ -258,6 +257,78 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentCourse> getListResitCourse(Student student) {
         Sort sort = new Sort(Sort.Direction.DESC, "semester");
         return studentCourseRepository.findByStudentAndIsPass(student, false, sort);
+    }
+
+    /**
+     * Get Next Season Of Student
+     *
+     * @param student
+     * @return
+     */
+    @Override
+    public StudyLevel getNextStudyLevel(Student student) {
+        Sort sort = new Sort(Sort.Direction.DESC, "semesterId");
+        Semester semester = semesterRepository.findTop1ByStudent(student, sort);
+        StudyLevel studyLevel = semester.getStudyLevel();
+        StudyLevel nextLevel = studyLevelRepository.findOne(studyLevel.getStudyLevelId() + 1);
+        if(nextLevel != null){
+            return nextLevel;
+        }
+        return null;
+    }
+
+    /**
+     * Get Failed Course of student
+     *
+     * @param student
+     * @return
+     */
+    @Override
+    public List<Subject> getFailedSubject(Student student) {
+        /**
+         * Lay Tat Ca Cac Mon Rot
+         */
+        List<StudentCourse> listFailedCourse = studentCourseRepository.findByStudentAndIsResitAndIsPass(student, false, false);
+        List<Subject> listFailedSubject = new ArrayList<>();
+        if(listFailedCourse.size() > 0){
+            for(StudentCourse studentCourse : listFailedCourse){
+                listFailedSubject.add(studentCourse.getCourse().getSubject());
+            }
+        }
+        System.out.println("Faild : " + listFailedSubject.size());
+        /**
+         * Lay cac mon hoc lai va pass
+          */
+        List<StudentCourse> listPassedResitCourse = studentCourseRepository.findByStudentAndIsResitAndIsPass(student, true, true);
+        List<Subject> listPassedResitSubject = new ArrayList<>();
+        if(listPassedResitCourse.size() > 0){
+            for(StudentCourse studentCourse : listPassedResitCourse){
+                listPassedResitSubject.add(studentCourse.getCourse().getSubject());
+            }
+        }
+        System.out.println("Resit Passed : " + listPassedResitSubject.size());
+        /**
+         *
+         */
+        if(listFailedSubject.size() > 0 && listPassedResitSubject.size() > 0){
+           for(Subject subject : listPassedResitSubject){
+               listFailedSubject.remove(subject);
+           }
+        }
+
+        System.out.println("Result : " + listFailedSubject.size());
+
+        return listFailedSubject;
+    }
+
+    /**
+     * Get list of student who is studying
+     *
+     * @return
+     */
+    @Override
+    public List<Student> getStudyingStudent() {
+        return studentRepository.findByStudyStatus("ĐANG HỌC");
     }
 
 

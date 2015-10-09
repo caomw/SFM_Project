@@ -14,4 +14,6 @@ import java.util.List;
 @Repository
 public interface SemesterRepository extends JpaRepository<Semester, Integer>{
     List<Semester> findByStudent(Student student);
+
+    Semester findTop1ByStudent(Student student, Sort sort);
 }

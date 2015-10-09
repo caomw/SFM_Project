@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class StudentController {
          */
         Student student = studentService.getCurrentStudent();
         if (student != null) {
-            String financeType = student.getFinanceType();
+            String financeType = student.getFinancialType();
             model.addAttribute("financeType", financeType);
         } else {
             model.addAttribute("error", "Something went wrong !");
@@ -137,6 +138,29 @@ public class StudentController {
         return "home";
     }
 
+    @RequestMapping(value = "/ajax/hoc-phi-du-kien")
+    @ResponseBody
+    public List<Tuition> tuitionOverviewAjax(Model model) {
+      //  model.addAttribute("sidebar", "student/student-sidebar");
+       // model.addAttribute("content", "student/tuition-overview");
+        /**
+         * Get current user login
+         */
+        Student student = studentService.getCurrentStudent();
+       // model.addAttribute("student", student);
+        List<Tuition> listTuition = studentService.getListTuition();
+       /* model.addAttribute("listTuition", listTuition);
+        int rate = studentService.getFinancialRateOfStudent(student);
+        float factor = 0;
+        if(rate < 100){
+            factor = (float)rate/100;
+        }
+        model.addAttribute("rate", rate);
+        model.addAttribute("factor", factor);*/
+
+        return listTuition;
+    }
+
     @RequestMapping(value = "/cac-mon-no")
     public String resitCourseHistory(Model model) {
         model.addAttribute("sidebar", "student/student-sidebar");
@@ -147,6 +171,23 @@ public class StudentController {
         Student student = studentService.getCurrentStudent();
         List<StudentCourse> listResitCourse = studentService.getListResitCourse(student);
         model.addAttribute("listResitCourse", listResitCourse);
+
+        return "home";
+    }
+
+    @RequestMapping(value = "/last")
+    public String studentTest(Model model) {
+        /**
+         * Get current user login
+         */
+        Student student = studentService.getCurrentStudent();
+        //studentService.getNextStudyLevel(student);
+        List<Subject> list = studentService.getFailedSubject(student);
+        if(list.size() > 0){
+            for(Subject s : list){
+                System.out.println("Course : " + s.getSubjectNameE());
+            }
+        }
 
         return "home";
     }

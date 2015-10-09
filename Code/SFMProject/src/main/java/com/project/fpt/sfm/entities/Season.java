@@ -31,18 +31,18 @@ public class Season  implements java.io.Serializable {
      private Date startDate;
      private Date endDate;
      private String note;
-     private String isActive;
+     private boolean isActive;
      private Set<Semester> semesters = new HashSet<Semester>(0);
 
     public Season() {
     }
 
 	
-    public Season(String seasonName, String isActive) {
+    public Season(String seasonName, boolean isActive) {
         this.seasonName = seasonName;
         this.isActive = isActive;
     }
-    public Season(String seasonName, Date startDate, Date endDate, String note, String isActive, Set<Semester> semesters) {
+    public Season(String seasonName, Date startDate, Date endDate, String note, boolean isActive, Set<Semester> semesters) {
        this.seasonName = seasonName;
        this.startDate = startDate;
        this.endDate = endDate;
@@ -103,15 +103,15 @@ public class Season  implements java.io.Serializable {
         this.note = note;
     }
 
-    
-    @Column(name="IsActive", nullable=false, length=45)
-    public String getIsActive() {
+    @Column(name="IsActive", nullable=false)
+    public boolean isIsActive() {
         return this.isActive;
     }
-    
-    public void setIsActive(String isActive) {
+
+    public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
+
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="season")
     public Set<Semester> getSemesters() {

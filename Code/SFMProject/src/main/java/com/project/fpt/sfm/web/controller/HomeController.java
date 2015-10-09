@@ -111,14 +111,6 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/manager")
-    public String manager(Model model){
-        model.addAttribute("content", "manager/manager-home");
-        model.addAttribute("sidebar", "manager/manager-sidebar");
-
-        return "home";
-    }
-
     @RequestMapping("/manager/danh-sach-vay-tin-dung")
     public String managerStudentLoansCredit(Model model){
         model.addAttribute("content", "manager/manager-loans-credit");

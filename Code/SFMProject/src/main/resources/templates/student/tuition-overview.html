@@ -8,7 +8,7 @@
 
                 <p><b th:text="${student.fullName}">Trần Khắc Vỹ</b> - <span th:text="${student.studentCode}">SE60964</span></p>
 
-               <th:block th:switch="${student.financeType}">
+               <th:block th:switch="${student.financialType}">
                    <p th:case="'NVĐ'">Tình Trạng Tài Chính : <span> Học Bổng Nguyễn Văn Đạo</span></p>
                    <p th:case="'HB'">Tình Trạng Tài Chính : <span th:text="'Học Bổng ' + ${rate} + ' %'"></span></p>
                    <p th:case="'TD'">Tình Trạng Tài Chính : <span th:text="'Tín Dụng ' + ${rate} + ' %'">TD</span></p>
@@ -17,7 +17,8 @@
                </th:block>
 
                 <div class="box box-borderless">
-                    <table class="table table-hover table-bordered table-text-center">
+                    <!-- -->
+                    <!--<table class="table table-hover table-bordered table-text-center">
                         <tbody>
                         <tr>
                             <th style="width: 10px">STT</th>
@@ -38,7 +39,38 @@
                             <td th:if="${rate &lt; 100}" th:with="num=(${item.tuitionVnd}*${rate}/100)" th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(num)}">4,400,000</td>
                         </tr>
                         </tbody>
+                    </table>-->
+
+
+
+
+                    <table class="table table-hover table-bordered table-text-center" id="table">
+                        <thead>
+                        <tr>
+                            <th style="width: 10px">STT</th>
+                            <th>Mã Học Kỳ</th>
+                            <th>Mô Tả</th>
+                            <th>Số Tiền (VNĐ)</th>
+                            <th>Cần Đóng (VNĐ)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="item, i : ${listTuition}">
+                            <td th:text="${i.count}">1.</td>
+                            <td th:text="${item.abbreviation}">PhiNH</td>
+                            <td th:text="${item.tuitionName}">
+                                Phí Nhập Học
+                            </td>
+                            <td th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(item.tuitionVnd)}">4,400,000</td>
+                            <td th:if="${rate == 100}">0</td>
+                            <td th:if="${rate &lt; 100}" th:with="num=(${item.tuitionVnd}*${rate}/100)" th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(num)}">4,400,000</td>
+                        </tr>
+                        </tbody>
                     </table>
+
+
+
                 </div>
                 <!-- /.box -->
             </div>

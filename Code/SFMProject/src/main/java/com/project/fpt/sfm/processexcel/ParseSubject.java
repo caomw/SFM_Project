@@ -89,6 +89,7 @@ public class ParseSubject {
                     }
 
                     Subject subject = new Subject();
+                  //  subject.setSubjectCategory();
                     subject.setSubjectNameE(subjectNameE);
                     subject.setSubjectNameV(subjectNameV);
                     subject.setSubjectCode(subjectCode);

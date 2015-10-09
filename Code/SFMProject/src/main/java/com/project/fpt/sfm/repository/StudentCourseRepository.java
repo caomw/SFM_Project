@@ -20,4 +20,6 @@ public interface StudentCourseRepository extends JpaRepository<StudentCourse, In
     List<StudentCourse> findByStudent(Student student);
 
     List<StudentCourse> findByStudentAndIsPass(Student student, boolean isPass, Sort sort);
+
+    List<StudentCourse> findByStudentAndIsResitAndIsPass(Student student, boolean isResit, boolean isPass);
 }

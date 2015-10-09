@@ -30,4 +30,8 @@ public class Constant {
      * Max Page Size
      */
     public static final int MAX_PAGE_SIZE = 10;
+    /**
+     *
+     */
+    public static int COURSE_CREDIT_FEE_USD = 50;
 }
