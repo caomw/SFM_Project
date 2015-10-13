@@ -1,10 +1,8 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +11,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,37 +26,40 @@ public class Course  implements java.io.Serializable {
 
 
      private Integer courseId;
-     private Subject subject;
-     private String clazz;
-     private int half;
-     private Date startDate;
-     private Date endDate;
-     private String courseStatus;
+     private Clazz clazz;
+     private Student student;
+     private SubjectInSemester subjectInSemester;
+     private float mark;
+     private boolean isPass;
+     private boolean isRetake;
      private String note;
-     private boolean isActive;
-     private Set<StudentCourse> studentCourses = new HashSet<StudentCourse>(0);
+     private Boolean isActive;
+     private Date dateCreated;
+     private Date dateUpdated;
 
     public Course() {
     }
 
 	
-    public Course(Subject subject, String clazz, int half, String courseStatus, boolean isActive) {
-        this.subject = subject;
+    public Course(Clazz clazz, Student student, SubjectInSemester subjectInSemester, float mark, boolean isPass, boolean isRetake) {
         this.clazz = clazz;
-        this.half = half;
-        this.courseStatus = courseStatus;
-        this.isActive = isActive;
+        this.student = student;
+        this.subjectInSemester = subjectInSemester;
+        this.mark = mark;
+        this.isPass = isPass;
+        this.isRetake = isRetake;
     }
-    public Course(Subject subject, String clazz, int half, Date startDate, Date endDate, String courseStatus, String note, boolean isActive, Set<StudentCourse> studentCourses) {
-       this.subject = subject;
+    public Course(Clazz clazz, Student student, SubjectInSemester subjectInSemester, float mark, boolean isPass, boolean isRetake, String note, Boolean isActive, Date dateCreated, Date dateUpdated) {
        this.clazz = clazz;
-       this.half = half;
-       this.startDate = startDate;
-       this.endDate = endDate;
-       this.courseStatus = courseStatus;
+       this.student = student;
+       this.subjectInSemester = subjectInSemester;
+       this.mark = mark;
+       this.isPass = isPass;
+       this.isRetake = isRetake;
        this.note = note;
        this.isActive = isActive;
-       this.studentCourses = studentCourses;
+       this.dateCreated = dateCreated;
+       this.dateUpdated = dateUpdated;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -75,63 +75,63 @@ public class Course  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="SubjectID", nullable=false)
-    public Subject getSubject() {
-        return this.subject;
-    }
-    
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
-    
-    @Column(name="Clazz", nullable=false, length=30)
-    public String getClazz() {
+    @JoinColumn(name="ClassID", nullable=false)
+    public Clazz getClazz() {
         return this.clazz;
     }
     
-    public void setClazz(String clazz) {
+    public void setClazz(Clazz clazz) {
         this.clazz = clazz;
     }
 
-    
-    @Column(name="Half", nullable=false)
-    public int getHalf() {
-        return this.half;
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="StudentID", nullable=false)
+    public Student getStudent() {
+        return this.student;
     }
     
-    public void setHalf(int half) {
-        this.half = half;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="StartDate", length=19)
-    public Date getStartDate() {
-        return this.startDate;
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="SubInSemID", nullable=false)
+    public SubjectInSemester getSubjectInSemester() {
+        return this.subjectInSemester;
     }
     
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="EndDate", length=19)
-    public Date getEndDate() {
-        return this.endDate;
-    }
-    
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setSubjectInSemester(SubjectInSemester subjectInSemester) {
+        this.subjectInSemester = subjectInSemester;
     }
 
     
-    @Column(name="CourseStatus", nullable=false, length=30)
-    public String getCourseStatus() {
-        return this.courseStatus;
+    @Column(name="Mark", nullable=false, precision=12, scale=0)
+    public float getMark() {
+        return this.mark;
     }
     
-    public void setCourseStatus(String courseStatus) {
-        this.courseStatus = courseStatus;
+    public void setMark(float mark) {
+        this.mark = mark;
+    }
+
+    
+    @Column(name="IsPass", nullable=false)
+    public boolean isIsPass() {
+        return this.isPass;
+    }
+    
+    public void setIsPass(boolean isPass) {
+        this.isPass = isPass;
+    }
+
+    
+    @Column(name="IsRetake", nullable=false)
+    public boolean isIsRetake() {
+        return this.isRetake;
+    }
+    
+    public void setIsRetake(boolean isRetake) {
+        this.isRetake = isRetake;
     }
 
     
@@ -145,22 +145,33 @@ public class Course  implements java.io.Serializable {
     }
 
     
-    @Column(name="IsActive", nullable=false)
-    public boolean isIsActive() {
+    @Column(name="IsActive")
+    public Boolean getIsActive() {
         return this.isActive;
     }
     
-    public void setIsActive(boolean isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="course")
-    public Set<StudentCourse> getStudentCourses() {
-        return this.studentCourses;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="Date_Created", length=19)
+    public Date getDateCreated() {
+        return this.dateCreated;
     }
     
-    public void setStudentCourses(Set<StudentCourse> studentCourses) {
-        this.studentCourses = studentCourses;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DateUpdated", length=19)
+    public Date getDateUpdated() {
+        return this.dateUpdated;
+    }
+    
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
 

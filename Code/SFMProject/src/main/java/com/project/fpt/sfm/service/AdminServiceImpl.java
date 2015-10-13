@@ -25,7 +25,7 @@ public class AdminServiceImpl implements AdminService{
     @Autowired
     StudentRepository studentRepository;
     @Autowired
-    SeasonRepository seasonRepository;
+    TermRepository termRepository;
     @Autowired
     TaskScheduler taskScheduler;
     @Autowired
@@ -43,7 +43,7 @@ public class AdminServiceImpl implements AdminService{
      */
     @Override
     //@PostConstruct
-    public Season addSeason(Season season) {
+    public Term addSeason(Term season) {
         taskScheduler.schedule(new Runnable() {
             @Override
             public void run() {
@@ -54,7 +54,7 @@ public class AdminServiceImpl implements AdminService{
         makeTuitionPlan();
 
 
-        return new Season();
+        return new Term();
         //return seasonRepository.save(season);
     }
 
@@ -96,8 +96,8 @@ public class AdminServiceImpl implements AdminService{
         if(nextLevel != null){
             TuitionPlan semesterTuition = new TuitionPlan();
             semesterTuition.setTuitionName("Học phí : ");
-            semesterTuition.setTuition(Utils.calculateTuition(nextLevel.getTuitionUsd(), student.getFinancialRate()));
-            System.out.println("Hoc phi : " + Utils.calculateTuition(nextLevel.getTuitionUsd(), student.getFinancialRate()));
+            semesterTuition.setTuition(Utils.calculateTuition(nextLevel.getTuitionUsd(), student.getFinancialType().getFinancialRate()));
+            System.out.println("Hoc phi : " + Utils.calculateTuition(nextLevel.getTuitionUsd(), student.getFinancialType().getFinancialRate()));
             semesterTuition.setStudent(student);
             semesterTuition.setIsActive(true);
             listTuitionPlan.add(semesterTuition);
@@ -111,11 +111,11 @@ public class AdminServiceImpl implements AdminService{
             for(Subject subject : listFailedSubject){
                 tPlan = new TuitionPlan();
                 tPlan.setTuitionName("Học Lại " + subject.getSubjectNameE());
-                tPlan.setTuition(Utils.calculateResitTuition(subject.getNumOfCredit(), student.getFinancialType(), student.getFinancialRate()));
+                tPlan.setTuition(Utils.calculateResitTuition(subject.getNumOfCredit(), student.getFinancialType().getFinancialTypeName(), student.getFinancialType().getFinancialRate()));
                 tPlan.setStudent(student);
                 tPlan.setIsActive(true);
 
-                System.out.println("Tien hoc lai : " + Utils.calculateResitTuition(subject.getNumOfCredit(), student.getFinancialType(), student.getFinancialRate()));
+                System.out.println("Tien hoc lai : " + Utils.calculateResitTuition(subject.getNumOfCredit(), student.getFinancialType().getFinancialTypeName(), student.getFinancialType().getFinancialRate()));
                 listTuitionPlan.add(tPlan);
             }
         }

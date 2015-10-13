@@ -1,19 +1,15 @@
 package com.project.fpt.sfm.web.controller.admin;
 
 import com.project.fpt.sfm.common.Utils;
-import com.project.fpt.sfm.entities.Season;
-import com.project.fpt.sfm.entities.Student;
+import com.project.fpt.sfm.entities.Term;
 import com.project.fpt.sfm.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * Created by Khắc Vỹ on 10/8/2015.
@@ -50,14 +46,14 @@ public class AdminController {
         String endDate = request.getParameter("startDate");
         String note = request.getParameter("note");
 
-        Season season = new Season();
-        season.setSeasonName(seasonName);
+        Term season = new Term();
+        season.setTermName(seasonName);
         season.setStartDate(Utils.getDate(startDate));
         season.setEndDate(Utils.getDate(endDate));
         season.setNote(note);
         season.setIsActive(true);
 
-        Season savedSeason = adminService.addSeason(season);
+        Term savedSeason = adminService.addSeason(season);
         System.out.println("Saved!!!!");
         return "home";
     }

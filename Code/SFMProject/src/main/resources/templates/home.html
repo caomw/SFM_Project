@@ -4,6 +4,8 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Home</title>
 
     <!-- Tell the browser to be responsive to screen width -->
@@ -24,10 +26,16 @@
     <link rel="stylesheet"
           th:href="@{/plugins/datatables/dataTables.bootstrap.css}"
           type="text/css"/>
+    <!--DATETIME PICKER-->
+    <link rel="stylesheet"
+          th:href="@{/plugins/datetimepicker/css/bootstrap-datepicker.min.css}"
+          type="text/css"/>
+
 
     <!-- jQuery 2.1.4 -->
     <script th:src="@{/js/jQuery-2.1.4.min.js}"></script>
-
+    <!-- jQuery UI 1.11.4 -->
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
 </head>
 <body class="skin-blue sidebar-mini wysihtml5-supported">
 <div class="wrapper">
@@ -78,15 +86,14 @@
 </div>
 
 
-
-<!-- jQuery UI 1.11.4 -->
-<script th:src="@{/js/jquery-ui.min.js}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.5 -->
 <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<!--moment.js-->
+<!--<script th:src="@{/js/moment.min.js}"></script>-->
 <!-- Morris.js charts -->
 <!--<script th:src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>-->
 <!--<script th:src="plugins/morris/morris.min.js"></script>-->
@@ -98,10 +105,10 @@
 <!-- jQuery Knob Chart -->
 <!--<script th:src="plugins/knob/jquery.knob.js"></script>-->
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-<script src="/plugins/daterangepicker/daterangepicker.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>-->
+<!--<script src="/plugins/daterangepicker/daterangepicker.js"></script>-->
 <!-- datepicker -->
-<script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!--<script src="/plugins/datepicker/bootstrap-datepicker.js"></script>-->
 <!-- Bootstrap WYSIHTML5 -->
 <!--<script th:src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>-->
 <!-- Slimscroll -->
@@ -111,6 +118,9 @@
 <!--DataTable-->
 <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
 <script th:src="@{/plugins/datatables/dataTables.bootstrap.min.js}"></script>
+<!--DATETIME PICKER-->
+<script th:src="@{/plugins/datetimepicker/js/bootstrap-datepicker.min.js}"></script>
+<script th:src="@{/plugins/datetimepicker/locales/bootstrap-datepicker.vi.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/js/MyJS.js}"></script>
 <script th:src="@{/js/app.min.js}"></script>

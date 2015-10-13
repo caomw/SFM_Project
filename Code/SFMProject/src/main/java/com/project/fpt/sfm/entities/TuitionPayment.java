@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -29,45 +29,43 @@ public class TuitionPayment  implements java.io.Serializable {
      private Semester semester;
      private Student student;
      private SubtractTuition subtractTuition;
-     private Tuition tuition;
      private int totalTuition;
-     private int actualTuition;
      private int paidTuition;
      private String bank;
      private Date transferDate;
-     private String status;
+     private boolean status;
      private String note;
      private boolean isActive;
+     private Date dateCreated;
+     private Date dateUpdated;
 
     public TuitionPayment() {
     }
 
 	
-    public TuitionPayment(Semester semester, Student student, SubtractTuition subtractTuition, Tuition tuition, int totalTuition, int actualTuition, int paidTuition, String bank, String status, boolean isActive) {
+    public TuitionPayment(Semester semester, Student student, SubtractTuition subtractTuition, int totalTuition, int paidTuition, String bank, boolean status, boolean isActive) {
         this.semester = semester;
         this.student = student;
         this.subtractTuition = subtractTuition;
-        this.tuition = tuition;
         this.totalTuition = totalTuition;
-        this.actualTuition = actualTuition;
         this.paidTuition = paidTuition;
         this.bank = bank;
         this.status = status;
         this.isActive = isActive;
     }
-    public TuitionPayment(Semester semester, Student student, SubtractTuition subtractTuition, Tuition tuition, int totalTuition, int actualTuition, int paidTuition, String bank, Date transferDate, String status, String note, boolean isActive) {
+    public TuitionPayment(Semester semester, Student student, SubtractTuition subtractTuition, int totalTuition, int paidTuition, String bank, Date transferDate, boolean status, String note, boolean isActive, Date dateCreated, Date dateUpdated) {
        this.semester = semester;
        this.student = student;
        this.subtractTuition = subtractTuition;
-       this.tuition = tuition;
        this.totalTuition = totalTuition;
-       this.actualTuition = actualTuition;
        this.paidTuition = paidTuition;
        this.bank = bank;
        this.transferDate = transferDate;
        this.status = status;
        this.note = note;
        this.isActive = isActive;
+       this.dateCreated = dateCreated;
+       this.dateUpdated = dateUpdated;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -112,16 +110,6 @@ public class TuitionPayment  implements java.io.Serializable {
         this.subtractTuition = subtractTuition;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="TuitionID", nullable=false)
-    public Tuition getTuition() {
-        return this.tuition;
-    }
-    
-    public void setTuition(Tuition tuition) {
-        this.tuition = tuition;
-    }
-
     
     @Column(name="TotalTuition", nullable=false)
     public int getTotalTuition() {
@@ -130,16 +118,6 @@ public class TuitionPayment  implements java.io.Serializable {
     
     public void setTotalTuition(int totalTuition) {
         this.totalTuition = totalTuition;
-    }
-
-    
-    @Column(name="ActualTuition", nullable=false)
-    public int getActualTuition() {
-        return this.actualTuition;
-    }
-    
-    public void setActualTuition(int actualTuition) {
-        this.actualTuition = actualTuition;
     }
 
     
@@ -173,12 +151,12 @@ public class TuitionPayment  implements java.io.Serializable {
     }
 
     
-    @Column(name="Status", nullable=false, length=30)
-    public String getStatus() {
+    @Column(name="Status", nullable=false)
+    public boolean isStatus() {
         return this.status;
     }
     
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -200,6 +178,26 @@ public class TuitionPayment  implements java.io.Serializable {
     
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="Date_Created", length=19)
+    public Date getDateCreated() {
+        return this.dateCreated;
+    }
+    
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DateUpdated", length=19)
+    public Date getDateUpdated() {
+        return this.dateUpdated;
+    }
+    
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
 

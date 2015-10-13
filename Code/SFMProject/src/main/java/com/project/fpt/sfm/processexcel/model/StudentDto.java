@@ -1,8 +1,12 @@
 package com.project.fpt.sfm.processexcel.model;
 
+import com.project.fpt.sfm.processexcel.utils.ExcelColumn;
+import com.project.fpt.sfm.processexcel.utils.ExcelReport;
+
 /**
  * Created by Khắc Vỹ on 10/4/2015.
  */
+@ExcelReport(className = "xx", documentName = "Document", sheetName = "Sheet")
 public class StudentDto {
     private String no;
     private String studentCode;
@@ -16,12 +20,11 @@ public class StudentDto {
     private String financeType;
     private String studentStatus;
     private String note;
-    private String specialize;
 
     public StudentDto() {
     }
 
-    public StudentDto(String no, String studentCode, String studentName, String major, String term, String startMajorSemester, String clazz, String session, String studentType, String financeType, String studentStatus, String note, String specialize) {
+    public StudentDto(String no, String studentCode, String studentName, String major, String term, String startMajorSemester, String clazz, String session, String studentType, String financeType, String studentStatus, String note) {
         this.no = no;
         this.studentCode = studentCode;
         this.studentName = studentName;
@@ -34,9 +37,9 @@ public class StudentDto {
         this.financeType = financeType;
         this.studentStatus = studentStatus;
         this.note = note;
-        this.specialize = specialize;
     }
 
+    @ExcelColumn(label = "TT", order = 0)
     public String getNo() {
         return no;
     }
@@ -45,6 +48,7 @@ public class StudentDto {
         this.no = no;
     }
 
+    @ExcelColumn(label = "MSSV", order = 1)
     public String getStudentCode() {
         return studentCode;
     }
@@ -53,6 +57,7 @@ public class StudentDto {
         this.studentCode = studentCode;
     }
 
+    @ExcelColumn(label = "Họ tên", order = 2)
     public String getStudentName() {
         return studentName;
     }
@@ -61,6 +66,7 @@ public class StudentDto {
         this.studentName = studentName;
     }
 
+    @ExcelColumn(label = "Ngành học", order = 3)
     public String getMajor() {
         return major;
     }
@@ -69,6 +75,7 @@ public class StudentDto {
         this.major = major;
     }
 
+    @ExcelColumn(label = "Khóa nhập học", order = 4)
     public String getTerm() {
         return term;
     }
@@ -77,6 +84,7 @@ public class StudentDto {
         this.term = term;
     }
 
+    @ExcelColumn(label = "Kỳ bắt đầu học chuyên môn", order = 5)
     public String getStartMajorSemester() {
         return startMajorSemester;
     }
@@ -85,6 +93,7 @@ public class StudentDto {
         this.startMajorSemester = startMajorSemester;
     }
 
+    @ExcelColumn(label = "LỚP", order = 6)
     public String getClazz() {
         return clazz;
     }
@@ -93,6 +102,7 @@ public class StudentDto {
         this.clazz = clazz;
     }
 
+    @ExcelColumn(label = "KỲ HỌC", order = 7)
     public String getSession() {
         return session;
     }
@@ -101,6 +111,7 @@ public class StudentDto {
         this.session = session;
     }
 
+    @ExcelColumn(label = "Diện", order = 8)
     public String getStudentType() {
         return studentType;
     }
@@ -109,6 +120,7 @@ public class StudentDto {
         this.studentType = studentType;
     }
 
+    @ExcelColumn(label = "Loại tài chính", order = 9)
     public String getFinanceType() {
         return financeType;
     }
@@ -116,7 +128,7 @@ public class StudentDto {
     public void setFinanceType(String financeType) {
         this.financeType = financeType;
     }
-
+    @ExcelColumn(label = "Trạng thái sinh viên", order = 10)
     public String getStudentStatus() {
         return studentStatus;
     }
@@ -125,20 +137,13 @@ public class StudentDto {
         this.studentStatus = studentStatus;
     }
 
+    @ExcelColumn(label = "Ghi chú", order = 11)
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public String getSpecialize() {
-        return specialize;
-    }
-
-    public void setSpecialize(String specialize) {
-        this.specialize = specialize;
     }
 
     @Override
@@ -156,7 +161,6 @@ public class StudentDto {
         sb.append(", financeType='").append(financeType).append('\'');
         sb.append(", studentStatus='").append(studentStatus).append('\'');
         sb.append(", note='").append(note).append('\'');
-        sb.append(", specialize='").append(specialize).append('\'');
         sb.append('}');
         return sb.toString();
     }

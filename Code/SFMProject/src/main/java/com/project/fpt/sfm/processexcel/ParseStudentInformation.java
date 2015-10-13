@@ -124,7 +124,7 @@ public class ParseStudentInformation {
                         }
                     }
 
-                    StudentDto studentDto = new StudentDto(no, studentCode, studentName, major, term, startMajorSemester, clazz, session, studentType, financeType, studentStatus, note, specialize);
+                    StudentDto studentDto = new StudentDto(no, studentCode, studentName, major, term, startMajorSemester, clazz, session, studentType, financeType, studentStatus, note);
                     listStudent.add(studentDto);
                 }
             }

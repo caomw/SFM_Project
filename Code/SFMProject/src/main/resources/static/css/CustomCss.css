@@ -1,17 +1,17 @@
 /*home.html*/
 
-/*Model Student Profile*/
+/*Model StudentModel Profile*/
 .borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
     border: none;
 }
 
-/*Student : cac ky da hoc*/
+/*StudentModel : cac ky da hoc*/
 .filter-term{
     padding-left: 20px;
     padding-right: 20px;
 }
 
-/*Student - Trang Thai Dong Hoc Phi*/
+/*StudentModel - Trang Thai Dong Hoc Phi*/
 .collapse-row{
     padding: 0px !important;
 }
@@ -28,7 +28,7 @@
     margin-left: 25%; /* width/2) */
 }
 
-/*Student Module*/
+/*StudentModel Module*/
 .bg-white {
     background-color: white;
 }
@@ -81,3 +81,23 @@
     cursor: inherit;
     display: block;
 }
+
+
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+
+

@@ -30,7 +30,7 @@ public class StudentController {
          */
         Student student = studentService.getCurrentStudent();
         if (student != null) {
-            String financeType = student.getFinancialType();
+            String financeType = student.getFinancialType().getFinancialTypeName();
             model.addAttribute("financeType", financeType);
         } else {
             model.addAttribute("error", "Something went wrong !");
@@ -110,7 +110,7 @@ public class StudentController {
          * Get current user login
          */
         Student student = studentService.getCurrentStudent();
-        List<ResitCoursePayment> listResitCourse = studentService.getListResitCoursePayment(student);
+        List<RetakeCoursePayment> listResitCourse = studentService.getListResitCoursePayment(student);
         model.addAttribute("listResitCourse", listResitCourse);
 
         return "home";

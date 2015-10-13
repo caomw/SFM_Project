@@ -1,5 +1,7 @@
 package com.project.fpt.sfm.common;
 
+import java.util.Date;
+
 /**
  * Created by Khắc Vỹ on 10/3/2015.
  */
@@ -34,4 +36,23 @@ public class Constant {
      *
      */
     public static int COURSE_CREDIT_FEE_USD = 50;
+    /**
+     * TERM
+     */
+    public static String TERM_SPRING = "SPRING";
+    public static int TERM_SPING_START_DATE = 5;
+    public static int TERM_SPING_START_MONTH = 1;
+    public static int TERM_SPING_END_DATE = 5;
+    public static int TERM_SPING_END_MONTH = 5;
+    public static String TERM_SUMMER = "SUMMER";
+    public static int TERM_SUMMER_START_DATE = 5;
+    public static int TERM_SUMMER_START_MONTH = 5;
+    public static int TERM_SUMMER_END_DATE = 5;
+    public static int TERM_SUMMER_END_MONTH = 9;
+    public static String TERM_FALL = "FALL";
+    public static int TERM_FALL_START_DATE = 5;
+    public static int TERM_FALL_START_MONTH = 9;
+    public static int TERM_FALL_END_DATE = 5;
+    public static int TERM_FALL_END_MONTH = 12;
+
 }

@@ -1,7 +1,8 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -10,11 +11,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -33,7 +34,9 @@ public class User  implements java.io.Serializable {
      private String password;
      private String note;
      private Boolean isActive;
-     private Set<Role> roles = new HashSet<Role>(0);
+     private Date dateCreated;
+     private Date dateUpdated;
+     private Set<UserRole> userRoles = new HashSet<UserRole>(0);
      private Student student;
      private Manager manager;
      private Staff staff;
@@ -46,12 +49,14 @@ public class User  implements java.io.Serializable {
         this.username = username;
         this.password = password;
     }
-    public User(String username, String password, String note, Boolean isActive, Set<Role> roles, Student student, Manager manager, Staff staff) {
+    public User(String username, String password, String note, Boolean isActive, Date dateCreated, Date dateUpdated, Set<UserRole> userRoles, Student student, Manager manager, Staff staff) {
        this.username = username;
        this.password = password;
        this.note = note;
        this.isActive = isActive;
-       this.roles = roles;
+       this.dateCreated = dateCreated;
+       this.dateUpdated = dateUpdated;
+       this.userRoles = userRoles;
        this.student = student;
        this.manager = manager;
        this.staff = staff;
@@ -109,16 +114,33 @@ public class User  implements java.io.Serializable {
         this.isActive = isActive;
     }
 
-@ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="user_role", catalog="sfm", joinColumns = { 
-        @JoinColumn(name="UserID", nullable=false, updatable=false) }, inverseJoinColumns = { 
-        @JoinColumn(name="RoleID", nullable=false, updatable=false) })
-    public Set<Role> getRoles() {
-        return this.roles;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="Date_Created", length=19)
+    public Date getDateCreated() {
+        return this.dateCreated;
     }
     
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DateUpdated", length=19)
+    public Date getDateUpdated() {
+        return this.dateUpdated;
+    }
+    
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
+    public Set<UserRole> getUserRoles() {
+        return this.userRoles;
+    }
+    
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
 @OneToOne(fetch=FetchType.LAZY, mappedBy="user")

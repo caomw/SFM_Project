@@ -52,7 +52,7 @@ public interface StudentService {
      * @param student
      * @return
      */
-    List<ResitCoursePayment> getListResitCoursePayment(Student student);
+    List<RetakeCoursePayment> getListResitCoursePayment(Student student);
 
     /**
      * Get List Tuition
@@ -78,6 +78,7 @@ public interface StudentService {
     List<StudentCourse> getListResitCourse(Student student);
 
     /**
+<<<<<<< HEAD
      * Get Next Season Of Student
      *
      * @param student
@@ -99,4 +100,6 @@ public interface StudentService {
      * @return
      */
     List<Student> getStudyingStudent();
+
+    Student saveStudent(Student student);
 }

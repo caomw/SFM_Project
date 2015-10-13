@@ -1,7 +1,8 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -29,6 +32,10 @@ public class CreditStudent  implements java.io.Serializable {
      private Integer studentId;
      private Student student;
      private int creditRate;
+     private String note;
+     private Boolean isActive;
+     private Date dateCreated;
+     private Date dateUpdated;
      private Set<CreditDebt> creditDebts = new HashSet<CreditDebt>(0);
 
     public CreditStudent() {
@@ -39,9 +46,13 @@ public class CreditStudent  implements java.io.Serializable {
         this.student = student;
         this.creditRate = creditRate;
     }
-    public CreditStudent(Student student, int creditRate, Set<CreditDebt> creditDebts) {
+    public CreditStudent(Student student, int creditRate, String note, Boolean isActive, Date dateCreated, Date dateUpdated, Set<CreditDebt> creditDebts) {
        this.student = student;
        this.creditRate = creditRate;
+       this.note = note;
+       this.isActive = isActive;
+       this.dateCreated = dateCreated;
+       this.dateUpdated = dateUpdated;
        this.creditDebts = creditDebts;
     }
    
@@ -74,6 +85,46 @@ public class CreditStudent  implements java.io.Serializable {
     
     public void setCreditRate(int creditRate) {
         this.creditRate = creditRate;
+    }
+
+    
+    @Column(name="Note", length=65535)
+    public String getNote() {
+        return this.note;
+    }
+    
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    
+    @Column(name="IsActive")
+    public Boolean getIsActive() {
+        return this.isActive;
+    }
+    
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="Date_Created", length=19)
+    public Date getDateCreated() {
+        return this.dateCreated;
+    }
+    
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DateUpdated", length=19)
+    public Date getDateUpdated() {
+        return this.dateUpdated;
+    }
+    
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="creditStudent")

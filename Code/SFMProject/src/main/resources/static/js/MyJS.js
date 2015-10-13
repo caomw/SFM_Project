@@ -3,7 +3,13 @@
  */
 
 $(document).ready(function () {
-    //$('#example').DataTable();
+
+    var $input = $(".term-date");
+    $input.datepicker({
+        format: 'dd MM yyyy',
+        autoclose:true
+    });
+
 
 
     $(document).on('change', '.btn-file :file', function () {
@@ -28,9 +34,8 @@ $(document).ready(function () {
         });
     });
 
-    //Tuition Overview Table
-    //$('.table').dataTable({
-    //});
+
+
 
 
 });

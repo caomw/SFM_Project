@@ -201,7 +201,7 @@ public class StudentServiceImpl implements StudentService {
      * @return
      */
     @Override
-    public List<ResitCoursePayment> getListResitCoursePayment(Student student) {
+    public List<RetakeCoursePayment> getListResitCoursePayment(Student student) {
         return resitCoursePaymentRepository.findByStudent(student);
     }
 
@@ -225,7 +225,7 @@ public class StudentServiceImpl implements StudentService {
     public int getFinancialRateOfStudent(Student student) {
         int studentId = student.getStudentId();
         int rate = 0;
-        String financialType = student.getFinancialType();
+        String financialType = student.getFinancialType().getFinancialTypeName();
         switch (financialType) {
             case Constant.FINANCE_TYPE_NVD:
                 rate = 100;
@@ -260,8 +260,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
+<<<<<<< HEAD
      * Get Next Season Of Student
      *
+=======
+     * Save student.
+>>>>>>> 9ad601cc640d8cef2ebcff3a0e9662bc41f22776
      * @param student
      * @return
      */
@@ -288,7 +292,7 @@ public class StudentServiceImpl implements StudentService {
         /**
          * Lay Tat Ca Cac Mon Rot
          */
-        List<StudentCourse> listFailedCourse = studentCourseRepository.findByStudentAndIsResitAndIsPass(student, false, false);
+        List<StudentCourse> listFailedCourse = studentCourseRepository.findByStudentAndIsRetakeAndIsPass(student, false, false);
         List<Subject> listFailedSubject = new ArrayList<>();
         if(listFailedCourse.size() > 0){
             for(StudentCourse studentCourse : listFailedCourse){
@@ -299,7 +303,7 @@ public class StudentServiceImpl implements StudentService {
         /**
          * Lay cac mon hoc lai va pass
           */
-        List<StudentCourse> listPassedResitCourse = studentCourseRepository.findByStudentAndIsResitAndIsPass(student, true, true);
+        List<StudentCourse> listPassedResitCourse = studentCourseRepository.findByStudentAndIsRetakeAndIsPass(student, true, true);
         List<Subject> listPassedResitSubject = new ArrayList<>();
         if(listPassedResitCourse.size() > 0){
             for(StudentCourse studentCourse : listPassedResitCourse){
@@ -328,8 +332,11 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public List<Student> getStudyingStudent() {
-        return studentRepository.findByStudyStatus("ĐANG HỌC");
+        return studentRepository.findByStudentStatusStatusName("ĐANG HỌC");
     }
 
 
+    public Student saveStudent(Student student) {
+        return studentRepository.save(student);
+    }
 }

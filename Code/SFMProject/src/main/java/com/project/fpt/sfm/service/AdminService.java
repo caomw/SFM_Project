@@ -1,7 +1,7 @@
 package com.project.fpt.sfm.service;
 
 import com.project.fpt.sfm.entities.Manager;
-import com.project.fpt.sfm.entities.Season;
+import com.project.fpt.sfm.entities.Term;
 import com.project.fpt.sfm.entities.TuitionPayment;
 
 import java.util.List;
@@ -13,10 +13,10 @@ public interface AdminService {
     /**
      * Create new Season
      *
-     * @param season
+     * @param term
      * @return
      */
-    Season addSeason(Season season);
+    Term addSeason(Term term);
 
     /**
      * Get All Tuition Payment
