@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -42,6 +42,10 @@ public class User  implements java.io.Serializable {
      private Staff staff;
 
     public User() {
+        this.dateCreated = new Date();
+        this.dateUpdated = new Date();
+        this.isActive = true;
+        this.note = "-";
     }
 
 	

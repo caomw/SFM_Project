@@ -111,7 +111,7 @@ public class SubjectDto {
         sub.setSubjectNameV(this.vietnameseName);
         sub.setAbbreviation(this.abbreviation);
         sub.setSubjectCode(this.subjectCode);
-        sub.setNumOfCredit(this.numOfCredit);
+        //sub.setNumOfCredit(this.numOfCredit);
         sub.setNote(this.note);
         sub.setIsActive(true);
 

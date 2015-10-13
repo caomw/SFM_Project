@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -31,22 +31,26 @@ public class Term  implements java.io.Serializable {
      private Date startDate;
      private Date endDate;
      private String note;
-     private String isActive;
+    private Boolean isActive;
      private Date dateCreated;
      private Date dateUpdated;
      private boolean isCurrent;
      private Set<Semester> semesters = new HashSet<Semester>(0);
 
     public Term() {
+        this.dateCreated = new Date();
+        this.dateUpdated = new Date();
+        this.isActive = true;
+        this.note = "-";
     }
 
 	
-    public Term(String termName, String isActive, boolean isCurrent) {
+    public Term(String termName, boolean isActive, boolean isCurrent) {
         this.termName = termName;
         this.isActive = isActive;
         this.isCurrent = isCurrent;
     }
-    public Term(String termName, Date startDate, Date endDate, String note, String isActive, Date dateCreated, Date dateUpdated, boolean isCurrent, Set<Semester> semesters) {
+    public Term(String termName, Date startDate, Date endDate, String note, boolean isActive, Date dateCreated, Date dateUpdated, boolean isCurrent, Set<Semester> semesters) {
        this.termName = termName;
        this.startDate = startDate;
        this.endDate = endDate;
@@ -110,13 +114,13 @@ public class Term  implements java.io.Serializable {
         this.note = note;
     }
 
-    
-    @Column(name="IsActive", nullable=false, length=45)
-    public String getIsActive() {
+
+    @Column(name="IsActive")
+    public Boolean getIsActive() {
         return this.isActive;
     }
-    
-    public void setIsActive(String isActive) {
+
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 

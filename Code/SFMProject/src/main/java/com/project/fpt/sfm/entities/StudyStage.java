@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 4:18:54 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -23,9 +23,9 @@ import javax.persistence.Table;
 public class StudyStage  implements java.io.Serializable {
 
 
-     private Integer studyLevelId;
-     private String levelCode;
-     private String levelName;
+     private Integer studyStageId;
+     private String stageCode;
+     private String stageName;
      private int order;
      private String note;
      private boolean isActive;
@@ -35,15 +35,15 @@ public class StudyStage  implements java.io.Serializable {
     }
 
 	
-    public StudyStage(String levelCode, String levelName, int order, boolean isActive) {
-        this.levelCode = levelCode;
-        this.levelName = levelName;
+    public StudyStage(String stageCode, String stageName, int order, boolean isActive) {
+        this.stageCode = stageCode;
+        this.stageName = stageName;
         this.order = order;
         this.isActive = isActive;
     }
-    public StudyStage(String levelCode, String levelName, int order, String note, boolean isActive, Set<Semester> semesters) {
-       this.levelCode = levelCode;
-       this.levelName = levelName;
+    public StudyStage(String stageCode, String stageName, int order, String note, boolean isActive, Set<Semester> semesters) {
+       this.stageCode = stageCode;
+       this.stageName = stageName;
        this.order = order;
        this.note = note;
        this.isActive = isActive;
@@ -53,33 +53,33 @@ public class StudyStage  implements java.io.Serializable {
      @Id @GeneratedValue(strategy=IDENTITY)
 
     
-    @Column(name="StudyLevelID", unique=true, nullable=false)
-    public Integer getStudyLevelId() {
-        return this.studyLevelId;
+    @Column(name="StudyStageID", unique=true, nullable=false)
+    public Integer getStudyStageId() {
+        return this.studyStageId;
     }
     
-    public void setStudyLevelId(Integer studyLevelId) {
-        this.studyLevelId = studyLevelId;
-    }
-
-    
-    @Column(name="LevelCode", nullable=false, length=15)
-    public String getLevelCode() {
-        return this.levelCode;
-    }
-    
-    public void setLevelCode(String levelCode) {
-        this.levelCode = levelCode;
+    public void setStudyStageId(Integer studyStageId) {
+        this.studyStageId = studyStageId;
     }
 
     
-    @Column(name="LevelName", nullable=false, length=45)
-    public String getLevelName() {
-        return this.levelName;
+    @Column(name="StageCode", nullable=false, length=15)
+    public String getStageCode() {
+        return this.stageCode;
     }
     
-    public void setLevelName(String levelName) {
-        this.levelName = levelName;
+    public void setStageCode(String stageCode) {
+        this.stageCode = stageCode;
+    }
+
+    
+    @Column(name="StageName", nullable=false, length=45)
+    public String getStageName() {
+        return this.stageName;
+    }
+    
+    public void setStageName(String stageName) {
+        this.stageName = stageName;
     }
 
     

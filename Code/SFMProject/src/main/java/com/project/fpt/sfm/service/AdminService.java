@@ -1,34 +1,27 @@
 package com.project.fpt.sfm.service;
 
-import com.project.fpt.sfm.entities.Manager;
-import com.project.fpt.sfm.entities.Term;
-import com.project.fpt.sfm.entities.TuitionPayment;
+import com.project.fpt.sfm.entities.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * Created by Khắc Vỹ on 10/8/2015.
+ * Created by Khắc Vỹ on 10/12/2015.
  */
 public interface AdminService {
+    Term getCurrentTerm();
     /**
-     * Create new Season
+     * Get current semester
      *
-     * @param term
      * @return
      */
-    Term addSeason(Term term);
+    Semester getCurrentSemester();
 
     /**
-     * Get All Tuition Payment
-     *
+     * Get List StudyStage in current Term
      * @return
      */
-    List<TuitionPayment> getListTuitionPayment();
-
-    /**
-     * Get Logged Manager
-     *
-     * @return
-     */
-    Manager getCurrentUser();
+    List<StudyStage> getAllStudyStage();
+    List<Subject> getAllSubject();
+    List<Major> getAllMajor();
 }

@@ -1,13 +1,12 @@
 package com.project.fpt.sfm.common;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by Khắc Vỹ on 10/3/2015.
  */
 public class Constant {
-    public static String TEST_FILE_1 = "AAA.xsl";
-
     /**
      * ROLE NAME
      */
@@ -41,18 +40,18 @@ public class Constant {
      */
     public static String TERM_SPRING = "SPRING";
     public static int TERM_SPING_START_DATE = 5;
-    public static int TERM_SPING_START_MONTH = 1;
+    public static int TERM_SPING_START_MONTH = Calendar.JANUARY;
     public static int TERM_SPING_END_DATE = 5;
-    public static int TERM_SPING_END_MONTH = 5;
+    public static int TERM_SPING_END_MONTH = Calendar.MAY;
     public static String TERM_SUMMER = "SUMMER";
     public static int TERM_SUMMER_START_DATE = 5;
-    public static int TERM_SUMMER_START_MONTH = 5;
+    public static int TERM_SUMMER_START_MONTH = Calendar.MAY;
     public static int TERM_SUMMER_END_DATE = 5;
-    public static int TERM_SUMMER_END_MONTH = 9;
+    public static int TERM_SUMMER_END_MONTH = Calendar.SEPTEMBER;
     public static String TERM_FALL = "FALL";
     public static int TERM_FALL_START_DATE = 5;
-    public static int TERM_FALL_START_MONTH = 9;
+    public static int TERM_FALL_START_MONTH =  Calendar.SEPTEMBER;
     public static int TERM_FALL_END_DATE = 5;
-    public static int TERM_FALL_END_MONTH = 12;
+    public static int TERM_FALL_END_MONTH =  Calendar.DECEMBER;
 
 }

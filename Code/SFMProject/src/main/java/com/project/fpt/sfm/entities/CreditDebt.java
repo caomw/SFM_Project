@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

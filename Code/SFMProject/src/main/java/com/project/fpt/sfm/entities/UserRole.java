@@ -1,14 +1,14 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 public class UserRole  implements java.io.Serializable {
 
 
-     private UserRoleId id;
+     private Integer userRoleId;
      private User user;
      private Role role;
      private String note;
@@ -37,13 +37,11 @@ public class UserRole  implements java.io.Serializable {
     }
 
 	
-    public UserRole(UserRoleId id, User user, Role role) {
-        this.id = id;
+    public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
     }
-    public UserRole(UserRoleId id, User user, Role role, String note, Boolean isActive, Date dateCreated, Date dateUpdated) {
-       this.id = id;
+    public UserRole(User user, Role role, String note, Boolean isActive, Date dateCreated, Date dateUpdated) {
        this.user = user;
        this.role = role;
        this.note = note;
@@ -52,22 +50,20 @@ public class UserRole  implements java.io.Serializable {
        this.dateUpdated = dateUpdated;
     }
    
-     @EmbeddedId
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
-    @AttributeOverrides( {
-        @AttributeOverride(name="userId", column=@Column(name="UserID", nullable=false) ), 
-        @AttributeOverride(name="roleId", column=@Column(name="RoleID", nullable=false) ) } )
-    public UserRoleId getId() {
-        return this.id;
+    @Column(name="UserRoleID", unique=true, nullable=false)
+    public Integer getUserRoleId() {
+        return this.userRoleId;
     }
     
-    public void setId(UserRoleId id) {
-        this.id = id;
+    public void setUserRoleId(Integer userRoleId) {
+        this.userRoleId = userRoleId;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="UserID", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="UserID", nullable=false)
     public User getUser() {
         return this.user;
     }
@@ -77,7 +73,7 @@ public class UserRole  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="RoleID", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="RoleID", nullable=false)
     public Role getRole() {
         return this.role;
     }

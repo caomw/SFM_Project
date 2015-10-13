@@ -1,6 +1,9 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -43,6 +46,10 @@ public class SubjectInSemester  implements java.io.Serializable {
      private Set<Course> courses = new HashSet<Course>(0);
 
     public SubjectInSemester() {
+        this.dateCreated = new Date();
+        this.dateUpdated = new Date();
+        this.isActive = true;
+        this.note = "-";
     }
 
 	
@@ -80,6 +87,7 @@ public class SubjectInSemester  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
+@Cascade(CascadeType.ALL)
     @JoinColumn(name="SemesterID", nullable=false)
     public Semester getSemester() {
         return this.semester;

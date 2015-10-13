@@ -154,6 +154,7 @@ public class AnnotatedExcelReport {
                 Method method = constructMethod(clazz, fieldName);
 
                 if (type == 1) {
+
                     String value = cell.getStringCellValue();
                     Object[] values = new Object[1];
                     values[0] = value;
@@ -167,6 +168,8 @@ public class AnnotatedExcelReport {
                         method.invoke(one, num);
                     } else if (returnType == Float.class) {
                         method.invoke(one, num.floatValue());
+                    }else if(returnType == String.class){
+                        method.invoke(one, num.intValue() + "");
                     }
 
                 } else if (type == 3) {

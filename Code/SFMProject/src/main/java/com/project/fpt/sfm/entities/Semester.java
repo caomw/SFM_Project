@@ -1,6 +1,9 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 4:18:54 PM by Hibernate Tools 4.3.1
 
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -29,10 +32,10 @@ public class Semester  implements java.io.Serializable {
 
 
      private Integer semesterId;
+     private Major major;
      private StudyStage studyStage;
      private Term term;
      private int stageTuitionUsd;
-     private int stageTuitionVnd;
      private String note;
      private boolean isActive;
      private Date dateCreated;
@@ -44,18 +47,18 @@ public class Semester  implements java.io.Serializable {
     }
 
 	
-    public Semester(StudyStage studyStage, Term term, int stageTuitionUsd, int stageTuitionVnd, boolean isActive) {
+    public Semester(Major major, StudyStage studyStage, Term term, int stageTuitionUsd, boolean isActive) {
+        this.major = major;
         this.studyStage = studyStage;
         this.term = term;
         this.stageTuitionUsd = stageTuitionUsd;
-        this.stageTuitionVnd = stageTuitionVnd;
         this.isActive = isActive;
     }
-    public Semester(StudyStage studyStage, Term term, int stageTuitionUsd, int stageTuitionVnd, String note, boolean isActive, Date dateCreated, Date dateUpdated, Set<TuitionPayment> tuitionPayments, Set<SubjectInSemester> subjectInSemesters) {
+    public Semester(Major major, StudyStage studyStage, Term term, int stageTuitionUsd, String note, boolean isActive, Date dateCreated, Date dateUpdated, Set<TuitionPayment> tuitionPayments, Set<SubjectInSemester> subjectInSemesters) {
+       this.major = major;
        this.studyStage = studyStage;
        this.term = term;
        this.stageTuitionUsd = stageTuitionUsd;
-       this.stageTuitionVnd = stageTuitionVnd;
        this.note = note;
        this.isActive = isActive;
        this.dateCreated = dateCreated;
@@ -74,6 +77,16 @@ public class Semester  implements java.io.Serializable {
     
     public void setSemesterId(Integer semesterId) {
         this.semesterId = semesterId;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="MajorID", nullable=false)
+    public Major getMajor() {
+        return this.major;
+    }
+    
+    public void setMajor(Major major) {
+        this.major = major;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
@@ -104,16 +117,6 @@ public class Semester  implements java.io.Serializable {
     
     public void setStageTuitionUsd(int stageTuitionUsd) {
         this.stageTuitionUsd = stageTuitionUsd;
-    }
-
-    
-    @Column(name="StageTuitionVND", nullable=false)
-    public int getStageTuitionVnd() {
-        return this.stageTuitionVnd;
-    }
-    
-    public void setStageTuitionVnd(int stageTuitionVnd) {
-        this.stageTuitionVnd = stageTuitionVnd;
     }
 
     

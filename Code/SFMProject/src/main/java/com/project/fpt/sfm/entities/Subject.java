@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -27,7 +27,6 @@ public class Subject  implements java.io.Serializable {
 
 
      private Integer subjectId;
-     private int categoryId;
      private String subjectNameE;
      private String subjectNameV;
      private String subjectCode;
@@ -36,19 +35,19 @@ public class Subject  implements java.io.Serializable {
      private Boolean isActive;
      private Date dateCreated;
      private Date dateUpdated;
-     private Set<MandatorySubject> mandatorySubjectsForMandatorySubjectId = new HashSet<MandatorySubject>(0);
+     private Set<MandatorySubject> mandatorySubjectsForRequireSubjectId = new HashSet<MandatorySubject>(0);
      private Set<MandatorySubject> mandatorySubjectsForSubjectId = new HashSet<MandatorySubject>(0);
      private Set<SubjectInSemester> subjectInSemesters = new HashSet<SubjectInSemester>(0);
 
     public Subject() {
+        this.dateCreated = new Date();
+        this.dateUpdated = new Date();
+        this.isActive = true;
+        this.note = "-";
     }
 
 	
-    public Subject(int categoryId) {
-        this.categoryId = categoryId;
-    }
-    public Subject(int categoryId, String subjectNameE, String subjectNameV, String subjectCode, String abbreviation, String note, Boolean isActive, Date dateCreated, Date dateUpdated, Set<MandatorySubject> mandatorySubjectsForMandatorySubjectId, Set<MandatorySubject> mandatorySubjectsForSubjectId, Set<SubjectInSemester> subjectInSemesters) {
-       this.categoryId = categoryId;
+    public Subject(String subjectNameE, String subjectNameV, String subjectCode, String abbreviation, String note, Boolean isActive, Date dateCreated, Date dateUpdated, Set<MandatorySubject> mandatorySubjectsForRequireSubjectId, Set<MandatorySubject> mandatorySubjectsForSubjectId, Set<SubjectInSemester> subjectInSemesters) {
        this.subjectNameE = subjectNameE;
        this.subjectNameV = subjectNameV;
        this.subjectCode = subjectCode;
@@ -57,7 +56,7 @@ public class Subject  implements java.io.Serializable {
        this.isActive = isActive;
        this.dateCreated = dateCreated;
        this.dateUpdated = dateUpdated;
-       this.mandatorySubjectsForMandatorySubjectId = mandatorySubjectsForMandatorySubjectId;
+       this.mandatorySubjectsForRequireSubjectId = mandatorySubjectsForRequireSubjectId;
        this.mandatorySubjectsForSubjectId = mandatorySubjectsForSubjectId;
        this.subjectInSemesters = subjectInSemesters;
     }
@@ -72,16 +71,6 @@ public class Subject  implements java.io.Serializable {
     
     public void setSubjectId(Integer subjectId) {
         this.subjectId = subjectId;
-    }
-
-    
-    @Column(name="CategoryID", nullable=false)
-    public int getCategoryId() {
-        return this.categoryId;
-    }
-    
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     
@@ -164,13 +153,13 @@ public class Subject  implements java.io.Serializable {
         this.dateUpdated = dateUpdated;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="subjectByMandatorySubjectId")
-    public Set<MandatorySubject> getMandatorySubjectsForMandatorySubjectId() {
-        return this.mandatorySubjectsForMandatorySubjectId;
+@OneToMany(fetch=FetchType.LAZY, mappedBy="subjectByRequireSubjectId")
+    public Set<MandatorySubject> getMandatorySubjectsForRequireSubjectId() {
+        return this.mandatorySubjectsForRequireSubjectId;
     }
     
-    public void setMandatorySubjectsForMandatorySubjectId(Set<MandatorySubject> mandatorySubjectsForMandatorySubjectId) {
-        this.mandatorySubjectsForMandatorySubjectId = mandatorySubjectsForMandatorySubjectId;
+    public void setMandatorySubjectsForRequireSubjectId(Set<MandatorySubject> mandatorySubjectsForRequireSubjectId) {
+        this.mandatorySubjectsForRequireSubjectId = mandatorySubjectsForRequireSubjectId;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="subjectBySubjectId")

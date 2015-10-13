@@ -1,14 +1,14 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 1:43:11 AM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,8 +25,8 @@ import javax.persistence.TemporalType;
 public class MandatorySubject  implements java.io.Serializable {
 
 
-     private MandatorySubjectId id;
-     private Subject subjectByMandatorySubjectId;
+     private Integer mandatorySubId;
+     private Subject subjectByRequireSubjectId;
      private Subject subjectBySubjectId;
      private String note;
      private Boolean isActive;
@@ -37,14 +37,12 @@ public class MandatorySubject  implements java.io.Serializable {
     }
 
 	
-    public MandatorySubject(MandatorySubjectId id, Subject subjectByMandatorySubjectId, Subject subjectBySubjectId) {
-        this.id = id;
-        this.subjectByMandatorySubjectId = subjectByMandatorySubjectId;
+    public MandatorySubject(Subject subjectByRequireSubjectId, Subject subjectBySubjectId) {
+        this.subjectByRequireSubjectId = subjectByRequireSubjectId;
         this.subjectBySubjectId = subjectBySubjectId;
     }
-    public MandatorySubject(MandatorySubjectId id, Subject subjectByMandatorySubjectId, Subject subjectBySubjectId, String note, Boolean isActive, Date dateCreated, Date dateUpdated) {
-       this.id = id;
-       this.subjectByMandatorySubjectId = subjectByMandatorySubjectId;
+    public MandatorySubject(Subject subjectByRequireSubjectId, Subject subjectBySubjectId, String note, Boolean isActive, Date dateCreated, Date dateUpdated) {
+       this.subjectByRequireSubjectId = subjectByRequireSubjectId;
        this.subjectBySubjectId = subjectBySubjectId;
        this.note = note;
        this.isActive = isActive;
@@ -52,32 +50,30 @@ public class MandatorySubject  implements java.io.Serializable {
        this.dateUpdated = dateUpdated;
     }
    
-     @EmbeddedId
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
-    @AttributeOverrides( {
-        @AttributeOverride(name="subjectId", column=@Column(name="SubjectId", nullable=false) ), 
-        @AttributeOverride(name="mandatorySubjectId", column=@Column(name="MandatorySubjectID", nullable=false) ) } )
-    public MandatorySubjectId getId() {
-        return this.id;
+    @Column(name="MandatorySubID", unique=true, nullable=false)
+    public Integer getMandatorySubId() {
+        return this.mandatorySubId;
     }
     
-    public void setId(MandatorySubjectId id) {
-        this.id = id;
+    public void setMandatorySubId(Integer mandatorySubId) {
+        this.mandatorySubId = mandatorySubId;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="MandatorySubjectID", nullable=false, insertable=false, updatable=false)
-    public Subject getSubjectByMandatorySubjectId() {
-        return this.subjectByMandatorySubjectId;
+    @JoinColumn(name="RequireSubjectID", nullable=false)
+    public Subject getSubjectByRequireSubjectId() {
+        return this.subjectByRequireSubjectId;
     }
     
-    public void setSubjectByMandatorySubjectId(Subject subjectByMandatorySubjectId) {
-        this.subjectByMandatorySubjectId = subjectByMandatorySubjectId;
+    public void setSubjectByRequireSubjectId(Subject subjectByRequireSubjectId) {
+        this.subjectByRequireSubjectId = subjectByRequireSubjectId;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="SubjectId", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="SubjectId", nullable=false)
     public Subject getSubjectBySubjectId() {
         return this.subjectBySubjectId;
     }

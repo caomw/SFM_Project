@@ -1,9 +1,10 @@
 package com.project.fpt.sfm.common;
 
+
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Khắc Vỹ on 10/4/2015.
@@ -63,7 +64,7 @@ public class Utils {
 
 
     public static Date getDate(String strDate){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
         try {
             Date date = sdf.parse(strDate);
             return date;
@@ -101,7 +102,16 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(calculateTuition(20000000, 70));
+        List<Integer> sourceList = new ArrayList<>();
+        sourceList.add(1);
+        sourceList.add(2);
+        sourceList.add(3);
+        sourceList.add(4);
+        Set<Integer> targetSet = new HashSet<>(sourceList);
+        for(Integer i : targetSet){
+            System.out.println(i);
+        }
+
     }
 
 }
