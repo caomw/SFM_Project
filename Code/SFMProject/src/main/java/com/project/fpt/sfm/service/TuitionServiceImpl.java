@@ -121,7 +121,6 @@ public class TuitionServiceImpl implements TuitionService {
         /**
          * Study Stage - content
          */
-
         StudyStage studyStage = studyStageRepo.findByStageCode(model.getNoiDungNopTien());
         Term curTerm = termRepo.findByIsCurrent(true);
         Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(curTerm, student.getMajor(), studyStage);
@@ -207,17 +206,6 @@ public class TuitionServiceImpl implements TuitionService {
             tPayment.setStatus(false);
         }
 
-/*
-        if (subTuition != null) {
-            System.out.println("Subtract : " + subTuition);
-
-            subtractTuitionRepo.save(subTuition);
-            tPayment.setSubtractTuition(subTuition);
-        }*/
-
-        System.out.println("Payment : " + tPayment);
-
-        //return true;
         return tuitionPaymentRepo.save(tPayment) != null;
 
     }

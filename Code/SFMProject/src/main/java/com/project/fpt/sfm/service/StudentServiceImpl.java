@@ -172,7 +172,7 @@ public class StudentServiceImpl implements StudentService{
         student.setFullName(model.getStudentName());
         student.setStudentCode(model.getStudentCode());
         student.setNote(model.getNote());
-        student.setStatus(model.getStudentStatus());
+      //  student.setStatus();
         student.setTerm(model.getAcademicYear());
         student.setDateOfBirth(new Date());
         student.setEmail(model.getStudentCode() + "@fpt.edu.vn");
