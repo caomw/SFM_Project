@@ -2,6 +2,7 @@ package com.project.fpt.sfm.service;
 
 
 import com.project.fpt.sfm.entities.*;
+import com.project.fpt.sfm.processexcel.development.model.CourseResultModel;
 import com.project.fpt.sfm.processexcel.model.StudyResultTemplate;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public interface CourseService {
 
     void addCourseForStudent(Student student, Clazz clazz);
 
-    void addCourseResult(Integer clazzId, Integer subInSemId, StudyResultTemplate temp);
+    void addCourseResult(Integer clazzId, Integer subInSemId, CourseResultModel temp);
 }

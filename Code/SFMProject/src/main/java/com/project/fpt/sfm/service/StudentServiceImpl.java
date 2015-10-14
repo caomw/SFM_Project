@@ -166,106 +166,108 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public boolean addNewStudent(StudentModel model) {
         System.out.println(model);
-
-
-        Student student = new Student();
-        student.setFullName(model.getStudentName());
-        student.setStudentCode(model.getStudentCode());
-        student.setNote(model.getNote());
-      //  student.setStatus();
-        student.setTerm(model.getAcademicYear());
-        student.setDateOfBirth(new Date());
-        student.setEmail(model.getStudentCode() + "@fpt.edu.vn");
-        student.setSsn(UUID.randomUUID().toString().substring(0, 9));
-        student.setPhoneNumber(Constant.DEFAULT_STRING_VALUE);
-        student.setAddress(Constant.DEFAULT_STRING_VALUE);
-        student.setSubMajor(model.getSubMajor());
-        student.setNarrowSpecialization(model.getNarrowSpecialization());
-        student.setParentEmail(Constant.DEFAULT_STRING_VALUE);
-        student.setParentPhone(Constant.DEFAULT_STRING_VALUE);
-        /**
-         * Major
-         */
-        String majorCode = model.getMajor();
-        Major major;
-        if(majorCode.equals("-") || majorCode.length() > 10){
-            major = majorRepo.findByMajorCode(Constant.DEFAULT_MISSING_DATA);
+        Student student = studentRepo.findByStudentCode(model.getStudentCode());
+        if(student != null){
+            //Update Student
         }else{
-            major = majorRepo.findByMajorCode(majorCode);
-        }
-        student.setMajor(major);
-        /**
-         * Financial Type
-         */
-        FinancialType financialType;
-        String fType = model.getFinancialType();
-        if (fType.equals(Constant.DEFAULT_STRING_VALUE) || model.getFinancialType().equals("")) {
-            financialType = financialTypeRepo.findByFinancialTypeName(Constant.FINANCE_TYPE_NORMAL);
-        } else if (fType.equals(Constant.FINANCE_TYPE_NVD)) {
-            financialType = financialTypeRepo.findByFinancialTypeName(Constant.FINANCE_TYPE_NVD);
-        } else {
-            String[] financial = fType.split("-");
-            if (financial.length > 1) {
-                int rate = Integer.parseInt(financial[1]);
-                financialType = financialTypeRepo.findByFinancialTypeNameAndFinancialRate(financial[0], rate);
-            } else {
+            student = new Student();
+            student.setFullName(model.getStudentName());
+            student.setStudentCode(model.getStudentCode());
+            student.setNote(model.getNote());
+              student.setStatus(Constant.STUDENT_STATUS_WAITING);
+            student.setTerm(model.getAcademicYear());
+            student.setDateOfBirth(new Date());
+            student.setEmail(model.getStudentCode() + "@fpt.edu.vn");
+            student.setSsn(UUID.randomUUID().toString().substring(0, 9));
+            student.setPhoneNumber(Constant.DEFAULT_STRING_VALUE);
+            student.setAddress(Constant.DEFAULT_STRING_VALUE);
+            student.setSubMajor(model.getSubMajor());
+            student.setNarrowSpecialization(model.getNarrowSpecialization());
+            student.setParentEmail(Constant.DEFAULT_STRING_VALUE);
+            student.setParentPhone(Constant.DEFAULT_STRING_VALUE);
+            /**
+             * Major
+             */
+            String majorCode = model.getMajor();
+            Major major;
+            if(majorCode.equals("-") || majorCode.length() > 10){
+                major = majorRepo.findByMajorCode(Constant.DEFAULT_MISSING_DATA);
+            }else{
+                major = majorRepo.findByMajorCode(majorCode);
+            }
+            student.setMajor(major);
+            /**
+             * Financial Type
+             */
+            FinancialType financialType;
+            String fType = model.getFinancialType();
+            if (fType.equals(Constant.DEFAULT_STRING_VALUE) || model.getFinancialType().equals("")) {
                 financialType = financialTypeRepo.findByFinancialTypeName(Constant.FINANCE_TYPE_NORMAL);
+            } else if (fType.equals(Constant.FINANCE_TYPE_NVD)) {
+                financialType = financialTypeRepo.findByFinancialTypeName(Constant.FINANCE_TYPE_NVD);
+            } else {
+                String[] financial = fType.split("-");
+                if (financial.length > 1) {
+                    int rate = Integer.parseInt(financial[1]);
+                    financialType = financialTypeRepo.findByFinancialTypeNameAndFinancialRate(financial[0], rate);
+                } else {
+                    financialType = financialTypeRepo.findByFinancialTypeName(Constant.FINANCE_TYPE_NORMAL);
+                }
             }
-        }
-        student.setFinancialType(financialType);
-        /**
-         * Study Stage
-         */
-        String studyStageCode = model.getStartEnglishLevel();
-        if (studyStageCode.equals(Constant.DEFAULT_STRING_VALUE)) {
-           student.setCurrentStudyStage("SEM1");
-        } else {
-            student.setCurrentStudyStage(studyStageCode);
-        }
-        /**
-         * Create fake user and save student
-         */
-        User user = new User();
-        user.setUsername(model.getStudentCode());
-        user.setPassword(Utils.generatePassword());
-        userRepo.save(user);
-        /**
-         * User Role
-         */
-        UserRole userRole = new UserRole();
-        userRole.setUser(user);
-        Role role = roleRepo.findByRoleName(Constant.ROLE_STUDENT);
-        userRole.setRole(role);
-        userRoleRepo.save(userRole);
-
-        student.setUser(user);
-        studentRepo.save(student);
-
-        /**
-         * Create new Class
-         */
-        //Class
-        Clazz clazz = null;
-        if (model.getClazz().equals("-")) {
-            clazz = classRepo.findByClassName("CHUA_XEP_LOP");
-        } else {
-            clazz = classRepo.findByClassName(model.getClazz());
-            if (clazz == null) {
-                clazz = new Clazz();
-                clazz.setClassName(model.getClazz());
-                classRepo.save(clazz);
+            student.setFinancialType(financialType);
+            /**
+             * Study Stage
+             */
+            String studyStageCode = model.getStartEnglishLevel();
+            if (studyStageCode.equals(Constant.DEFAULT_STRING_VALUE)) {
+                student.setCurrentStudyStage("SEM1");
+            } else {
+                student.setCurrentStudyStage(studyStageCode);
             }
+            /**
+             * Create fake user and save student
+             */
+            User user = new User();
+            user.setUsername(model.getStudentCode());
+            user.setPassword(Utils.generatePassword());
+            userRepo.save(user);
+            /**
+             * User Role
+             */
+            UserRole userRole = new UserRole();
+            userRole.setUser(user);
+            Role role = roleRepo.findByRoleName(Constant.ROLE_STUDENT);
+            userRole.setRole(role);
+            userRoleRepo.save(userRole);
 
+            student.setUser(user);
+            studentRepo.save(student);
+
+            /**
+             * Create new Class
+             */
+            //Class
+            Clazz clazz = null;
+            if (model.getClazz().equals("-")) {
+                clazz = classRepo.findByClassName("CHUA_XEP_LOP");
+            } else {
+                clazz = classRepo.findByClassName(model.getClazz());
+                if (clazz == null) {
+                    clazz = new Clazz();
+                    clazz.setClassName(model.getClazz());
+                    classRepo.save(clazz);
+                }
+
+            }
+            /**
+             * Tuition Plan for new Student
+             */
+            StudyStage studyStage = studyStageRepo.findByStageCode(studyStageCode);
+            Term term = adminService.getCurrentTerm();
+            tuitionPlanForNewStudent(student, studyStage, term);
         }
-        /**
-         * Tuition Plan for new Student
-         */
-        StudyStage studyStage = studyStageRepo.findByStageCode(studyStageCode);
-        Term term = adminService.getCurrentTerm();
-        tuitionPlanForNewStudent(student, studyStage, term);
 
-
-        return false;
+        return true;
     }
 
 

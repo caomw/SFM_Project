@@ -321,17 +321,17 @@ public class ExcelParser {
                             case 3:
                                 lop = cellValue;
                                 break;
-                            case 8:
+                            case 14:
                                 System.out.println("Cell Type : " + cell.getCellType());
                                 tongDiem = cellValue;
                                 break;
-                            case 9:
+                            case 15:
                                 trangThai = cellValue;
                                 break;
-                            case 12:
+                            case 18:
                                 tongDiemThiLai = cellValue;
                                 break;
-                            case 13:
+                            case 19:
                                 trangThaiThiLai = cellValue;
                                 break;
                         }

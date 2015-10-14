@@ -40,4 +40,6 @@ public interface SemesterService {
      * @return
      */
     StudyStage findNextSemesterOfStudent(Student student,Term term);
+
+    List<Semester> getAllSemesterInTerm();
 }

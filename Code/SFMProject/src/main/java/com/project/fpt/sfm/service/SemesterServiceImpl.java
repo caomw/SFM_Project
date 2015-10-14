@@ -95,7 +95,7 @@ public class SemesterServiceImpl implements SemesterService {
     }
 
     private void makeTuitionPlan() {
-        List<Student> listStudent = studentRepo.findByIsActive(true);
+        List<Student> listStudent = studentRepo.listStudyingStudent();
         if(listStudent.size() > 0){
             for(Student student : listStudent){
                 tuitionPlanForStudent(student);
@@ -215,6 +215,18 @@ public class SemesterServiceImpl implements SemesterService {
         int order = curStudyStage.getOrder();
         StudyStage nextStudyStage = studyStageRepo.findByOrder(order + 1);
         return nextStudyStage;
+    }
+
+    @Override
+    public List<Semester> getAllSemesterInTerm() {
+        Term term = termRepo.findByIsCurrent(true);
+        /**
+         * Major
+         */
+
+
+
+        return semesterRepo.findByTerm(term);
     }
 
 }

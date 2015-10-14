@@ -1,6 +1,8 @@
 package com.project.fpt.sfm.service;
 
+import com.project.fpt.sfm.common.Constant;
 import com.project.fpt.sfm.entities.*;
+import com.project.fpt.sfm.processexcel.development.model.CourseResultModel;
 import com.project.fpt.sfm.processexcel.model.StudyResultTemplate;
 import com.project.fpt.sfm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import java.util.List;
  * Created by Khắc Vỹ on 10/13/2015.
  */
 @Service
-public class CourseServiceImpl implements CourseService{
+public class CourseServiceImpl implements CourseService {
     @Autowired
     CourseRepo courseRepo;
     @Autowired
@@ -28,6 +30,7 @@ public class CourseServiceImpl implements CourseService{
     StudyStageRepo studyStageRepo;
     @Autowired
     SemesterRepo semesterRepo;
+
     /**
      * Get All Retake of a student
      *
@@ -40,9 +43,9 @@ public class CourseServiceImpl implements CourseService{
         System.out.println("SIZE : " + listFailedCourse.size());
         List<Course> listPassedRetakeCourse = courseRepo.findByPassAndRetakeInTerm(true, true, term);
         List<Course> result = new ArrayList<>();
-        if(listFailedCourse.size() > 0 && listPassedRetakeCourse.size() > 0){
-            for(Course failedCourse : listFailedCourse){
-                if(!listPassedRetakeCourse.contains(failedCourse)){
+        if (listFailedCourse.size() > 0 && listPassedRetakeCourse.size() > 0) {
+            for (Course failedCourse : listFailedCourse) {
+                if (!listPassedRetakeCourse.contains(failedCourse)) {
                     result.add(failedCourse);
                 }
             }
@@ -63,11 +66,11 @@ public class CourseServiceImpl implements CourseService{
         Term term = termRepo.findByIsCurrent(true);
         StudyStage studyStage = studyStageRepo.findByStageCode(student.getCurrentStudyStage());
         Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(term, student.getMajor(), studyStage);
-        if(semester != null){
+        if (semester != null) {
             List<SubjectInSemester> listSubInSem = subInSemesterRepo.findBySemester(semester);
-            if(listSubInSem.size() > 0){
+            if (listSubInSem.size() > 0) {
                 Course course;
-                for(SubjectInSemester item : listSubInSem){
+                for (SubjectInSemester item : listSubInSem) {
                     course = new Course();
                     course.setStudent(student);
                     course.setClazz(clazz);
@@ -83,32 +86,68 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public void addCourseResult(Integer clazzId, Integer subInSemId, StudyResultTemplate temp) {
-        Student student = studentRepo.findByStudentCode(temp.getStudentCode());
-        Clazz clazz = classRepo.findOne(clazzId);
-        SubjectInSemester subInSem = subInSemesterRepo.findOne(subInSemId);
+    public void addCourseResult(Integer clazzId, Integer subInSemId, CourseResultModel temp) {
+        Student student = studentRepo.findByStudentCode(temp.getMssv());
+        System.out.println(student);
 
-        Course course = courseRepo.findByStudentAndClazzAndSubjectInSemester(student, clazz, subInSem);
-       if(course != null){
-           course.setStudent(student);
-           course.setSubjectInSemester(subInSem);
-           course.setClazz(clazz);
-           if(!temp.getMark().equals("N/A")){
-               System.out.println("Mark : " + temp.getMark());
-               course.setMark(temp.getMark());
-           }
-           if(temp.getIsRetake().equals("HL")){
-               course.setIsRetake(true);
-           }
-           if(temp.getStatus().equals("Đạt")){
-               course.setIsPass(true);
-           }else{
-               course.setIsPass(false);
-           }
-           course.setIsActive(true);
-           course.setNote(temp.getNote());
+        if (student != null) {
+            Clazz clazz = classRepo.findOne(clazzId);
+            if (clazz != null) {
+                SubjectInSemester subInSem = subInSemesterRepo.findOne(subInSemId);
+                Course course = courseRepo.findByStudentAndClazzAndSubjectInSemester(student, clazz, subInSem);
+                if (course != null) {
+                    course.setStudent(student);
+                    course.setSubjectInSemester(subInSem);
+                    course.setClazz(clazz);
+                    /**
+                     * Mark
+                     */
+                    float finalMark;
+                    if (temp.getTongDiemThiLai().equals(Constant.DEFAULT_STRING_VALUE)) {
+                        float totalMark = 0;
+                        //Total mark
+                        try {
+                            totalMark = Float.parseFloat(temp.getTongDiem());
+                        } catch (Exception e) {
+                            totalMark = 0;
+                        }
+                        finalMark = totalMark;
+                        if (!temp.getTrangThai().equals(Constant.DEFAULT_STRING_VALUE)) {
+                            if (temp.getTrangThai().equals("Đạt")) {
+                                course.setIsPass(true);
+                            } else {
+                                course.setIsPass(false);
+                            }
+                        } else {
+                            course.setIsPass(false);
+                        }
+                    } else {
+                        float retakeMark = 0;
+                        try {
+                            retakeMark = Float.parseFloat(temp.getTongDiemThiLai());
+                        } catch (Exception e) {
+                            retakeMark = 0;
+                        }
+                        finalMark = retakeMark;
 
-           courseRepo.save(course);
-       }
+                        if (!temp.getTrangThaiThiLai().equals(Constant.DEFAULT_STRING_VALUE)) {
+                            if (temp.getTrangThaiThiLai().equals("Đạt")) {
+                                course.setIsPass(true);
+                            } else {
+                                course.setIsPass(false);
+                            }
+                        } else {
+                            course.setIsPass(false);
+                        }
+                    }
+                    course.setMark(finalMark);
+
+                    System.out.println(course);
+
+
+                    courseRepo.save(course);
+                }
+            }
+        }
     }
 }

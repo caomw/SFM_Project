@@ -164,28 +164,28 @@ public class TuitionServiceImpl implements TuitionService {
 
         SubtractTuition subTuition = null;
         if (fType.getFinancialTypeName().equals(Constant.FINANCE_TYPE_SCHOLARSHIP)) {
-             subTuition = new SubtractTuition();
+            subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("HOC BONG " + fType.getFinancialRate() + " %");
             float factor = (float) fType.getFinancialRate() / 100;
             int sTuition = (int) (totalTuition * factor);
             subTuition.setSubtractTuition(sTuition);
             totalSubTuition += sTuition;
         } else if (fType.getFinancialTypeName().equals(Constant.FINANCE_TYPE_LOANS_CREDIT)) {
-              subTuition = new SubtractTuition();
+            subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("TIN DUNG " + fType.getFinancialRate() + " %");
             float factor = (float) fType.getFinancialRate() / 100;
             int sTuition = (int) (totalTuition * factor);
             subTuition.setSubtractTuition(sTuition);
             totalSubTuition += sTuition;
         } else if (fType.getFinancialTypeName().equals(Constant.FINANCE_TYPE_INVESTING)) {
-             subTuition = new SubtractTuition();
+            subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("CUNG BAN DAU TU " + fType.getFinancialRate() + " %");
             float factor = (float) fType.getFinancialRate() / 100;
             int sTuition = (int) (totalTuition * factor);
             subTuition.setSubtractTuition(sTuition);
             totalSubTuition += sTuition;
         }
-        if(subTuition != null){
+        if (subTuition != null) {
             subtractTuitionRepo.save(subTuition);
             tPayment.setSubtractTuition(subTuition);
         }
@@ -201,13 +201,18 @@ public class TuitionServiceImpl implements TuitionService {
                 Clazz clazz = classRepo.findByClassName(model.getLop());
                 courseService.addCourseForStudent(student, clazz);
             }
-
+            /**
+             * Change student status
+             */
+            if (student.getStatus().equals(Constant.STUDENT_STATUS_WAITING)) {
+                student.setStatus(Constant.STUDENT_STATUS_STUDYING);
+                studentRepo.save(student);
+            }
         } else {
             tPayment.setStatus(false);
         }
 
         return tuitionPaymentRepo.save(tPayment) != null;
-
     }
 
 }

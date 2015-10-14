@@ -3,8 +3,13 @@ package com.project.fpt.sfm.web.controller.staff;
 import com.project.fpt.sfm.common.Constant;
 import com.project.fpt.sfm.common.Utils;
 import com.project.fpt.sfm.entities.*;
+import com.project.fpt.sfm.processexcel.development.ExcelParser;
+import com.project.fpt.sfm.processexcel.development.model.CourseResultModel;
+import com.project.fpt.sfm.processexcel.development.model.StudentModel;
 import com.project.fpt.sfm.processexcel.model.StudyResultTemplate;
 import com.project.fpt.sfm.processexcel.utils.AnnotatedExcelReport;
+import com.project.fpt.sfm.repository.SubInSemesterRepo;
+import com.project.fpt.sfm.repository.TermRepo;
 import com.project.fpt.sfm.service.CourseService;
 import com.project.fpt.sfm.service.SemesterService;
 import com.project.fpt.sfm.service.dto.TermDto;
@@ -32,6 +37,10 @@ public class RegistrarStaffController {
     SemesterService semesterService;
     @Autowired
     CourseService courseService;
+    @Autowired
+    SubInSemesterRepo subInSemesterRepo;
+    @Autowired
+    TermRepo termRepo;
 
     @RequestMapping("")
     public String home(Model model) {
@@ -119,6 +128,17 @@ public class RegistrarStaffController {
     public String manageClass(Model model) {
         model.addAttribute("content", "staff/add-study-result");
         model.addAttribute("sidebar", "staff/staff-sidebar");
+/*
+
+      //  List<Semester> listSemester = semesterService.getAllSemesterInTerm();
+        Term term = termRepo.findByIsCurrent(true);
+        List<SubjectInSemester> listSubject = subInSemesterRepo.findBySemesterTerm(term);
+
+
+        model.addAttribute("listSubject", listSubject);
+*/
+
+
 
         Map<Clazz, List<SubjectInSemester>> map = new HashMap<>();
         List<Course> listCourse = courseService.getAllCourseInSemesterGroupByClass();
@@ -144,8 +164,32 @@ public class RegistrarStaffController {
                                      @RequestParam("classId") int classId,
                                      @RequestParam("subInSemId") int subInSemId) {
         UploadResponse response = new UploadResponse();
+
+        System.out.println("Class : " + classId + " / SubInSem : " + subInSemId);
+
+
         if (!file.isEmpty()) {
-            ByteArrayInputStream is = null;
+
+            ExcelParser parser = new ExcelParser();
+            List<CourseResultModel> listCourseResult = parser.parseStudyResult(file);
+            if(listCourseResult.size() > 0){
+                for(CourseResultModel model : listCourseResult){
+                    if(!model.getMssv().equals("-")){
+                       courseService.addCourseResult(classId, subInSemId, model);
+                        //System.out.println(model);
+                    }
+                }
+            }
+
+
+            response.setResult("OK");
+
+
+
+
+
+
+           /* ByteArrayInputStream is = null;
             try {
                 is = new ByteArrayInputStream(file.getBytes());
                 AnnotatedExcelReport report = new AnnotatedExcelReport(is);
@@ -158,7 +202,9 @@ public class RegistrarStaffController {
             } catch (Exception e) {
                 e.printStackTrace();
                 response.setResult(e.toString());
-            }
+            }*/
+
+
         } else {
             response.setResult("File Not Found");
         }
