@@ -17,7 +17,9 @@ public interface CourseService {
      */
     List<Course> getAllFailedCourseOfStudent(Student student, Term term);
 
-    List<Course> getAllCourseInSemester();
+    List<Course> getAllCourseInSemesterGroupByClass();
+
+    void addCourseForStudent(Student student, Clazz clazz);
 
     void addCourseResult(Integer clazzId, Integer subInSemId, StudyResultTemplate temp);
 }

@@ -210,7 +210,7 @@ public class TuitionPayment  implements java.io.Serializable {
         sb.append("tuitionPaymentId=").append(tuitionPaymentId);
         sb.append(", semester=").append(semester);
         sb.append(", student=").append(student);
-        sb.append(", subtractTuition=").append(subtractTuition.getSubtractTuitionName());
+        sb.append(", subtractTuition=").append(subtractTuition);
         sb.append(", totalTuition=").append(totalTuition);
         sb.append(", paidTuition=").append(paidTuition);
         sb.append(", bank='").append(bank).append('\'');

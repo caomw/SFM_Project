@@ -34,6 +34,10 @@ public class UserRole  implements java.io.Serializable {
      private Date dateUpdated;
 
     public UserRole() {
+        this.dateCreated = new Date();
+        this.dateUpdated = new Date();
+        this.isActive = true;
+        this.note = "-";
     }
 
 	

@@ -35,6 +35,10 @@ public class Role  implements java.io.Serializable {
      private Set<UserRole> userRoles = new HashSet<UserRole>(0);
 
     public Role() {
+        this.dateCreated = new Date();
+        this.dateUpdated = new Date();
+        this.isActive = true;
+        this.note = "-";
     }
 
 	
