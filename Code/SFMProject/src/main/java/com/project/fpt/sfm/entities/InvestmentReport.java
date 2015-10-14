@@ -1,5 +1,5 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -32,6 +32,10 @@ public class InvestmentReport  implements java.io.Serializable {
      private boolean payStatus;
      private String bank;
      private Date dateTransfer;
+     private String note;
+     private Boolean isActive;
+     private Date dateCreated;
+     private Date dateUpdated;
 
     public InvestmentReport() {
     }
@@ -43,13 +47,17 @@ public class InvestmentReport  implements java.io.Serializable {
         this.paidMoney = paidMoney;
         this.payStatus = payStatus;
     }
-    public InvestmentReport(InvestmentStudent investmentStudent, String totalMoney, String paidMoney, boolean payStatus, String bank, Date dateTransfer) {
+    public InvestmentReport(InvestmentStudent investmentStudent, String totalMoney, String paidMoney, boolean payStatus, String bank, Date dateTransfer, String note, Boolean isActive, Date dateCreated, Date dateUpdated) {
        this.investmentStudent = investmentStudent;
        this.totalMoney = totalMoney;
        this.paidMoney = paidMoney;
        this.payStatus = payStatus;
        this.bank = bank;
        this.dateTransfer = dateTransfer;
+       this.note = note;
+       this.isActive = isActive;
+       this.dateCreated = dateCreated;
+       this.dateUpdated = dateUpdated;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -122,6 +130,46 @@ public class InvestmentReport  implements java.io.Serializable {
     
     public void setDateTransfer(Date dateTransfer) {
         this.dateTransfer = dateTransfer;
+    }
+
+    
+    @Column(name="Note", length=65535)
+    public String getNote() {
+        return this.note;
+    }
+    
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    
+    @Column(name="IsActive")
+    public Boolean getIsActive() {
+        return this.isActive;
+    }
+    
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="Date_Created", length=19)
+    public Date getDateCreated() {
+        return this.dateCreated;
+    }
+    
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DateUpdated", length=19)
+    public Date getDateUpdated() {
+        return this.dateUpdated;
+    }
+    
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
 

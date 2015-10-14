@@ -28,7 +28,7 @@
                             <tr th:with="sub=${item.studentCourse.course.subject}" data-toggle="collapse"  th:attr="data-target='#row'+${i.count}" class="accordion-toggle">
                                 <td th:text="${i.count}">1.</td>
                                 <td th:text="${sub.subjectCode}">PRJ</td>
-                                <td th:text="${sub.subjectNameE}">Advance Java</td>
+                                <td th:text="${sub.englishName}">Advance Java</td>
                                 <td th:if="${item.status}">Đã Nộp</td>
                                 <td th:if="${!item.status}">Chưa Nộp</td>
                                 <td th:if="${item.transferDate != null}"
@@ -62,7 +62,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td><label>Nội Dung Đóng Tiền</label></td>
-                                                    <td th:text="'Nợ Môn : ' + ${course.subject.subjectNameE}">Nợ Môn PRJ - Advance Java</td>
+                                                    <td th:text="'Nợ Môn : ' + ${course.subject.englishName}">Nợ Môn PRJ - Advance Java</td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Học Kỳ</label></td>

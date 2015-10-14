@@ -1,0 +1,148 @@
+<!--Main Content-->
+<div class="content-wrapper bg-white" style="min-height: 916px;">
+    <!-- Main content -->
+    <section class="row">
+        <div class="col-xs-10 col-md-10 col-xs-offset-1 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-6 col-md-6">
+                        <h2 th:text="${curTerm.termName}">Fall 2015</h2>
+                        <p><strong>Thời gian :</strong> 12/5/2015 - 12/11/2015 </p>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                        <button class="btn btn-primary pull-right" id="btnAddTerm">Tạo Học Kỳ Mới</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-group" id="accordion" th:with="list = ${listSemester}">
+                <div class="panel panel-primary" th:each="item, i : ${listSemester}">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               th:href="'#collapse' + ${i.count}" th:text="${item.major.majorCode} + ' - ' + ${item.major.majorName}">Collapsible Group 1</a>
+                        </h4>
+                    </div>
+                    <div th:id="'collapse' + ${i.count}" th:class="'panel-collapse collapse '+ (${i.count == 1} ? 'in' : '')">
+                        <div class="panel-body">Lorem ipsum dolor sit amet,
+                            consectetur adipisicing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut
+                            aliquip ex ea commodo consequat.
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="termModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close"
+                                        data-dismiss="modal">&times;</button>
+                                <h2 class="modal-title text-center">Tạo Học Kỳ Mới</h2>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal bg-white" role="form"
+                                      action="/nhan-vien/dao-tao/tao-hoc-ky" method="post">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3 col-sm-3"
+                                               for="termName">Tên:</label>
+
+                                        <div class="col-sm-9 col-xs-9">
+                                            <input type="text" class="form-control"
+                                                   id="termName" name="termName"
+                                                   placeholder="Nhập Tên Học Kỳ"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3 col-sm-3" for="startDate">Ngày Bắt Đầu:</label>
+                                        <div class="col-xs-9 col-sm-9">
+                                            <input type="text" class="form-control term-date"
+                                                   id="startDate" name="startDate"
+                                                   placeholder=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3 col-sm-3"
+                                               for="endDate">Ngày Kết Thúc:</label>
+
+                                        <div class="col-xs-9 col-sm-9">
+                                            <input type="text" class="form-control term-date"
+                                                   id="endDate" name="endDate"
+                                                   placeholder=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3 col-sm-3"
+                                               for="note">Ghi Chú:</label>
+
+                                        <div class="col-xs-9 col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   id="note" name="note"
+                                                   placeholder=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-4 col-sm-4">
+                                            <button type="submit"
+                                                    class="btn btn-primary">Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" th:name="${_csrf.parameterName}"
+                                           th:value="${_csrf.token}"/>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+              <!--  <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapse2">Collapsible Group 2</a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">Lorem ipsum dolor sit amet,
+                            consectetur adipisicing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut
+                            aliquip ex ea commodo consequat.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapse3">Collapsible Group 3</a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">Lorem ipsum dolor sit amet,
+                            consectetur adipisicing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut
+                            aliquip ex ea commodo consequat.
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <!-- /.col -->
+    </section>
+    <!-- /.content -->
+
+    <script th:src="@{/js/pages/staff/staff-js.js}"></script>
+</div>

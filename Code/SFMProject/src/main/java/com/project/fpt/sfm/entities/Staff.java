@@ -1,7 +1,8 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 8, 2015 2:49:22 PM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -31,6 +34,8 @@ public class Staff  implements java.io.Serializable {
      private String address;
      private String note;
      private Boolean isActive;
+     private Date dateCreated;
+     private Date dateUpdated;
 
     public Staff() {
     }
@@ -41,7 +46,7 @@ public class Staff  implements java.io.Serializable {
         this.fullName = fullName;
         this.email = email;
     }
-    public Staff(User user, String fullName, String email, String phone, String address, String note, Boolean isActive) {
+    public Staff(User user, String fullName, String email, String phone, String address, String note, Boolean isActive, Date dateCreated, Date dateUpdated) {
        this.user = user;
        this.fullName = fullName;
        this.email = email;
@@ -49,6 +54,8 @@ public class Staff  implements java.io.Serializable {
        this.address = address;
        this.note = note;
        this.isActive = isActive;
+       this.dateCreated = dateCreated;
+       this.dateUpdated = dateUpdated;
     }
    
      @GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="user"))@Id @GeneratedValue(generator="generator")
@@ -130,6 +137,26 @@ public class Staff  implements java.io.Serializable {
     
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="Date_Created", length=19)
+    public Date getDateCreated() {
+        return this.dateCreated;
+    }
+    
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DateUpdated", length=19)
+    public Date getDateUpdated() {
+        return this.dateUpdated;
+    }
+    
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
 

@@ -1,0 +1,112 @@
+package com.project.fpt.sfm.web.controller.staff;
+
+import com.project.fpt.sfm.common.Constant;
+import com.project.fpt.sfm.common.Utils;
+import com.project.fpt.sfm.entities.Semester;
+import com.project.fpt.sfm.entities.Term;
+import com.project.fpt.sfm.service.SemesterService;
+import com.project.fpt.sfm.service.dto.TermDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by Khắc Vỹ on 10/12/2015.
+ */
+@Controller
+@RequestMapping("/nhan-vien/dao-tao")
+public class RegistrarStaffController {
+    @Autowired
+    SemesterService semesterService;
+
+    @RequestMapping("")
+    public String home(Model model) {
+        model.addAttribute("content", "staff/staff-home");
+        model.addAttribute("sidebar", "staff/staff-sidebar");
+
+        return "home";
+    }
+
+    @RequestMapping("/quan-ly-hoc-ky")
+    public String manageSemester(Model model) {
+        model.addAttribute("content", "staff/semester-management");
+        model.addAttribute("sidebar", "staff/staff-sidebar");
+
+        Term curTerm = semesterService.getCurrentTerm();
+        List<Semester> listSemInTerm = semesterService.getListSemesterGroupByMajor(curTerm);
+        model.addAttribute("listSemester", listSemInTerm);
+        model.addAttribute("curTerm", curTerm);
+
+        return "home";
+    }
+
+    @RequestMapping(value = "/tao-hoc-ky-mau", method = RequestMethod.POST)
+    @ResponseBody
+    public TermDto suggestTerm() {
+        Term curTerm = semesterService.getCurrentTerm();
+        String curTermName = curTerm.getTermName().toUpperCase();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(curTerm.getStartDate());
+        int year = cal.get(Calendar.YEAR);
+        Date startDate = null;
+        Date endDate = null;
+        String nextTermName = "";
+        if (curTermName.toUpperCase().contains(Constant.TERM_FALL)) {
+            nextTermName = Constant.TERM_SPRING + " " + (year + 1);
+            cal.set(year + 1, Constant.TERM_SPING_START_MONTH, Constant.TERM_SPING_START_DATE);
+            startDate = cal.getTime();
+            cal.set(year + 1, Constant.TERM_SPING_END_MONTH, Constant.TERM_SPING_END_DATE);
+            endDate = cal.getTime();
+        } else if (curTermName.toUpperCase().contains(Constant.TERM_SPRING)) {
+            nextTermName = Constant.TERM_SUMMER + " " + year;
+            cal.set(year, Constant.TERM_SUMMER_START_MONTH, Constant.TERM_SUMMER_START_DATE);
+            startDate = cal.getTime();
+            cal.set(year, Constant.TERM_SUMMER_END_MONTH, Constant.TERM_SUMMER_END_DATE);
+            endDate = cal.getTime();
+        } else if (curTermName.toUpperCase().contains(Constant.TERM_SUMMER)) {
+            nextTermName = Constant.TERM_FALL + " " + year;
+            cal.set(year, Constant.TERM_FALL_START_MONTH, Constant.TERM_FALL_START_DATE);
+            startDate = cal.getTime();
+            cal.set(year, Constant.TERM_FALL_END_MONTH, Constant.TERM_FALL_END_DATE);
+            endDate = cal.getTime();
+        }
+        TermDto newTerm = new TermDto();
+        newTerm.setTermName(nextTermName);
+        newTerm.setStartDate(startDate);
+        newTerm.setEndDate(endDate);
+        newTerm.setNote("-");
+
+        return newTerm;
+    }
+
+    @RequestMapping(value = "/tao-hoc-ky", method = RequestMethod.POST)
+    public String createTerm(HttpServletRequest request) {
+        String termName = request.getParameter("termName");
+        String startDateStr = request.getParameter("startDate");
+        String endDateStr = request.getParameter("endDate");
+        Date startDate = Utils.getDate(startDateStr);
+        Date endDate = Utils.getDate(endDateStr);
+        String note = request.getParameter("note");
+
+        Term term = new Term();
+        term.setTermName(termName);
+        term.setStartDate(startDate);
+        term.setEndDate(endDate);
+        term.setNote(note);
+        term.setIsCurrent(true);
+
+        semesterService.createNewTerm(term);
+
+        return "redirect:/nhan-vien/dao-tao/quan-ly-hoc-ky";
+    }
+
+
+}
