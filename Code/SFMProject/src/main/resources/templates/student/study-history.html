@@ -21,14 +21,14 @@
                             <div class="dropdown pull-right">
                                 <button class="btn btn-primary dropdown-toggle filter-academicYear"
                                         type="button" data-toggle="dropdown">
-                                <span th:text="${currentSemester.studyStage.studyStageName}"
+                                <span th:text="${currentSemester.studyStage.stageCode}"
                                       th:remove="tag"></span>
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a th:href="@{'/sinh-vien/cac-ky-da-hoc?maso=' + ${item.semesterId}}"
                                            th:each="item: ${listStudentSemester}"
-                                           th:text="${item.studyStage.studyStageName}">Học
+                                           th:text="${item.studyStage.stageCode}">Học
                                             Ky 2</a></li>
                                 </ul>
                             </div>
@@ -55,20 +55,27 @@
                                 </td>
                             </tr>
 
-                            <tr th:each="item, i : ${listCourse}" th:with="sub=${item.course.subject}">
+                            <tr th:each="item, i : ${listCourse}" th:with="sub=${item.subjectInSemester.subject}">
                                 <td th:text="${i.count}">1.</td>
                                 <td th:text="${sub.subjectCode}">
                                     PRJ
                                 </td>
-                                <td th:text="${sub.englishName}">
+                                <td th:text="${sub.subjectNameE}">
                                     Advance Java
                                 </td>
-                                <td th:text="${sub.numOfCredit}">3
+                                <td th:text="${item.subjectInSemester.numberOfCredit}">3
                                 </td>
-                                <td th:text="${item.course.half}">1</td>
-                                <td th:text="${item.mark}">7.5</td>
-                                <td th:text="${item.isPass} ? 'Đạt' : 'Rớt'"></td>
-                                <td th:text="${item.isResit} ? 'Học Lại' : ${note}"></td>
+                                <td th:text="${item.subjectInSemester.half}">1</td>
+                                <td th:if="${item.mark lt 0}">-</td>
+                                <th:block th:if="${item.mark lt 0}">
+                                    <td>-</td>
+                                </th:block>
+                                <th:block th:if="${item.mark gt 0}">
+                                    <td th:text="${item.mark}"></td>
+                                    <td th:text="${item.isPass} ? 'Đạt' : 'Rớt'"></td>
+                                </th:block>
+
+                                <td th:text="${item.isRetake} ? 'Học Lại' : ${note}"></td>
                             </tr>
 
                             <!--

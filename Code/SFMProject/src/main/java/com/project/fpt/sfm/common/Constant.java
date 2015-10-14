@@ -69,16 +69,6 @@ public class Constant {
     public static String DEFAULT_STRING_VALUE = "-";
 
     public static String DEFAULT_MISSING_DATA = "N/A";
-    /**
-     * Student Status
-     */
-    public static final String STUDENT_STATUS_WAITING = "CHƯA NHẬP HỌC";
-    public static final String STUDENT_STATUS_STUDYING = "HỌC ĐI";
-    public static final String STUDENT_STATUS_RETAKE = "HỌC LẠI";
-    public static final String STUDENT_STATUS_STOP = "TẠM DỪNG";
-
-
-
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";

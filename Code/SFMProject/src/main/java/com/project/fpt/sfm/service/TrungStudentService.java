@@ -14,4 +14,5 @@ public interface TrungStudentService {
     List<Course> getListCourse(Student student, Semester semester);
     List<Semester> getListSemester(Student student);
     Semester findSemesterById(Integer semesterId);
+
 }

@@ -7,8 +7,8 @@
             <i class="fa fa-dashboard"></i> <span>Thông Tin Học Tập</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu" th:style="${!check} ? 'display: none' : ''">
-            <li th:class="${content == 'student/study-history'} ? 'active' : ''"><a href="/student/cac-ky-da-hoc"><i class="fa fa-circle-o"></i>Những Kỳ Đã Học</a></li>
-            <li th:class="${content == 'student/resit-course-history'} ? 'active' : ''"><a href="/student/cac-mon-no"><i class="fa fa-circle-o"></i>Các Môn Đang Nợ</a></li>
+            <li th:class="${content == 'student/study-history'} ? 'active' : ''"><a href="/sinh-vien/cac-ky-da-hoc"><i class="fa fa-circle-o"></i>Những Kỳ Đã Học</a></li>
+            <li th:class="${content == 'student/resit-course-history'} ? 'active' : ''"><a href="/sinh-vien/cac-mon-no"><i class="fa fa-circle-o"></i>Các Môn Đang Nợ</a></li>
         </ul>
     </li>
     <!--THONG TIN TAI CHINH-->
@@ -17,9 +17,9 @@
             <i class="fa fa-dashboard"></i> <span>Thông Tin Tài Chính</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu" th:style="${!check} ? 'display: none' : ''">
-            <li th:class="${content == 'student/tuition-overview'} ? 'active' : ''"><a href="/student/hoc-phi-du-kien"><i class="fa fa-circle-o"></i>Học Phí Dự Kiến</a></li>
-            <li th:class="${content == 'student/tuition-history'} ? 'active' : ''"><a href="/student/hoc-phi-cac-ky"><i class="fa fa-circle-o"></i>Trạng Thái Đóng Học Phí</a></li>
-            <li th:class="${content == 'student/resit-course-financial-history'} ? 'active' : ''"><a href="/student/danh-sach-dong-tien-hoc-lai"><i class="fa fa-circle-o"></i>Trạng Thái Đóng Tiền Học Lại</a></li>
+            <li th:class="${content == 'student/tuition-overview'} ? 'active' : ''"><a href="/sinh-vien/hoc-phi-du-kien"><i class="fa fa-circle-o"></i>Học Phí Dự Kiến</a></li>
+            <li th:class="${content == 'student/tuition-history'} ? 'active' : ''"><a href="/sinh-vien/hoc-phi-cac-ky"><i class="fa fa-circle-o"></i>Trạng Thái Đóng Học Phí</a></li>
+            <li th:class="${content == 'student/resit-course-financial-history'} ? 'active' : ''"><a href="/sinh-vien/danh-sach-dong-tien-hoc-lai"><i class="fa fa-circle-o"></i>Trạng Thái Đóng Tiền Học Lại</a></li>
         </ul>
     </li>
 
