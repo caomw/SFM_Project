@@ -2,21 +2,26 @@ package com.project.fpt.sfm.web.controller.staff;
 
 import com.project.fpt.sfm.common.Constant;
 import com.project.fpt.sfm.common.Utils;
-import com.project.fpt.sfm.entities.Semester;
-import com.project.fpt.sfm.entities.Term;
+import com.project.fpt.sfm.entities.*;
+import com.project.fpt.sfm.processexcel.model.StudentTemplate;
+import com.project.fpt.sfm.processexcel.model.StudyResultTemplate;
+import com.project.fpt.sfm.processexcel.utils.AnnotatedExcelReport;
+import com.project.fpt.sfm.service.CourseService;
 import com.project.fpt.sfm.service.SemesterService;
 import com.project.fpt.sfm.service.dto.TermDto;
+import com.project.fpt.sfm.web.response.UploadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.util.*;
 
 /**
  * Created by Khắc Vỹ on 10/12/2015.
@@ -26,6 +31,8 @@ import java.util.List;
 public class RegistrarStaffController {
     @Autowired
     SemesterService semesterService;
+    @Autowired
+    CourseService courseService;
 
     @RequestMapping("")
     public String home(Model model) {
@@ -94,6 +101,7 @@ public class RegistrarStaffController {
         String endDateStr = request.getParameter("endDate");
         Date startDate = Utils.getDate(startDateStr);
         Date endDate = Utils.getDate(endDateStr);
+
         String note = request.getParameter("note");
 
         Term term = new Term();
@@ -108,5 +116,55 @@ public class RegistrarStaffController {
         return "redirect:/nhan-vien/dao-tao/quan-ly-hoc-ky";
     }
 
+    @RequestMapping("/ket-qua-hoc-tap")
+    public String manageClass(Model model) {
+        model.addAttribute("content", "staff/add-study-result");
+        model.addAttribute("sidebar", "staff/staff-sidebar");
+
+        Map<Clazz, List<SubjectInSemester>> map = new HashMap<>();
+        List<Course> listCourse = courseService.getAllCourseInSemester();
+        List<SubjectInSemester> tmp;
+        for(Course c : listCourse){
+            tmp = new ArrayList<>();
+            if(map.containsKey(c.getClazz())){
+                List<SubjectInSemester> listSubInSem = map.get(c.getClazz());
+                listSubInSem.add(c.getSubjectInSemester());
+            }else{
+                tmp.add(c.getSubjectInSemester());
+                map.put(c.getClazz(), tmp);
+            }
+        }
+        model.addAttribute("mapCourse", map);
+
+        return "home";
+    }
+
+    @RequestMapping(value= "/import-ket-qua-hoc-tap", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
+    @ResponseBody
+    public UploadResponse addStudyResultPage(@RequestParam("file") MultipartFile file,
+                                     @RequestParam("classId") int classId,
+                                     @RequestParam("subInSemId") int subInSemId) {
+        UploadResponse response = new UploadResponse();
+        if (!file.isEmpty()) {
+            ByteArrayInputStream is = null;
+            try {
+                is = new ByteArrayInputStream(file.getBytes());
+                AnnotatedExcelReport report = new AnnotatedExcelReport(is);
+                List<StudyResultTemplate> listTemp = report.readData("com.project.fpt.sfm.processexcel.model.StudyResultTemplate");
+                for (StudyResultTemplate temp : listTemp) {
+                   courseService.addCourseResult(classId, subInSemId, temp);
+                }
+
+                response.setResult("OK");
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.setResult(e.toString());
+            }
+        } else {
+            response.setResult("File Not Found");
+        }
+
+        return response;
+    }
 
 }

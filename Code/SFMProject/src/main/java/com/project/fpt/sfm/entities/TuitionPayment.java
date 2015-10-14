@@ -40,6 +40,10 @@ public class TuitionPayment  implements java.io.Serializable {
      private Date dateUpdated;
 
     public TuitionPayment() {
+        this.dateCreated = new Date();
+        this.dateUpdated = new Date();
+        this.isActive = true;
+        this.note = "-";
     }
 
 	
@@ -101,7 +105,7 @@ public class TuitionPayment  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="SubtractTuitionID", nullable=false)
+    @JoinColumn(name="SubtractTuitionID", nullable=true)
     public SubtractTuition getSubtractTuition() {
         return this.subtractTuition;
     }
@@ -200,9 +204,25 @@ public class TuitionPayment  implements java.io.Serializable {
         this.dateUpdated = dateUpdated;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("TuitionPayment{");
+        sb.append("tuitionPaymentId=").append(tuitionPaymentId);
+        sb.append(", semester=").append(semester);
+        sb.append(", student=").append(student);
+        sb.append(", subtractTuition=").append(subtractTuition.getSubtractTuitionName());
+        sb.append(", totalTuition=").append(totalTuition);
+        sb.append(", paidTuition=").append(paidTuition);
+        sb.append(", bank='").append(bank).append('\'');
+        sb.append(", transferDate=").append(transferDate);
+        sb.append(", status=").append(status);
+        sb.append(", note='").append(note).append('\'');
+        sb.append(", isActive=").append(isActive);
+        sb.append(", dateCreated=").append(dateCreated);
+        sb.append(", dateUpdated=").append(dateUpdated);
+        sb.append('}');
+        return sb.toString();
+    }
 }
 
 

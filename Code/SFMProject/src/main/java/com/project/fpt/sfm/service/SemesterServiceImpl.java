@@ -1,16 +1,17 @@
 package com.project.fpt.sfm.service;
 
+import com.project.fpt.sfm.common.Constant;
+import com.project.fpt.sfm.common.Utils;
 import com.project.fpt.sfm.entities.*;
 import com.project.fpt.sfm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -18,6 +19,9 @@ import java.util.List;
  */
 @Service
 public class SemesterServiceImpl implements SemesterService {
+    @Autowired
+    CourseService courseService;
+
     @Autowired
     TermRepo termRepo;
     @Autowired
@@ -30,9 +34,14 @@ public class SemesterServiceImpl implements SemesterService {
     StudentRepo studentRepo;
     @Autowired
     StudyStageRepo studyStageRepo;
+    @Autowired
+    TuitionPlanRepo tuitionPlanRepo;
 
     @Autowired
     TaskScheduler taskScheduler;
+    @Autowired
+    PlatformTransactionManager txMgrApp;
+
 
     /**
      * Get Current Term
@@ -68,15 +77,33 @@ public class SemesterServiceImpl implements SemesterService {
         /**
          * Update current Term
          */
-        final Term svCurTerm = termRepo.save(curTerm);
+        Term svCurTerm = termRepo.save(curTerm);
         /**
          * Save new term
          */
         Term svTerm = termRepo.save(newTerm);
+        /**
+         * Construct new Semester
+         */
         planForTerm(svCurTerm, svTerm);
-        System.out.println("Insert ok");
+        /**
+         * Tuition Plan
+         */
+        makeTuitionPlan();
+
         return svTerm != null;
     }
+
+    private void makeTuitionPlan() {
+        List<Student> listStudent = studentRepo.findByIsActive(true);
+        if(listStudent.size() > 0){
+            for(Student student : listStudent){
+                tuitionPlanForStudent(student);
+            }
+        }
+    }
+
+
 
     /**
      * Make plan for current Term
@@ -84,7 +111,6 @@ public class SemesterServiceImpl implements SemesterService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void planForTerm(Term oldTerm, Term newTerm) {
-        System.out.println("Async Method");
         List<Semester> listOldSem = semesterRepo.findByTerm(oldTerm);
         List<SubjectInSemester> listSubInSem = subInSemesterRepo.findBySemesterTerm(oldTerm);
         /**
@@ -98,14 +124,12 @@ public class SemesterServiceImpl implements SemesterService {
             newSem.setMajor(sem.getMajor());
             newSem.setStudyStage(sem.getStudyStage());
             newSem.setStageTuitionUsd(sem.getStageTuitionUsd());
-            //  newSem.setSubjectInSemesters(new HashSet<>(listSubInSem));
             semesterRepo.save(newSem);
             listNewSem.add(newSem);
         }
         /**
          * Loop passing List SubInSem
          */
-        List<SubjectInSemester> listNewSubInSem = new ArrayList<>();
         SubjectInSemester newSubInSem;
         for (SubjectInSemester item : listSubInSem) {
             newSubInSem = new SubjectInSemester();
@@ -115,23 +139,66 @@ public class SemesterServiceImpl implements SemesterService {
             newSubInSem.setNote(item.getNote());
 
             for (Semester semItem : listNewSem) {
-                if (semItem.getStudyStage().getStageCode().equals(item.getSemester().getStudyStage().getStageCode())) {
+                if (semItem.getMajor().getMajorCode().equals(item.getSemester().getMajor().getMajorCode()) && semItem.getStudyStage().getStageCode().equals(item.getSemester().getStudyStage().getStageCode())) {
                     newSubInSem.setSemester(semItem);
                 }
             }
             subInSemesterRepo.save(newSubInSem);
         }
+    }
 
-        System.out.println("End sync");
-
-        taskScheduler.schedule(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Scheduler");
-
-
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void tuitionPlanForStudent(Student student) {
+        /**
+         * Tuition Plan
+         */
+        Term term = termRepo.findByIsCurrent(true);
+        String curStudyStage = student.getCurrentStudyStage();
+        StudyStage studyStage = studyStageRepo.findByStageCode(curStudyStage);
+        StudyStage nextStudyStage = studyStageRepo.findByOrder(studyStage.getOrder() + 1);
+        if(nextStudyStage != null){
+            Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(term, student.getMajor(), studyStage);
+            TuitionPlan semPlan = new TuitionPlan();
+            semPlan.setStudent(student);
+            semPlan.setTerm(term);
+            semPlan.setTuitionType(Constant.PLAN_TUITION_TYPE_SEMESTER);
+            semPlan.setTuitionName("ĐÓNG TIỀN HỌC PHÍ CHO KỲ " + term.getTermName());
+            int totalTuition = semester.getStageTuitionUsd();
+            int actualTuition;
+            int financialRate = student.getFinancialType().getFinancialRate();
+            if(financialRate == 100){
+                actualTuition = 0;
+            }else if(financialRate == 0){
+                actualTuition = totalTuition;
+            }else{
+                actualTuition = (int)(1 - (float)financialRate/100)*totalTuition;
             }
-        }, new Date());
+            System.out.println(Constant.ANSI_RED + "ACTUAL TUITION : " + actualTuition + Constant.ANSI_RESET);
+            tuitionPlanRepo.save(semPlan);
+        }
+
+        /**
+         * Retake Course Tuition
+         */
+        List<Course> listFaliedCourse = courseService.getAllFailedCourseOfStudent(student, term);
+        if(listFaliedCourse.size() > 0){
+            TuitionPlan plan;
+            int totalTuition;
+            for(Course course : listFaliedCourse){
+                plan = new TuitionPlan();
+                plan.setStudent(student);
+                plan.setTerm(term);
+                plan.setTuitionType(Constant.PLAN_TUITION_TYPE_SUBJECT);
+                plan.setTuitionName("ĐÓNG TIỀN HỌC LẠI CHO MÔN " + course.getSubjectInSemester().getSubject().getSubjectNameE());
+                totalTuition = Utils.calculateResitTuition(course.getSubjectInSemester().getNumberOfCredit(), student.getFinancialType().getFinancialTypeName(), student.getFinancialType().getFinancialRate());
+                plan.setTuition(totalTuition);
+
+                tuitionPlanRepo.save(plan);
+            }
+        }
+
+
     }
 
     /**
@@ -141,6 +208,7 @@ public class SemesterServiceImpl implements SemesterService {
      * @return
      */
     @Override
+    @Transactional(readOnly = true)
     public StudyStage findNextSemesterOfStudent(Student student, Term term) {
         List<Course> listCourse = courseRepo.findStudentCourseGroupByStudyStage(student);
         StudyStage curStudyStage = listCourse.get(0).getSubjectInSemester().getSemester().getStudyStage();
@@ -148,4 +216,6 @@ public class SemesterServiceImpl implements SemesterService {
         StudyStage nextStudyStage = studyStageRepo.findByOrder(order + 1);
         return nextStudyStage;
     }
+
 }
+

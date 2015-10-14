@@ -3,11 +3,16 @@ package com.project.fpt.sfm.web.controller.staff;
 
 import com.project.fpt.sfm.common.Utils;
 import com.project.fpt.sfm.entities.*;
+import com.project.fpt.sfm.processexcel.development.ExcelParser;
+import com.project.fpt.sfm.processexcel.development.model.CourseResultModel;
 import com.project.fpt.sfm.processexcel.development.model.StudentModel;
-import com.project.fpt.sfm.processexcel.model.SubjectDto;
 import com.project.fpt.sfm.processexcel.utils.AnnotatedExcelReport;
 import com.project.fpt.sfm.repository.*;
 import com.project.fpt.sfm.service.AdminService;
+import com.project.fpt.sfm.service.ScheduledTaskExample;
+import com.project.fpt.sfm.service.StudentService;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -32,16 +36,13 @@ public class StaffController {
     SubjectRepo subjectRepo;
     @Autowired
     AdminService adminService;
+    @Autowired
+    StudentService studentService;
 
     @RequestMapping("")
     public String home(Model model) {
         model.addAttribute("content", "staff/staff-home");
         model.addAttribute("sidebar", "staff/staff-sidebar");
-
-        Student student = studentRepo.findOne(5);
-        List<Course> list = courseRepo.findStudentCourseGroupByStudyStage(student);
-
-        System.out.println(list.get(0).getSubjectInSemester().getSemester().getStudyStage().getStageName());
 
         return "home";
     }
@@ -54,34 +55,42 @@ public class StaffController {
         return "home";
     }
 
+    @Autowired
+    ScheduledTaskExample example;
 
-    @RequestMapping(value = "/test/subject", method = RequestMethod.POST)
+    @RequestMapping(value = "/test/student", method = RequestMethod.POST)
     public String importSubject(@RequestParam("file") MultipartFile file, Model model) {
         model.addAttribute("content", "staff/add-study-result");
         model.addAttribute("sidebar", "staff/staff-sidebar");
 
         if (!file.isEmpty()) {
-            ByteArrayInputStream is = null;
+          /*  ExcelParser parser = new ExcelParser();
+
+            List<StudentModel> list = null;
             try {
-                is = new ByteArrayInputStream(file.getBytes());
-                AnnotatedExcelReport report = new AnnotatedExcelReport(is);
-                List<SubjectDto> listSubject = report.readData("com.project.fpt.sfm.processexcel.model.SubjectDto");
-                if (listSubject.size() > 0) {
-                    Subject subject;
-                    for (SubjectDto subjectDto : listSubject) {
-                        //System.out.println(subjectDto);
-                        subject = subjectDto.toSubject();
-                        if (subject != null) {
-                            subjectRepo.save(subject);
-                        }
-                    }
-                } else {
-                    System.out.println("Parse Error");
-                }
-                model.addAttribute("error", "OK");
-            } catch (Exception e) {
+                list = parser.parseStudentInformation(file);
+            } catch (InvalidFormatException e) {
                 e.printStackTrace();
             }
+            for(StudentModel m : list){
+                studentService.addNewStudent(m);
+            }
+            System.out.println("Size : " + list.size());*/
+
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                public void run() {
+                    example.shutdowh();
+                }
+            });
+            example.startScheduleTask();
+
+
+            System.out.println("DONE IN WEB");
+
+//            List<TuitionPaymentModel> list = parser.parseListTuitionPayment(file);
+
+          //  List<CourseResultModel> list = parser.parseStudyResult(file);
+
         } else {
             model.addAttribute("error", "File not found !!!");
         }
@@ -139,8 +148,6 @@ public class StaffController {
     @Autowired
     TermRepo termRepo;
     @Autowired
-    StudentStatusRepo studentStatusRepo;
-    @Autowired
     SemesterRepo semesterRepo;
     @Autowired
     ClassRepo classRepo;
@@ -158,7 +165,7 @@ public class StaffController {
         student.setFullName(model.getStudentName());
         student.setStudentCode(model.getStudentCode());
         student.setNote(model.getNote());
-        student.setTerm(model.getTerm());
+        student.setTerm(model.getAcademicYear());
         student.setDateOfBirth(new Date());
         student.setEmail(model.getStudentCode() + "@fpt.edu.vn");
         student.setSsn(UUID.randomUUID().toString().substring(0, 9));
@@ -170,11 +177,11 @@ public class StaffController {
         student.setParentPhone("-");
         //ChuyenNganh SE,SB
         Major major;
-        if (model.getMajor().equals("TKDH")) {
+        if (model.getSubMajor().equals("TKDH")) {
             major = majorRepo.findByMajorCode("TKDH");
-        } else if (model.getMajor().equals("ANATTT")) {
+        } else if (model.getSubMajor().equals("ANATTT")) {
             major = majorRepo.findByMajorCode("IA");
-        } else if (model.getMajor().equals("QTKD") || model.getMajor().equals("TCNH")) {
+        } else if (model.getSubMajor().equals("QTKD") || model.getSubMajor().equals("TCNH")) {
             major = majorRepo.findByMajorCode("SB");
         } else {
             major = majorRepo.findByMajorCode("SE");
@@ -182,12 +189,12 @@ public class StaffController {
         student.setMajor(major);
         //Financial type
         FinancialType financialType;
-        if (model.getFinanceType().equals("-") || model.getFinanceType().equals("")) {
+        if (model.getFinancialType().equals("-") || model.getFinancialType().equals("")) {
             financialType = financialTypeRepo.findByFinancialTypeName("BT");
-        } else if (model.getFinanceType().equals("NVD")) {
+        } else if (model.getFinancialType().equals("NVD")) {
             financialType = financialTypeRepo.findByFinancialTypeName("NVD");
         } else {
-            String[] financial = model.getFinanceType().split("-");
+            String[] financial = model.getFinancialType().split("-");
             if (financial.length > 1) {
                 int rate = Integer.parseInt(financial[1]);
                 financialType = financialTypeRepo.findByFinancialTypeNameAndFinancialRate(financial[0], rate);
@@ -198,24 +205,14 @@ public class StaffController {
         student.setFinancialType(financialType);
         //HOC KY
         StudyStage studyStage = null;
-        if (model.getSession().equals("PreG")) {
+        if (model.getTerm().equals("PreG")) {
             return null;
         } else {
-            studyStage = studyStageRepo.findByStageCode(model.getSession());
+            studyStage = studyStageRepo.findByStageCode(model.getTerm());
         }
 
         //Student status
-        StudentStatus studentStatus;
-        if (model.getStudentStatus().contains("HD")) {
-            studentStatus = studentStatusRepo.findByStatusName("HD");
-        } else if (model.getStudentStatus().contains("HL")) {
-            studentStatus = studentStatusRepo.findByStatusName("HL");
-        } else if (model.getStudentStatus().contains("TN")) {
-            studentStatus = studentStatusRepo.findByStatusName("TN");
-        } else {
-            studentStatus = studentStatusRepo.findByStatusName("TH");
-        }
-        student.setStudentStatus(studentStatus);
+        student.setStatus("");
         //Create User
         User user = new User();
         user.setUsername(model.getStudentCode());

@@ -4,7 +4,6 @@ import java.io.*;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
@@ -15,8 +14,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.streaming.SXSSFRow;
-import org.hibernate.tool.hbm2ddl.SchemaUpdateTask;
 
 /**
  * Created by Khắc Vỹ on 10/9/2015.
@@ -154,11 +151,20 @@ public class AnnotatedExcelReport {
                 Method method = constructMethod(clazz, fieldName);
 
                 if (type == 1) {
-
                     String value = cell.getStringCellValue();
-                    Object[] values = new Object[1];
-                    values[0] = value;
-                    method.invoke(one, values);
+
+                    Class<?> returnType = getGetterReturnClass(clazz, fieldName);
+                    if (returnType == Integer.class) {
+                        method.invoke(one, 0);
+                    } else if (returnType == Double.class) {
+                        method.invoke(one, 0d);
+                    } else if (returnType == Float.class) {
+                        method.invoke(one, 0f);
+                    }else{
+                        Object[] values = new Object[1];
+                        values[0] = value;
+                        method.invoke(one, values);
+                    }
                 } else if (type == 0) {
                     Double num = cell.getNumericCellValue();
                     Class<?> returnType = getGetterReturnClass(clazz, fieldName);

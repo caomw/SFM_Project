@@ -22,10 +22,10 @@ public class Constant {
      * FINANCE TYPE
      */
     public static final String FINANCE_TYPE_NORMAL = "BT";
-    public static final String FINANCE_TYPE_NVD = "NVĐ";
+    public static final String FINANCE_TYPE_NVD = "NVD";
     public static final String FINANCE_TYPE_SCHOLARSHIP = "HB";
     public static final String FINANCE_TYPE_LOANS_CREDIT = "TD";
-    public static final String FINANCE_TYPE_INVESTING = "ĐT";
+    public static final String FINANCE_TYPE_INVESTING = "DT";
 
     /**
      * Max Page Size
@@ -35,6 +35,11 @@ public class Constant {
      *
      */
     public static int COURSE_CREDIT_FEE_USD = 50;
+
+    public static int MONEY_CHECK = 22440;
+
+    public static int MONEY_RANGE = 50;
+
     /**
      * TERM
      */
@@ -53,5 +58,26 @@ public class Constant {
     public static int TERM_FALL_START_MONTH =  Calendar.SEPTEMBER;
     public static int TERM_FALL_END_DATE = 5;
     public static int TERM_FALL_END_MONTH =  Calendar.DECEMBER;
+
+    /**
+     * PLAN TUITION TYPE
+     */
+    public static String PLAN_TUITION_TYPE_SEMESTER = "PLAN_TUITION_SEMESTER";
+    public static String PLAN_TUITION_TYPE_SUBJECT = "PLAN_TUITION_SUBJECT";
+
+
+    public static String DEFAULT_STRING_VALUE = "-";
+
+    public static String DEFAULT_MISSING_DATA = "N/A";
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
 }

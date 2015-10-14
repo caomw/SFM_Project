@@ -31,4 +31,5 @@ public class SfmProjectApplication {
     public TaskScheduler scheduler() {
         return new ThreadPoolTaskScheduler();
     }
+
 }

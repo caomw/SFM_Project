@@ -126,4 +126,88 @@ $(document).ready(function () {
 
      });*/
 
+
+    /**
+     * Import Student Financial Information
+     */
+    $(document)
+        .on("click", "#financialInformation",
+        function () {
+            //start loading icon
+            var $icon = $(this).find(".glyphicon.glyphicon-refresh"),
+                animateClass = "glyphicon-refresh-animate";
+            $icon.addClass(animateClass);
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var oMyForm = new FormData();
+            var files = $('#financialInformationFile')[0].files[0];
+            oMyForm.append("file", files);
+            oMyForm.append('_csrf', token);
+            $.ajax({
+                dataType: 'json',
+                url: "/nhan-vien/tai-chinh/nhap-danh-sach-dong-hoc-phi",
+                data: oMyForm,
+                beforeSend: function (xhr) {
+                    // here it is
+                    xhr.setRequestHeader(header, token);
+                },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $icon.removeClass(animateClass);
+                    alert('upload ok : ' + result.result);
+                    alert('Upload Successful');
+                },
+                error: function (result) {
+                    $icon.removeClass(animateClass);
+                    alert('Upload Successful');
+                }
+            });
+        });
 });
+
+/**
+ * Import Student result
+ */
+function importStudyResult(classId, subInSemId, fileId){
+    //start loading icon
+    var $icon = $(this).find(".glyphicon.glyphicon-refresh"),
+        animateClass = "glyphicon-refresh-animate";
+    $icon.addClass(animateClass);
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    var oMyForm = new FormData();
+    var files = $(fileId)[0].files[0];
+    oMyForm.append("file", files);
+    oMyForm.append('_csrf', token);
+    oMyForm.append("classId", classId);
+    oMyForm.append("subInSemId", subInSemId);
+    $.ajax({
+        dataType: 'json',
+        url: "/nhan-vien/dao-tao/import-ket-qua-hoc-tap",
+        data: oMyForm,
+        beforeSend: function (xhr) {
+            // here it is
+            xhr.setRequestHeader(header, token);
+        },
+        type: "POST",
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            $icon.removeClass(animateClass);
+            alert('upload ok : ' + result.result);
+            alert('Upload Successful');
+        },
+        error: function (result) {
+            $icon.removeClass(animateClass);
+            alert('Upload Successful');
+        }
+    });
+};

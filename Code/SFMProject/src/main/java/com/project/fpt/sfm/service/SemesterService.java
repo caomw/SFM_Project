@@ -32,6 +32,8 @@ public interface SemesterService {
      */
     void planForTerm(Term oldTerm, Term newTerm);
 
+    void tuitionPlanForStudent(Student student);
+
     /**
      * Find next Study stage for student when create new Term
      * @param term

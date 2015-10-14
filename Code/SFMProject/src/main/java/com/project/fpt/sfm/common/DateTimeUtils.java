@@ -21,6 +21,17 @@ public class DateTimeUtils {
         return date;
     }
 
+    public static Date parseDate(String strDate, String pattern){
+        DateFormat fmt = new SimpleDateFormat(pattern, Locale.US);
+        Date date = null;
+        try {
+            date = fmt.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
     public static void main(String[] args) {
         System.out.println(parseDate("14 January 2015"));
     }

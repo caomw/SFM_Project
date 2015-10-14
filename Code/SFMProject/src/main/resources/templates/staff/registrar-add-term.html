@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="startDate">Ngày Bắt Đầu:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control term-date"
+                                        <input type="text" class="form-control academicYear-date"
                                                id="startDate" name="startDate"
                                                th:value="${#calendars.format(startDate, 'dd MMMM yyyy')}"
                                                placeholder=""/>
@@ -51,7 +51,7 @@
                                            for="endDate">Ngày Kết Thúc:</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control term-date"
+                                        <input type="text" class="form-control academicYear-date"
                                                id="endDate" name="endDate"
                                                th:value="${#calendars.format(endDate, 'dd MMMM yyyy')}"
                                                placeholder=""/>

@@ -1,54 +1,56 @@
 package com.project.fpt.sfm.processexcel.development.model;
 
-import com.project.fpt.sfm.processexcel.utils.ExcelColumn;
-import com.project.fpt.sfm.processexcel.utils.ExcelReport;
+import com.project.fpt.sfm.entities.Student;
 
 /**
  * Created by Khắc Vỹ on 10/12/2015.
  */
-@ExcelReport(documentName = "xx", className = "yy", sheetName = "sheet")
 public class StudentModel {
-    private Integer no;
+    private String no;
     private String studentCode;
     private String studentName;
-    private String major;
-    private String term;
+    private String subMajor;
+    private String academicYear;
     private String startMajorSemester;
     private String clazz;
-    private String session;
+    private String term;
     private String studentType;
-    private String financeType;
+    private String financialType;
     private String studentStatus;
     private String note;
+    private String major;
+    private String narrowSpecialization;
+    private String startEnglishLevel;
 
     public StudentModel() {
     }
 
-    public StudentModel(Integer no, String studentCode, String studentName, String major, String term, String startMajorSemester, String clazz, String session, String studentType, String financeType, String studentStatus, String note) {
+    public StudentModel(String no, String studentCode, String studentName, String subMajor, String academicYear, String startMajorSemester, String clazz, String term, String studentType, String financialType, String studentStatus, String note, String major, String narrowSpecialization, String startEnglishLevel) {
         this.no = no;
         this.studentCode = studentCode;
         this.studentName = studentName;
-        this.major = major;
-        this.term = term;
+        this.subMajor = subMajor;
+        this.academicYear = academicYear;
         this.startMajorSemester = startMajorSemester;
         this.clazz = clazz;
-        this.session = session;
+        this.term = term;
         this.studentType = studentType;
-        this.financeType = financeType;
+        this.financialType = financialType;
         this.studentStatus = studentStatus;
         this.note = note;
+        this.major = major;
+        this.narrowSpecialization = narrowSpecialization;
+        this.startEnglishLevel = startEnglishLevel;
     }
 
-    @ExcelColumn(label = "TT", order = 0)
-    public Integer getNo() {
+    public String getNo() {
         return no;
     }
 
-    public void setNo(Integer no) {
+    public void setNo(String no) {
         this.no = no;
     }
 
-    @ExcelColumn(label = "MSSV", order = 1)
     public String getStudentCode() {
         return studentCode;
     }
@@ -57,7 +59,6 @@ public class StudentModel {
         this.studentCode = studentCode;
     }
 
-    @ExcelColumn(label = "Họ tên", order = 2)
     public String getStudentName() {
         return studentName;
     }
@@ -66,25 +67,22 @@ public class StudentModel {
         this.studentName = studentName;
     }
 
-    @ExcelColumn(label = "Ngành học", order = 3)
-    public String getMajor() {
-        return major;
+    public String getSubMajor() {
+        return subMajor;
     }
 
-    public void setMajor(String major) {
-        this.major = major;
+    public void setSubMajor(String subMajor) {
+        this.subMajor = subMajor;
     }
 
-    @ExcelColumn(label = "Khóa nhập học", order = 4)
-    public String getTerm() {
-        return term;
+    public String getAcademicYear() {
+        return academicYear;
     }
 
-    public void setTerm(String term) {
-        this.term = term;
+    public void setAcademicYear(String academicYear) {
+        this.academicYear = academicYear;
     }
 
-    @ExcelColumn(label = "Kỳ bắt đầu học chuyên môn", order = 5)
     public String getStartMajorSemester() {
         return startMajorSemester;
     }
@@ -93,7 +91,6 @@ public class StudentModel {
         this.startMajorSemester = startMajorSemester;
     }
 
-    @ExcelColumn(label = "LỚP", order = 6)
     public String getClazz() {
         return clazz;
     }
@@ -102,16 +99,14 @@ public class StudentModel {
         this.clazz = clazz;
     }
 
-    @ExcelColumn(label = "KỲ HỌC", order = 7)
-    public String getSession() {
-        return session;
+    public String getTerm() {
+        return term;
     }
 
-    public void setSession(String session) {
-        this.session = session;
+    public void setTerm(String term) {
+        this.term = term;
     }
 
-    @ExcelColumn(label = "Diện", order = 8)
     public String getStudentType() {
         return studentType;
     }
@@ -120,15 +115,13 @@ public class StudentModel {
         this.studentType = studentType;
     }
 
-    @ExcelColumn(label = "Loại tài chính", order = 9)
-    public String getFinanceType() {
-        return financeType;
+    public String getFinancialType() {
+        return financialType;
     }
 
-    public void setFinanceType(String financeType) {
-        this.financeType = financeType;
+    public void setFinancialType(String financialType) {
+        this.financialType = financialType;
     }
-    @ExcelColumn(label = "Trạng thái sinh viên", order = 10)
     public String getStudentStatus() {
         return studentStatus;
     }
@@ -137,7 +130,6 @@ public class StudentModel {
         this.studentStatus = studentStatus;
     }
 
-    @ExcelColumn(label = "Ghi chú", order = 11)
     public String getNote() {
         return note;
     }
@@ -146,24 +138,49 @@ public class StudentModel {
         this.note = note;
     }
 
+    public String getStartEnglishLevel() {
+        return startEnglishLevel;
+    }
+
+    public void setStartEnglishLevel(String startEnglishLevel) {
+        this.startEnglishLevel = startEnglishLevel;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getNarrowSpecialization() {
+        return narrowSpecialization;
+    }
+
+    public void setNarrowSpecialization(String narrowSpecialization) {
+        this.narrowSpecialization = narrowSpecialization;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("StudentModel{");
         sb.append("no='").append(no).append('\'');
         sb.append(", studentCode='").append(studentCode).append('\'');
         sb.append(", studentName='").append(studentName).append('\'');
-        sb.append(", major='").append(major).append('\'');
-        sb.append(", term='").append(term).append('\'');
+        sb.append(", subMajor='").append(subMajor).append('\'');
+        sb.append(", academicYear='").append(academicYear).append('\'');
         sb.append(", startMajorSemester='").append(startMajorSemester).append('\'');
         sb.append(", clazz='").append(clazz).append('\'');
-        sb.append(", session='").append(session).append('\'');
+        sb.append(", term='").append(term).append('\'');
         sb.append(", studentType='").append(studentType).append('\'');
-        sb.append(", financeType='").append(financeType).append('\'');
+        sb.append(", financialType='").append(financialType).append('\'');
         sb.append(", studentStatus='").append(studentStatus).append('\'');
         sb.append(", note='").append(note).append('\'');
+        sb.append(", major='").append(major).append('\'');
+        sb.append(", narrowSpecialization='").append(narrowSpecialization).append('\'');
+        sb.append(", startEnglishLevel='").append(startEnglishLevel).append('\'');
         sb.append('}');
         return sb.toString();
     }
-
-
 }

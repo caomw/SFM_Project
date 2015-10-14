@@ -36,6 +36,10 @@ public class SubtractTuition  implements java.io.Serializable {
      private Set<TuitionPayment> tuitionPayments = new HashSet<TuitionPayment>(0);
 
     public SubtractTuition() {
+        this.dateCreated = new Date();
+        this.dateUpdated = new Date();
+        this.isActive = true;
+        this.note = "-";
     }
 
 	
@@ -135,8 +139,14 @@ public class SubtractTuition  implements java.io.Serializable {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("SubtractTuition{");
+        sb.append("subtractTuitionName='").append(subtractTuitionName).append('\'');
+        sb.append(", subtractTuition=").append(subtractTuition);
+        sb.append('}');
+        return sb.toString();
+    }
 }
 
 

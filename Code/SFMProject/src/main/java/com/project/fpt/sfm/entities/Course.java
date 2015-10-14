@@ -182,8 +182,20 @@ public class Course  implements java.io.Serializable {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Course{");
+        sb.append("clazz=").append(clazz.getClassName());
+        sb.append(", student=").append(student.getFullName());
+        sb.append(", mark=").append(mark);
+        sb.append(", isPass=").append(isPass);
+        sb.append(", isRetake=").append(isRetake);
+        sb.append(", note='").append(note).append('\'');
+        sb.append(", isActive=").append(isActive);
+        sb.append(", subjectInSemester=").append(subjectInSemester.getSubject().getSubjectNameE());
+        sb.append('}');
+        return sb.toString();
+    }
 }
 
 
