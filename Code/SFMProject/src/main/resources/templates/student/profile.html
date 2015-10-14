@@ -63,11 +63,18 @@
                                     </tr>
                                     <tr>
                                         <td><label>Tình Trạng</label></td>
-                                        <td th:text="${student.financialType}">Vay Tín Dụng 50%</td>
+
+                                        <th:block th:switch="${student.financialType.financialTypeName}">
+                                            <td th:case="'HB'" th:text="'Sinh Viên Học Bổng: ' + ${student.financialType.financialRate} + '%'">Sinh Viên Học Bổng</td>
+                                            <td th:case="'BT'">Sinh Viên Thường</td>
+                                            <td th:case="'TD'" th:text="'Sinh Viên Tín Dụng: ' + ${student.financialType.financialRate} + '%'">Sinh Viên Tín Dụng</td>
+                                            <td th:case="'DT'" th:text="'Sinh Viên Được Đầu Tư: ' + ${student.financialType.financialRate} + '%' ">Sinh Viên Được Đầu Tư</td>
+                                        </th:block>
+
                                     </tr>
                                     <tr>
                                         <td><label>Khóa Nhập Học</label></td>
-                                        <td th:text="${student.academicYear}">Khóa 7</td>
+                                        <td th:text="${student.term}">Khóa 7</td>
                                     </tr>
                                     <tr>
                                         <td><label>Học Kỳ Nhập Học</label></td>
