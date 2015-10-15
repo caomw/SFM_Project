@@ -5,6 +5,7 @@ import com.project.fpt.sfm.entities.Semester;
 import com.project.fpt.sfm.entities.Student;
 import com.project.fpt.sfm.service.StudentService;
 import com.project.fpt.sfm.service.TrungStudentService;
+import com.project.fpt.sfm.service.TuitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ public class StudentController {
 
     @Autowired
     TrungStudentService trungStudentService;
+    @Autowired
+    TuitionService tuitionService;
 
     @RequestMapping("")
     public String home(Model model) {
@@ -85,6 +88,19 @@ public class StudentController {
         }
         model.addAttribute("listStudentSemester", listSemester);
 
+        return "home";
+    }
+    @RequestMapping(value = "/hoc-phi-du-kien")
+    public String tuitionOverview(Model model) {
+        model.addAttribute("sidebar", "student/student-sidebar");
+        model.addAttribute("content", "student/tuition-overview");
+        /**
+         * Get current user login
+         */
+       Student student = trungStudentService.viewProfile();
+        List<Semester> semesters = tuitionService.getTuitionOfSemester(student.getMajor());
+        model.addAttribute("semesters",semesters);
+        model.addAttribute("student",student);
         return "home";
     }
 }

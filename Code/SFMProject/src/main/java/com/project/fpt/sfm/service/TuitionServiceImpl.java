@@ -124,7 +124,12 @@ public class TuitionServiceImpl implements TuitionService {
 
         StudyStage studyStage = studyStageRepo.findByStageCode(model.getNoiDungNopTien());
         Term curTerm = termRepo.findByIsCurrent(true);
+        System.out.println(model.getTenSinhVien());
+        System.out.println(curTerm.getTermName());
+        System.out.println(model.getNoiDungNopTien());
+        System.out.println(studyStage.getStageCode());
         Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(curTerm, student.getMajor(), studyStage);
+
         tPayment.setSemester(semester);
 
         //  int totalTuition = semester.getStageTuitionUsd() * Constant.MONEY_CHECK;
@@ -220,6 +225,12 @@ public class TuitionServiceImpl implements TuitionService {
         //return true;
         return tuitionPaymentRepo.save(tPayment) != null;
 
+    }
+
+    @Override
+    public List<Semester> getTuitionOfSemester(Major major) {
+        Term term = termRepo.findByIsCurrent(true);
+        return semesterRepo.findByMajorAndTerm(major, term);
     }
 
 }

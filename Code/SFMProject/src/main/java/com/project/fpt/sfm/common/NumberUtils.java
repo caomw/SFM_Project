@@ -13,4 +13,15 @@ public class NumberUtils {
         NumberFormat usa = NumberFormat.getNumberInstance(Locale.US);
         return usa.format(num);
     }
+    public static String calculateTuition(int tuition, int rate){
+        int total;
+        if (rate!=0) {
+            float factor = (float) rate / 100;
+            total = (int) (factor * tuition);
+        }else{
+            total = tuition;
+        }
+        NumberFormat usa = NumberFormat.getNumberInstance(Locale.US);
+        return usa.format(total);
+    }
 }

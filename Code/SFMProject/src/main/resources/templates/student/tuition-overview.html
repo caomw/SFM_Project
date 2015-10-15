@@ -8,12 +8,12 @@
 
                 <p><b th:text="${student.fullName}">Trần Khắc Vỹ</b> - <span th:text="${student.studentCode}">SE60964</span></p>
 
-               <th:block th:switch="${student.financialType}">
-                   <p th:case="'NVĐ'">Tình Trạng Tài Chính : <span> Học Bổng Nguyễn Văn Đạo</span></p>
-                   <p th:case="'HB'">Tình Trạng Tài Chính : <span th:text="'Học Bổng ' + ${rate} + ' %'"></span></p>
-                   <p th:case="'TD'">Tình Trạng Tài Chính : <span th:text="'Tín Dụng ' + ${rate} + ' %'">TD</span></p>
-                   <p  th:case="'ĐT'">Tình Trạng Tài Chính : <span th:text="'Cùng Bạn Đầu Tư ' + ${rate} + ' %'">DT</span></p>
-                   <p th:case="*">Tình Trạng Tài Chính : <span>N/A</span></p>
+               <th:block th:switch="${student.financialType.financialTypeName}">
+                   <p th:case="'NVD'">Tình Trạng Tài Chính : <span> Học Bổng Nguyễn Văn Đạo</span></p>
+                   <p th:case="'HB'">Tình Trạng Tài Chính : <span th:text="'Học Bổng ' + ${student.financialType.financialRate} + ' %'"></span></p>
+                   <p th:case="'TD'">Tình Trạng Tài Chính : <span th:text="'Tín Dụng ' + ${student.financialType.financialRate} + ' %'">TD</span></p>
+                   <p  th:case="'DT'">Tình Trạng Tài Chính : <span th:text="'Cùng Bạn Đầu Tư ' + ${student.financialType.financialRate} + ' %'">DT</span></p>
+                   <p th:case="*">Tình Trạng Tài Chính : <span>BT</span></p>
                </th:block>
 
                 <div class="box box-borderless">
@@ -56,15 +56,16 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="item, i : ${listTuition}">
+                        <tr th:each="item, i : ${semesters}">
                             <td th:text="${i.count}">1.</td>
-                            <td th:text="${item.abbreviation}">PhiNH</td>
-                            <td th:text="${item.tuitionName}">
+                            <td th:text="${item.studyStage.stageCode}">PhiNH</td>
+                            <td th:text="${item.studyStage.stageName}">
                                 Phí Nhập Học
                             </td>
-                            <td th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(item.tuitionVnd)}">4,400,000</td>
-                            <td th:if="${rate == 100}">0</td>
-                            <td th:if="${rate &lt; 100}" th:with="num=(${item.tuitionVnd}*${rate}/100)" th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(num)}">4,400,000</td>
+                            <td th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(item.stageTuitionUsd)}">4,400,000</td>
+                            <td th:if="${student.financialType.financialRate == 100}">0</td>
+                            <!--<td th:if="${student.financialType.financialRate &lt; 100}" th:with="num=(${item.stageTuitionUsd}*${student.financialType.financialRate}/100)" th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(num)}">4,400,000</td>-->
+                            <td th:if="${student.financialType.financialRate &lt; 100}"  th:text="${T(com.project.fpt.sfm.common.NumberUtils).calculateTuition(item.stageTuitionUsd,student.financialType.financialRate)}">4,400,000</td>
                         </tr>
                         </tbody>
                     </table>
