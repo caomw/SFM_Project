@@ -50,6 +50,8 @@ public class StudentServiceImpl implements StudentService{
     CourseRepo courseRepo;
     @Autowired
     TuitionPlanRepo tuitionPlanRepo;
+    @Autowired
+    RetakeSubjectPaymentRepo retakeSubjectPaymentRepo;
     /**
      * Save Student entity from Student Template
      *
@@ -317,5 +319,10 @@ public class StudentServiceImpl implements StudentService{
                 tuitionPlanRepo.save(plan);
             }
         }
+    }
+
+    @Override
+    public List<RetakeSubjectPayment> getListResitCourse(int studentId) {
+        return retakeSubjectPaymentRepo.findByStudentStudentId(studentId);
     }
 }

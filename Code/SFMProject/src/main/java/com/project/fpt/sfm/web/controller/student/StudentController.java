@@ -1,6 +1,7 @@
 package com.project.fpt.sfm.web.controller.student;
 
 import com.project.fpt.sfm.entities.Course;
+import com.project.fpt.sfm.entities.RetakeSubjectPayment;
 import com.project.fpt.sfm.entities.Semester;
 import com.project.fpt.sfm.entities.Student;
 import com.project.fpt.sfm.service.StudentService;
@@ -25,6 +26,8 @@ public class StudentController {
     TrungStudentService trungStudentService;
     @Autowired
     TuitionService tuitionService;
+    @Autowired
+    StudentService studentService;
 
     @RequestMapping("")
     public String home(Model model) {
@@ -101,6 +104,19 @@ public class StudentController {
         List<Semester> semesters = tuitionService.getTuitionOfSemester(student.getMajor());
         model.addAttribute("semesters",semesters);
         model.addAttribute("student",student);
+        return "home";
+    }
+    @RequestMapping(value = "/cac-mon-no")
+    public String resitcourse(Model model){
+        model.addAttribute("sidebar", "student/student-sidebar");
+        model.addAttribute("content", "student/resit-course-history");
+
+        Student student = trungStudentService.viewProfile();
+        List<RetakeSubjectPayment> retakeSubjectPayments = studentService.getListResitCourse(student.getStudentId());
+
+        model.addAttribute("student",student);
+        model.addAttribute("retakeSubjectPayments",retakeSubjectPayments);
+
         return "home";
     }
 }

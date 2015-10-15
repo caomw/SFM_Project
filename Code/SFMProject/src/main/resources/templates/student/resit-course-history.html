@@ -52,19 +52,19 @@
                                 <th>Ghi Chú</th>
                                 <th>Thêm</th>
                             </tr>
-                            <tr th:if="${listResitCourse.size() == 0}">
+                            <tr th:if="${retakeSubjectPayments.size() == 0}">
                                 <td colspan="7" class="text-center"><b>ĐANG CẬP NHẬT</b>
                                 </td>
                             </tr>
-                            <tr th:each="item,i : ${listResitCourse}" th:with="sub=${item.course.subject}">
+                            <tr th:each="item,i : ${retakeSubjectPayments}" th:with="sub=${item.subjectInSemester.subject}">
                                 <td th:text="${i.count}">1.</td>
                                 <td th:text="${sub.subjectCode}">
                                     PRJ
                                 </td>
-                                <td th:text="${sub.englishName}">Advance Java</td>
-                                <td th:text="${sub.numOfCredit}">3</td>
-                                <td th:text="${item.semester.season.seasonName}">Fall 2015</td>
-                                <td th:text="${item.isResit} ? 'Học Lại' : '-'">Nợ Môn</td>
+                                <td th:text="${sub.subjectNameE}">Advance Java</td>
+                                <td th:text="${item.subjectInSemester.numberOfCredit}">3</td>
+                                <td th:text="${item.subjectInSemester.semester.term.termName}">Fall 2015</td>
+                                <td>Nợ Môn</td>
                                 <td>-</td>
                             </tr>
                             </tbody>
