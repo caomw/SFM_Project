@@ -59,6 +59,7 @@ public class FinancialStaffController {
                 if(list.size() > 0){
                     for(TuitionPaymentModel tuitionPayment : list){
                         System.out.println(tuitionPayment);
+                        tuitionService.saveTuitionPayment(tuitionPayment);
                     }
                 }
 

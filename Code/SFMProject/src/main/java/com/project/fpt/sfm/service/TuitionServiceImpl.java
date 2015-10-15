@@ -20,6 +20,8 @@ import java.util.List;
 @Service
 public class TuitionServiceImpl implements TuitionService {
     @Autowired
+    CourseService courseService;
+    @Autowired
     StudentRepo studentRepo;
     @Autowired
     StudyStageRepo studyStageRepo;
@@ -33,6 +35,8 @@ public class TuitionServiceImpl implements TuitionService {
     TuitionPaymentRepo tuitionPaymentRepo;
     @Autowired
     CourseRepo courseRepo;
+    @Autowired
+    ClassRepo classRepo;
 
     @Override
     public boolean saveTuitionPayment(TuitionPaymentModel model) {
@@ -43,27 +47,67 @@ public class TuitionServiceImpl implements TuitionService {
         int subtractLaptop = 0;
         int subtractMath = 0;
         int subtractOther = 0;
+
+        /**
+         * Total
+         */
         try {
             Double ttTuition = Double.parseDouble(model.getMucHocPhi());
             totalTuition = ttTuition.intValue();
-            Double pTuition = Double.parseDouble(model.getSoTienSvChuyenKhoan());
-            paidTuition = pTuition.intValue();
-            Double subLaptop = Double.parseDouble(model.getLaptop());
-            subtractLaptop = subLaptop.intValue();
-            Double subMath = Double.parseDouble(model.getOnToan());
-            subtractLaptop = subMath.intValue();
-            Double subOther = Double.parseDouble(model.getKhac());
-            subtractLaptop = subOther.intValue();
         } catch (Exception e) {
             totalTuition = 0;
+        }
+
+        /**
+         * Paid
+         */
+        try {
+            Double pTuition = Double.parseDouble(model.getSoTienSvChuyenKhoan());
+            paidTuition = pTuition.intValue();
+        } catch (Exception e) {
             paidTuition = 0;
+        }
+
+        /**
+         * Laptop
+         */
+        try {
+            Double subLaptop = Double.parseDouble(model.getLaptop());
+            subtractLaptop = subLaptop.intValue();
+        } catch (Exception e) {
             subtractLaptop = 0;
+        }
+
+        /**
+         * Math
+         */
+        try {
+            Double subMath = Double.parseDouble(model.getOnToan());
+            subtractMath = subMath.intValue();
+        } catch (Exception e) {
             subtractMath = 0;
+        }
+
+        /**
+         * Other
+         */
+        try {
+            Double subOther = Double.parseDouble(model.getKhac());
+            subtractOther = subOther.intValue();
+        } catch (Exception e) {
             subtractOther = 0;
         }
 
         tPayment.setTotalTuition(totalTuition);
         tPayment.setPaidTuition(paidTuition);
+
+        System.out.println(Constant.ANSI_RED + "Student : " + model.getTenSinhVien());
+        System.out.println(Constant.ANSI_RED + "Total : " + totalTuition);
+        System.out.println(Constant.ANSI_RED + "Paid : " + paidTuition);
+        System.out.println(Constant.ANSI_RED + "Laptop : " + subtractLaptop);
+        System.out.println(Constant.ANSI_RED + "OnToan : " + subtractMath);
+        System.out.println(Constant.ANSI_RED + "Othe : " + subtractOther);
+
         tPayment.setBank(model.getNganHang());
         if (model.getNgayChuyenKhoan() != null) {
             Date transferDate = DateTimeUtils.parseDate(model.getNgayChuyenKhoan(), "dd/MM/yyyy");
@@ -89,49 +133,62 @@ public class TuitionServiceImpl implements TuitionService {
          * Subtract tuition
          */
 
-        SubtractTuition subTuition = null;
         FinancialType fType = student.getFinancialType();
 
         if (subtractLaptop > 0) {
-            subTuition = new SubtractTuition();
+            SubtractTuition subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("LAPTOP");
             subTuition.setSubtractTuition(subtractLaptop);
             totalSubTuition += subtractLaptop;
+
+            subtractTuitionRepo.save(subTuition);
+            tPayment.setSubtractTuition(subTuition);
         }
         if (subtractMath > 0) {
-            subTuition = new SubtractTuition();
+            SubtractTuition subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("ÔN TOÁN");
             subTuition.setSubtractTuition(subtractMath);
             totalSubTuition += subtractMath;
+
+            subtractTuitionRepo.save(subTuition);
+            tPayment.setSubtractTuition(subTuition);
         }
         if (subtractOther > 0) {
-            subTuition = new SubtractTuition();
+            SubtractTuition subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("KHÁC");
             subTuition.setSubtractTuition(subtractOther);
             totalSubTuition += subtractOther;
+
+            subtractTuitionRepo.save(subTuition);
+            tPayment.setSubtractTuition(subTuition);
         }
 
+        SubtractTuition subTuition = null;
         if (fType.getFinancialTypeName().equals(Constant.FINANCE_TYPE_SCHOLARSHIP)) {
-            subTuition = new SubtractTuition();
+             subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("HOC BONG " + fType.getFinancialRate() + " %");
             float factor = (float) fType.getFinancialRate() / 100;
             int sTuition = (int) (totalTuition * factor);
             subTuition.setSubtractTuition(sTuition);
             totalSubTuition += sTuition;
         } else if (fType.getFinancialTypeName().equals(Constant.FINANCE_TYPE_LOANS_CREDIT)) {
-            subTuition = new SubtractTuition();
+              subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("TIN DUNG " + fType.getFinancialRate() + " %");
             float factor = (float) fType.getFinancialRate() / 100;
             int sTuition = (int) (totalTuition * factor);
             subTuition.setSubtractTuition(sTuition);
             totalSubTuition += sTuition;
         } else if (fType.getFinancialTypeName().equals(Constant.FINANCE_TYPE_INVESTING)) {
-            subTuition = new SubtractTuition();
+             subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("CUNG BAN DAU TU " + fType.getFinancialRate() + " %");
             float factor = (float) fType.getFinancialRate() / 100;
             int sTuition = (int) (totalTuition * factor);
             subTuition.setSubtractTuition(sTuition);
             totalSubTuition += sTuition;
+        }
+        if(subTuition != null){
+            subtractTuitionRepo.save(subTuition);
+            tPayment.setSubtractTuition(subTuition);
         }
 
         int realTotalTuition = totalTuition - totalSubTuition;
@@ -141,23 +198,27 @@ public class TuitionServiceImpl implements TuitionService {
             /**
              * Enable Student course
              */
+            if (!model.getLop().equals(Constant.DEFAULT_STRING_VALUE)) {
+                Clazz clazz = classRepo.findByClassName(model.getLop());
+                courseService.addCourseForStudent(student, clazz);
+            }
 
         } else {
             tPayment.setStatus(false);
         }
 
-
+/*
         if (subTuition != null) {
             System.out.println("Subtract : " + subTuition);
 
-           // subtractTuitionRepo.save(subTuition);
+            subtractTuitionRepo.save(subTuition);
             tPayment.setSubtractTuition(subTuition);
-        }
+        }*/
 
         System.out.println("Payment : " + tPayment);
 
-        return true;
-        //return tuitionPaymentRepo.save(tPayment) != null;
+        //return true;
+        return tuitionPaymentRepo.save(tPayment) != null;
 
     }
 

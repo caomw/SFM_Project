@@ -24,6 +24,10 @@ public class CourseServiceImpl implements CourseService{
     ClassRepo classRepo;
     @Autowired
     SubInSemesterRepo subInSemesterRepo;
+    @Autowired
+    StudyStageRepo studyStageRepo;
+    @Autowired
+    SemesterRepo semesterRepo;
     /**
      * Get All Retake of a student
      *
@@ -48,10 +52,34 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public List<Course> getAllCourseInSemester() {
+    public List<Course> getAllCourseInSemesterGroupByClass() {
         Term term = termRepo.findByIsCurrent(true);
         List<Course> listCourse = courseRepo.findCourseInTermOrderByClass(term);
         return listCourse;
+    }
+
+    @Override
+    public void addCourseForStudent(Student student, Clazz clazz) {
+        Term term = termRepo.findByIsCurrent(true);
+        StudyStage studyStage = studyStageRepo.findByStageCode(student.getCurrentStudyStage());
+        Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(term, student.getMajor(), studyStage);
+        if(semester != null){
+            List<SubjectInSemester> listSubInSem = subInSemesterRepo.findBySemester(semester);
+            if(listSubInSem.size() > 0){
+                Course course;
+                for(SubjectInSemester item : listSubInSem){
+                    course = new Course();
+                    course.setStudent(student);
+                    course.setClazz(clazz);
+                    course.setSubjectInSemester(item);
+                    course.setMark(-1);
+                    course.setIsRetake(false);
+                    course.setIsPass(false);
+
+                    courseRepo.save(course);
+                }
+            }
+        }
     }
 
     @Override

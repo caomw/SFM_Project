@@ -35,6 +35,10 @@ public class StudentServiceImpl implements StudentService{
     @Autowired
     UserRepo userRepo;
     @Autowired
+    RoleRepo roleRepo;
+    @Autowired
+    UserRoleRepo userRoleRepo;
+    @Autowired
     StudentRepo studentRepo;
     @Autowired
     ClassRepo classRepo;
@@ -225,6 +229,15 @@ public class StudentServiceImpl implements StudentService{
         user.setUsername(model.getStudentCode());
         user.setPassword(Utils.generatePassword());
         userRepo.save(user);
+        /**
+         * User Role
+         */
+        UserRole userRole = new UserRole();
+        userRole.setUser(user);
+        Role role = roleRepo.findByRoleName(Constant.ROLE_STUDENT);
+        userRole.setRole(role);
+        userRoleRepo.save(userRole);
+
         student.setUser(user);
         studentRepo.save(student);
 

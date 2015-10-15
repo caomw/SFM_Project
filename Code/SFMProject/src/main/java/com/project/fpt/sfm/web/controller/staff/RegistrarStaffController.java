@@ -3,7 +3,6 @@ package com.project.fpt.sfm.web.controller.staff;
 import com.project.fpt.sfm.common.Constant;
 import com.project.fpt.sfm.common.Utils;
 import com.project.fpt.sfm.entities.*;
-import com.project.fpt.sfm.processexcel.model.StudentTemplate;
 import com.project.fpt.sfm.processexcel.model.StudyResultTemplate;
 import com.project.fpt.sfm.processexcel.utils.AnnotatedExcelReport;
 import com.project.fpt.sfm.service.CourseService;
@@ -122,7 +121,7 @@ public class RegistrarStaffController {
         model.addAttribute("sidebar", "staff/staff-sidebar");
 
         Map<Clazz, List<SubjectInSemester>> map = new HashMap<>();
-        List<Course> listCourse = courseService.getAllCourseInSemester();
+        List<Course> listCourse = courseService.getAllCourseInSemesterGroupByClass();
         List<SubjectInSemester> tmp;
         for(Course c : listCourse){
             tmp = new ArrayList<>();
