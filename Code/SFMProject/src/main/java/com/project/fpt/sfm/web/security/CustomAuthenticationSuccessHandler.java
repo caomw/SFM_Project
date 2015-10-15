@@ -51,7 +51,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
      * Build target url depend on logged user
      */
     protected String determineTargetUrl(Authentication authentication) {
-        String url = "/student";
+        String url = "/sinh-vien";
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority authority : authorities) {
             System.out.println("Role : " + authority.getAuthority());

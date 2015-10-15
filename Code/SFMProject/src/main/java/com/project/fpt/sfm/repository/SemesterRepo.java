@@ -21,5 +21,4 @@ public interface SemesterRepo extends JpaRepository<Semester, Integer>{
     List<Semester> findByTermGroupByMajor(Term term);
     Semester findByTermAndMajorMajorIdAndStudyStageStudyStageId(Term term, Integer majorId, Integer studyStageId);
     Semester findByTermAndMajorAndStudyStage(Term term, Major major, StudyStage stage);
-
 }

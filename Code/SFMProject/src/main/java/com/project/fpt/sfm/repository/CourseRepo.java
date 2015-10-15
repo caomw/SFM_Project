@@ -28,4 +28,10 @@ public interface CourseRepo extends JpaRepository<Course, Integer>{
 
     @Query(value = "SELECT u FROM Course u where u.subjectInSemester.semester.term = ?1")
     List<Course> findCourseOfStudentInTerm(Term term);
+
+    @Query(value="SELECT u FROM Course u where u.student=?1 and u.subjectInSemester.semester=?2 and u.isActive=true")
+    List<Course> findCourseByStudentAndSemester(Student student, Semester semester);
+
+    @Query(value = "SELECT u FROM Course u where u.student = ?1 group by u.subjectInSemester.semester")
+    List<Course> findStudentCourseGroupBySemester(Student student);
 }
