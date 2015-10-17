@@ -144,15 +144,48 @@ Khoa:
 	_ "User can sort table's items by...."
 	_ 
 
+09/10/2015
+Review Demo:
+	Staff: vai tro dao tao se nhap toan bo danh sach sinh vien vao tron he thong
+	Sinh vien xem duoc thong tin cua minh
+	Staff import ket qua cuoi ky
+	Sinh vien xem duoc ket qua cuoi ky
+	Staff nhap vao plan dong tien hoc
+	Sinh vien nhan duoc notify plan ke hoach
+	Sau khi dong tien sinh vien nhan duoc thong tin phan hoi
+	Them form cau hinh hoc ky fall(ngay a->ngay b) summer(ngay a->ngay b) spring(ngay a->ngay b)
+	
 
+14/10/2015
+Review Demo:
+	Noi ta da co nhung ngay vui, bao nhieu an ai xin ....
+	_ Phan quyen rieng tung staff
+	_ Staff dao tao: Nam 2016 ngay bat dau hoc ky Spring la tu ngay may den ngay may
+	_ Service Student Staff:
+		+ Chi duoc them vao template mau chu khong duoc xoa cot nao ca
+	_ Lam theo file chuan chu k tao file moi
+	_ 
 
+	B1: Nhap vao danh sach sinh vien (Staff xem duoc danh sach sinh vien vua nhap) -> Sinh vien xem duoc thong tin cua minh
+	B2: Tao hoc ky moi
+	B3: He thong notify cho sinh vien biet so tien can dong tien hoc
+	B4: Nhap thong tin dong hoc phi cua sinh vien
+	B5: Nhap ket qua hoc tap cuoi ky cua sinh vien -> Sinh vien xem duoc ket qua cuoi hoc ky
+	B6: Chinh thoi gian he thong -> Truoc 3 tuan he thong len plan dong hoc phi cho sinh vien
+	B7: tro lai B3
+	B8: Sau khi dong tien sinh vien nhan duoc thong tin phan hoi
+	B9: 
 
-
-
-
-
-
-
+17/10/2015
+Review Demo:
+	_ Hien thi ten tren account
+	_ Ghi thong tin co ban trong bang hoc phi du kien them phan du kien thoi gian se hoc bao nhieu nam tu nam nao den nam nao 
+	_ User account khong duoc code cung
+	_ Sai giua tien USD va tien VND (De so sanh cho thay hoc phi cac ky) Cho bang thong tin trang thai dong hoc phi
+	_ Bat nam cua so khac nhau de dang nhap vao cac quyen khac nhau
+	_ Cho dong hoc phi
+	_ Setup cho he thong tu dong tao hoc ky moi
+	_ 
 
 
 
