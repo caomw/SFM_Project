@@ -30,7 +30,7 @@ import java.util.UUID;
  * Created by Khắc Vỹ on 10/4/2015.
  */
 @Controller
-@RequestMapping("/staff")
+@RequestMapping("/nhan-vien")
 public class StaffController {
     @Autowired
     SubjectRepo subjectRepo;

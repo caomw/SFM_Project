@@ -56,10 +56,10 @@ public class FinancialStaffController {
             try {
                 ExcelParser parser = new ExcelParser();
                 List<TuitionPaymentModel> list = parser.parseListTuitionPayment(file);
-                if(list.size() > 0){
-                    for(TuitionPaymentModel tuitionPayment : list){
-                        System.out.println(tuitionPayment);
-                        tuitionService.saveTuitionPayment(tuitionPayment);
+                if (list.size() > 0) {
+                    for (TuitionPaymentModel m : list) {
+                        System.out.println(m);
+                        tuitionService.saveTuitionPayment(m);
                     }
                 }
 
@@ -68,23 +68,7 @@ public class FinancialStaffController {
                 e.printStackTrace();
             }
 
-
-
-            /*ByteArrayInputStream is = null;
-            try {
-                is = new ByteArrayInputStream(file.getBytes());
-                AnnotatedExcelReport report = new AnnotatedExcelReport(is);
-                List<TuitionPaymentTemplate> listStudent = report.readData("com.project.fpt.sfm.processexcel.model.TuitionPaymentTemplate");
-
-                for (TuitionPaymentTemplate tem : listStudent) {
-                    tuitionService.saveTuitionPayment(tem);
-                }
-
-                response.setResult("OK");
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.setResult(e.toString());
-            }*/
+            response.setResult("OK");
         } else {
             response.setResult("File Not Found");
         }

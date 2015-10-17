@@ -172,7 +172,7 @@ public class SemesterServiceImpl implements SemesterService {
             }else if(financialRate == 0){
                 actualTuition = totalTuition;
             }else{
-                actualTuition = (int)(1 - (float)financialRate/100)*totalTuition;
+                actualTuition = (int)((1 - (float) financialRate / 100) * totalTuition);
             }
             System.out.println(Constant.ANSI_RED + "ACTUAL TUITION : " + actualTuition + Constant.ANSI_RESET);
             tuitionPlanRepo.save(semPlan);
@@ -181,11 +181,12 @@ public class SemesterServiceImpl implements SemesterService {
         /**
          * Retake Course Tuition
          */
-        List<Course> listFaliedCourse = courseService.getAllFailedCourseOfStudent(student, term);
-        if(listFaliedCourse.size() > 0){
+        List<Course> listFailedCourse = courseService.getAllFailedCourseOfStudent(student);
+        System.out.println("Student : " + student.getFullName() + " , failed : " + listFailedCourse.size());
+        if(listFailedCourse.size() > 0){
             TuitionPlan plan;
             int totalTuition;
-            for(Course course : listFaliedCourse){
+            for(Course course : listFailedCourse){
                 plan = new TuitionPlan();
                 plan.setStudent(student);
                 plan.setTerm(term);

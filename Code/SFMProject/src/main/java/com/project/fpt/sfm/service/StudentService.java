@@ -6,6 +6,8 @@ import com.project.fpt.sfm.entities.Term;
 import com.project.fpt.sfm.processexcel.development.model.StudentModel;
 import com.project.fpt.sfm.processexcel.model.StudentTemplate;
 
+import java.util.List;
+
 /**
  * Created by Khắc Vỹ on 10/13/2015.
  */
@@ -26,4 +28,6 @@ public interface StudentService {
     void tuitionPlanForNewStudent(Student student, StudyStage stage, Term term);
 
     void retakeCourseTuitionPlan(Student student, Term term);
+
+    List<Student> getListNewStudent();
 }

@@ -9,7 +9,7 @@ import org.apache.poi.ss.usermodel.*;
  */
 public class ExcelUtils {
     public static String getValueOfCell(Cell cell, int type) {
-        String value = "";
+        String value = Constant.DEFAULT_STRING_VALUE;
         switch (type) {
             case Cell.CELL_TYPE_STRING:
                 value = cell.getStringCellValue().trim();
@@ -29,6 +29,9 @@ public class ExcelUtils {
             default:
                 value = Constant.DEFAULT_STRING_VALUE;
                 break;
+        }
+        if("".equals(value) || value == null){
+            return Constant.DEFAULT_STRING_VALUE;
         }
 
         return value;

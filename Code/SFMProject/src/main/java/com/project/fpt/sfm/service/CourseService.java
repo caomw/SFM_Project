@@ -16,7 +16,7 @@ public interface CourseService {
      * @param student
      * @return
      */
-    List<Course> getAllFailedCourseOfStudent(Student student, Term term);
+    List<Course> getAllFailedCourseOfStudent(Student student);
 
     List<Course> getAllCourseInSemesterGroupByClass();
 

@@ -1,8 +1,9 @@
 package com.project.fpt.sfm.web.controller.student;
 
-import com.project.fpt.sfm.entities.Course;
-import com.project.fpt.sfm.entities.Semester;
-import com.project.fpt.sfm.entities.Student;
+import com.project.fpt.sfm.entities.*;
+import com.project.fpt.sfm.repository.TermRepo;
+import com.project.fpt.sfm.repository.TuitionPaymentRepo;
+import com.project.fpt.sfm.repository.TuitionPlanRepo;
 import com.project.fpt.sfm.service.StudentService;
 import com.project.fpt.sfm.service.TrungStudentService;
 import com.project.fpt.sfm.service.TuitionService;
@@ -12,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -25,28 +28,69 @@ public class StudentController {
     TrungStudentService trungStudentService;
     @Autowired
     TuitionService tuitionService;
+    @Autowired
+    TermRepo termRepo;
+    @Autowired
+    TuitionPlanRepo tuitionPlanRepo;
+    @Autowired
+    TuitionPaymentRepo tuitionPaymentRepo;
 
     @RequestMapping("")
-    public String home(Model model) {
+    public String home(Model model, HttpServletRequest request) {
         model.addAttribute("sidebar", "student/student-sidebar");
         model.addAttribute("content", "student/student-home");
 
         /**
          * Get current user login
          */
-//        Student student = studentService.getCurrentStudent();
-//        if (student != null) {
-//            String financeType = student.getFinancialType().getFinancialTypeName();
-//            model.addAttribute("financeType", financeType);
-//        } else {
-//            model.addAttribute("error", "Something went wrong !");
-//        }
+        Student student = trungStudentService.viewProfile();
+        Term curTerm = termRepo.findByIsCurrent(true);
+        List<TuitionPlan> listPlan = tuitionPlanRepo.findByTermAndStudent(curTerm, student);
+        if (listPlan.size() > 0) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("plan", listPlan);
+        }
+
+        return "home";
+    }
+
+
+    @RequestMapping("/ke-hoach-nop-hoc-phi")
+    public String tuitionPlan(Model model, HttpServletRequest request) {
+        model.addAttribute("sidebar", "student/student-sidebar");
+        model.addAttribute("content", "student/tuition-plan");
+
+        /**
+         * Get current user login
+         */
+        Student student = trungStudentService.viewProfile();
+        Term curTerm = termRepo.findByIsCurrent(true);
+
+        model.addAttribute("term", curTerm);
+        model.addAttribute("student", student);
 
 
         return "home";
     }
+
+/*
     @RequestMapping("/thong-tin-ca-nhan")
-    public String viewProfile(Model model){
+    public String viewProfile(Model model) {
+        model.addAttribute("sidebar", "student/student-sidebar");
+        model.addAttribute("content", "student/profile");
+
+        */
+
+    /**
+     * Get current user login
+     *//*
+        Student student = trungStudentService.viewProfile();
+        model.addAttribute("student", student);
+
+        return "home";
+    }*/
+    @RequestMapping("/thong-tin-ca-nhan")
+    public String viewProfile(Model model) {
         model.addAttribute("sidebar", "student/student-sidebar");
         model.addAttribute("content", "student/profile");
 
@@ -60,7 +104,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/cac-ky-da-hoc")
-    public String studyHistory(Model model, @RequestParam(value = "maso", defaultValue = "-1", required = false) int semesterId){
+    public String studyHistory(Model model, @RequestParam(value = "maso", defaultValue = "-1", required = false) int semesterId) {
         model.addAttribute("sidebar", "student/student-sidebar");
         model.addAttribute("content", "student/study-history");
 
@@ -73,9 +117,9 @@ public class StudentController {
                 currentSemester = listSemester.remove(0);
             } else {
                 currentSemester = trungStudentService.findSemesterById(semesterId);
-                if(currentSemester != null){
+                if (currentSemester != null) {
                     listSemester.remove(currentSemester);
-                }else{
+                } else {
                     currentSemester = listSemester.remove(0);
                 }
             }
@@ -83,13 +127,14 @@ public class StudentController {
             /**
              * Get List Course
              */
-            List<Course> listStudyCourse = trungStudentService.getListCourse(student,currentSemester);
+            List<Course> listStudyCourse = trungStudentService.getListCourse(student, currentSemester);
             model.addAttribute("listCourse", listStudyCourse);
         }
         model.addAttribute("listStudentSemester", listSemester);
 
         return "home";
     }
+
     @RequestMapping(value = "/hoc-phi-du-kien")
     public String tuitionOverview(Model model) {
         model.addAttribute("sidebar", "student/student-sidebar");
@@ -97,10 +142,27 @@ public class StudentController {
         /**
          * Get current user login
          */
-       Student student = trungStudentService.viewProfile();
+        Student student = trungStudentService.viewProfile();
         List<Semester> semesters = tuitionService.getTuitionOfSemester(student.getMajor());
-        model.addAttribute("semesters",semesters);
-        model.addAttribute("student",student);
+        model.addAttribute("semesters", semesters);
+        model.addAttribute("student", student);
         return "home";
     }
+
+    @RequestMapping(value = "/hoc-phi-cac-ky")
+    public String tuitionInformation(Model model) {
+        model.addAttribute("sidebar", "student/student-sidebar");
+        model.addAttribute("content", "student/tuition-history");
+        /**
+         * Get current user login
+         */
+        Student student = trungStudentService.viewProfile();
+        List<TuitionPayment> list = tuitionPaymentRepo.findByStudent(student);
+
+        model.addAttribute("list", list);
+
+
+        return "home";
+    }
+
 }

@@ -61,7 +61,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             } else if (authority.getAuthority().equals(Constant.ROLE_MANAGER)) {
                 url = "/manager";
             } else if (authority.getAuthority().equals(Constant.ROLE_STAFF)) {
-                url = "/staff";
+                url = "/nhan-vien";
             }
         }
 

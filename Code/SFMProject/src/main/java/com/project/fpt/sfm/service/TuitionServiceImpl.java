@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Khắc Vỹ on 10/14/2015.
@@ -41,13 +42,39 @@ public class TuitionServiceImpl implements TuitionService {
     @Override
     public boolean saveTuitionPayment(TuitionPaymentModel model) {
         TuitionPayment tPayment = new TuitionPayment();
+        /**
+         * Student
+         */
+        String studentCode = model.getMssv();
+        if (studentCode.contains(".")) {
+            studentCode = studentCode.substring(0, studentCode.lastIndexOf("."));
+        }
+        Student student = studentRepo.findByStudentCode(studentCode);
+        tPayment.setStudent(student);
+
+        /**
+         * Study Stage - content
+         */
+        StudyStage studyStage = studyStageRepo.findByStageCode(model.getNoiDungNopTien());
+        Term curTerm = termRepo.findByIsCurrent(true);
+        Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(curTerm, student.getMajor(), studyStage);
+        if (semester != null) {
+            tPayment.setSemester(semester);
+        }
+/**
+ * Bank and Transfer date
+ */
+        tPayment.setBank(model.getNganHang());
+        if (model.getNgayChuyenKhoan() != null) {
+            Date transferDate = DateTimeUtils.parseDate(model.getNgayChuyenKhoan(), "dd/MM/yyyy");
+            tPayment.setTransferDate(transferDate);
+        }
 
         int totalTuition;
         int paidTuition;
         int subtractLaptop = 0;
         int subtractMath = 0;
         int subtractOther = 0;
-
         /**
          * Total
          */
@@ -57,7 +84,7 @@ public class TuitionServiceImpl implements TuitionService {
         } catch (Exception e) {
             totalTuition = 0;
         }
-
+        tPayment.setTotalTuition(totalTuition);
         /**
          * Paid
          */
@@ -67,7 +94,7 @@ public class TuitionServiceImpl implements TuitionService {
         } catch (Exception e) {
             paidTuition = 0;
         }
-
+        tPayment.setPaidTuition(paidTuition);
         /**
          * Laptop
          */
@@ -77,7 +104,6 @@ public class TuitionServiceImpl implements TuitionService {
         } catch (Exception e) {
             subtractLaptop = 0;
         }
-
         /**
          * Math
          */
@@ -87,7 +113,6 @@ public class TuitionServiceImpl implements TuitionService {
         } catch (Exception e) {
             subtractMath = 0;
         }
-
         /**
          * Other
          */
@@ -98,74 +123,42 @@ public class TuitionServiceImpl implements TuitionService {
             subtractOther = 0;
         }
 
-        tPayment.setTotalTuition(totalTuition);
-        tPayment.setPaidTuition(paidTuition);
-
-        System.out.println(Constant.ANSI_RED + "Student : " + model.getTenSinhVien());
-        System.out.println(Constant.ANSI_RED + "Total : " + totalTuition);
-        System.out.println(Constant.ANSI_RED + "Paid : " + paidTuition);
-        System.out.println(Constant.ANSI_RED + "Laptop : " + subtractLaptop);
-        System.out.println(Constant.ANSI_RED + "OnToan : " + subtractMath);
-        System.out.println(Constant.ANSI_RED + "Othe : " + subtractOther);
-
-        tPayment.setBank(model.getNganHang());
-        if (model.getNgayChuyenKhoan() != null) {
-            Date transferDate = DateTimeUtils.parseDate(model.getNgayChuyenKhoan(), "dd/MM/yyyy");
-            tPayment.setTransferDate(transferDate);
-        }
-        /**
-         * Student
-         */
-        Student student = studentRepo.findByStudentCode(model.getMssv());
-        tPayment.setStudent(student);
-        /**
-         * Study Stage - content
-         */
-
-        StudyStage studyStage = studyStageRepo.findByStageCode(model.getNoiDungNopTien());
-        Term curTerm = termRepo.findByIsCurrent(true);
-        System.out.println(model.getTenSinhVien());
-        System.out.println(curTerm.getTermName());
-        System.out.println(model.getNoiDungNopTien());
-        System.out.println(studyStage.getStageCode());
-        Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(curTerm, student.getMajor(), studyStage);
-
-        tPayment.setSemester(semester);
-
         //  int totalTuition = semester.getStageTuitionUsd() * Constant.MONEY_CHECK;
         int totalSubTuition = 0;
         /**
          * Subtract tuition
          */
-
         FinancialType fType = student.getFinancialType();
 
         if (subtractLaptop > 0) {
             SubtractTuition subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("LAPTOP");
             subTuition.setSubtractTuition(subtractLaptop);
+            subTuition.setTuitionPayment(tPayment);
+            tPayment.getSubtractTuitions().add(subTuition);
+
             totalSubTuition += subtractLaptop;
 
-            subtractTuitionRepo.save(subTuition);
-            tPayment.setSubtractTuition(subTuition);
+            //subtractTuitionRepo.save(subTuition);
+            // tPayment.setSubtractTuition(subTuition);
         }
         if (subtractMath > 0) {
             SubtractTuition subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("ÔN TOÁN");
             subTuition.setSubtractTuition(subtractMath);
-            totalSubTuition += subtractMath;
+            subTuition.setTuitionPayment(tPayment);
+            tPayment.getSubtractTuitions().add(subTuition);
 
-            subtractTuitionRepo.save(subTuition);
-            tPayment.setSubtractTuition(subTuition);
+            totalSubTuition += subtractMath;
         }
         if (subtractOther > 0) {
             SubtractTuition subTuition = new SubtractTuition();
             subTuition.setSubtractTuitionName("KHÁC");
             subTuition.setSubtractTuition(subtractOther);
-            totalSubTuition += subtractOther;
+            subTuition.setTuitionPayment(tPayment);
+            tPayment.getSubtractTuitions().add(subTuition);
 
-            subtractTuitionRepo.save(subTuition);
-            tPayment.setSubtractTuition(subTuition);
+            totalSubTuition += subtractOther;
         }
 
         SubtractTuition subTuition = null;
@@ -192,21 +185,13 @@ public class TuitionServiceImpl implements TuitionService {
             totalSubTuition += sTuition;
         }
         if (subTuition != null) {
-            subtractTuitionRepo.save(subTuition);
-            tPayment.setSubtractTuition(subTuition);
+            subTuition.setTuitionPayment(tPayment);
+            tPayment.getSubtractTuitions().add(subTuition);
         }
 
         int realTotalTuition = totalTuition - totalSubTuition;
-        tPayment.setTotalTuition(totalTuition);
         if (realTotalTuition - paidTuition <= Constant.MONEY_RANGE) {
             tPayment.setStatus(true);
-            /**
-             * Enable Student course
-             */
-            if (!model.getLop().equals(Constant.DEFAULT_STRING_VALUE)) {
-                Clazz clazz = classRepo.findByClassName(model.getLop());
-                courseService.addCourseForStudent(student, clazz);
-            }
             /**
              * Change student status
              */
@@ -214,22 +199,32 @@ public class TuitionServiceImpl implements TuitionService {
                 student.setStatus(Constant.STUDENT_STATUS_STUDYING);
                 studentRepo.save(student);
             }
+            /**
+             * Increase study stage by 1
+             */
+            student.setCurrentStudyStage(studyStage.getStageCode());
+
+            /**
+             * Enable Student course
+             */
+            System.out.println("Enable class for student : " + student.getFullName());
+            if (!model.getLop().equals(Constant.DEFAULT_STRING_VALUE)) {
+                Clazz clazz = classRepo.findByClassName(model.getLop());
+                courseService.addCourseForStudent(student, clazz);
+            } else {
+                System.out.println("DEFAULT CLASS ROI");
+            }
         } else {
             tPayment.setStatus(false);
         }
 
-/*
-        if (subTuition != null) {
-            System.out.println("Subtract : " + subTuition);
-
-            subtractTuitionRepo.save(subTuition);
-            tPayment.setSubtractTuition(subTuition);
-        }*/
-
-        System.out.println("Payment : " + tPayment);
-
-        //return true;
-        return tuitionPaymentRepo.save(tPayment) != null;
+        boolean result = (tuitionPaymentRepo.save(tPayment) != null);
+        if (result) {
+            System.out.printf(Constant.ANSI_RED + "DA NOP HOC PHI CHO " + student.getFullName() + Constant.ANSI_RESET);
+        } else {
+            System.out.println(Constant.ANSI_RED + "DA CO LOI TRONG QUA TRINH NOP HOC PHI CHO " + student.getFullName() + Constant.ANSI_RESET);
+        }
+        return result;
     }
 
     @Override

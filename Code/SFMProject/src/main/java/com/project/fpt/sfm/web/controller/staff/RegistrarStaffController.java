@@ -8,13 +8,13 @@ import com.project.fpt.sfm.processexcel.development.model.CourseResultModel;
 import com.project.fpt.sfm.processexcel.development.model.StudentModel;
 import com.project.fpt.sfm.processexcel.model.StudyResultTemplate;
 import com.project.fpt.sfm.processexcel.utils.AnnotatedExcelReport;
-import com.project.fpt.sfm.repository.SubInSemesterRepo;
-import com.project.fpt.sfm.repository.TermRepo;
+import com.project.fpt.sfm.repository.*;
 import com.project.fpt.sfm.service.CourseService;
 import com.project.fpt.sfm.service.SemesterService;
 import com.project.fpt.sfm.service.dto.TermDto;
 import com.project.fpt.sfm.web.response.UploadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +41,12 @@ public class RegistrarStaffController {
     SubInSemesterRepo subInSemesterRepo;
     @Autowired
     TermRepo termRepo;
+    @Autowired
+    MajorRepo majorRepo;
+    @Autowired
+    StudyStageRepo studyStageRepo;
+    @Autowired
+    SemesterRepo semesterRepo;
 
     @RequestMapping("")
     public String home(Model model) {
@@ -51,14 +57,51 @@ public class RegistrarStaffController {
     }
 
     @RequestMapping("/quan-ly-hoc-ky")
-    public String manageSemester(Model model) {
+    public String manageSemester(Model model,
+                                 @RequestParam(value = "termId", defaultValue = "-1") int termId,
+                                 @RequestParam(value = "majorId", defaultValue = "-1") int majorId,
+                                 @RequestParam(value = "stageId", defaultValue = "-1") int stageId) {
         model.addAttribute("content", "staff/semester-management");
         model.addAttribute("sidebar", "staff/staff-sidebar");
 
-        Term curTerm = semesterService.getCurrentTerm();
-        List<Semester> listSemInTerm = semesterService.getListSemesterGroupByMajor(curTerm);
-        model.addAttribute("listSemester", listSemInTerm);
+        Sort sort = new Sort(Sort.Direction.DESC, "termId");
+        List<Term> terms = termRepo.findAll(sort);
+        List<Major> majors = majorRepo.findAll();
+        List<StudyStage> studyStages = studyStageRepo.findAll();
+
+        model.addAttribute("terms", terms);
+        model.addAttribute("majors", majors);
+        model.addAttribute("stages", studyStages);
+
+        Term curTerm;
+        if(termId < 0){
+            curTerm = terms.get(0);
+        }else{
+            curTerm = termRepo.findOne(termId);
+        }
         model.addAttribute("curTerm", curTerm);
+
+        Major curMajor;
+        if(majorId < 0){
+            curMajor = majors.get(0);
+        }else{
+            curMajor = majorRepo.findOne(majorId);
+        }
+        model.addAttribute("curMajor", curMajor);
+
+        StudyStage curStage;
+        if(stageId < 0){
+            curStage = studyStages.get(0);
+        }else{
+            curStage = studyStageRepo.findOne(stageId);
+        }
+        model.addAttribute("curStage", curStage);
+
+
+        Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(curTerm, curMajor, curStage);
+        List<SubjectInSemester> listSubject = subInSemesterRepo.findBySemester(semester);
+        model.addAttribute("subjects", listSubject);
+
 
         return "home";
     }
@@ -128,17 +171,6 @@ public class RegistrarStaffController {
     public String manageClass(Model model) {
         model.addAttribute("content", "staff/add-study-result");
         model.addAttribute("sidebar", "staff/staff-sidebar");
-/*
-
-      //  List<Semester> listSemester = semesterService.getAllSemesterInTerm();
-        Term term = termRepo.findByIsCurrent(true);
-        List<SubjectInSemester> listSubject = subInSemesterRepo.findBySemesterTerm(term);
-
-
-        model.addAttribute("listSubject", listSubject);
-*/
-
-
 
         Map<Clazz, List<SubjectInSemester>> map = new HashMap<>();
         List<Course> listCourse = courseService.getAllCourseInSemesterGroupByClass();
@@ -180,30 +212,7 @@ public class RegistrarStaffController {
                     }
                 }
             }
-
-
             response.setResult("OK");
-
-
-
-
-
-
-           /* ByteArrayInputStream is = null;
-            try {
-                is = new ByteArrayInputStream(file.getBytes());
-                AnnotatedExcelReport report = new AnnotatedExcelReport(is);
-                List<StudyResultTemplate> listTemp = report.readData("com.project.fpt.sfm.processexcel.model.StudyResultTemplate");
-                for (StudyResultTemplate temp : listTemp) {
-                   courseService.addCourseResult(classId, subInSemId, temp);
-                }
-
-                response.setResult("OK");
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.setResult(e.toString());
-            }*/
-
 
         } else {
             response.setResult("File Not Found");

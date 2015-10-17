@@ -116,10 +116,10 @@ public class Utils {
     }
 
     public static void main(String[] args) throws IOException {
-        String x = "2.42E7";
-        Double d = Double.parseDouble(x);
+        int financialRate = 70;
+        int totalTuition = 450;
 
-        System.out.println(d.intValue());
+        System.out.println((int) ((1 - (float) financialRate / 100) * totalTuition));
 
     }
 
