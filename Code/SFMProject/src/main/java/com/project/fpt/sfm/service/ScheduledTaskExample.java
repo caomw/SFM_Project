@@ -1,10 +1,8 @@
 package com.project.fpt.sfm.service;
 
 import com.project.fpt.sfm.entities.*;
-import com.project.fpt.sfm.repository.SemesterRepo;
-import com.project.fpt.sfm.repository.StudentRepo;
-import com.project.fpt.sfm.repository.StudyStageRepo;
-import com.project.fpt.sfm.repository.TermRepo;
+import com.project.fpt.sfm.repository.*;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +25,8 @@ public class ScheduledTaskExample {
     StudyStageRepo studyStageRepo;
     @Autowired
     SemesterRepo semesterRepo;
+    @Autowired
+    TuitionPlanRepo tuitionPlanRepo;
 
 
     private final ScheduledExecutorService scheduler = Executors
@@ -41,13 +41,16 @@ public class ScheduledTaskExample {
         final ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
                 new Runnable() {
                     public void run() {
+                        System.out.println("START TIMER");
                         try {
                             getDataFromDatabase();
-                        }catch(Exception ex) {
+                        } catch (Exception ex) {
                             ex.printStackTrace(); //or loggger would be better
                         }
                     }
                 }, 0, 15, TimeUnit.MINUTES);
+
+
 
     }
 
@@ -58,16 +61,23 @@ public class ScheduledTaskExample {
         /**
          * Get all Student is studying
          */
+        System.out.println("GET ALL STUDENT");
         List<Student> listStudent = studentRepo.findByIsActive(true);
-
+        System.out.println("Size : " + listStudent.size());
+        for(Student student : listStudent){
+            makeTuitionPlanForStudent(student);
+        }
 
     }
 
     public void makeTuitionPlanForStudent(Student student){
         Term curTerm = termRepo.findByIsCurrent(true);
-        String curStudyStage = student.getCurrentStudyStage();
-        StudyStage studyStage = studyStageRepo.findByStageCode(curStudyStage);
-       // Semester semester = semesterRepo.findByTermAndMajorAndStudyStage()
+        List<TuitionPlan> listPlan = tuitionPlanRepo.findByTermAndStudent(curTerm, student);
+
+        System.out.println("------------------------");
+        for(TuitionPlan plan : listPlan){
+            System.out.println("Len Plan Cho : " + student.getFullName() + " Tien hoc phi la : " + plan.getTuitionName());
+        }
     }
 
     public void shutdowh() {

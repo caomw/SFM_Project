@@ -1,4 +1,4 @@
-package com.project.fpt.sfm.service;
+﻿package com.project.fpt.sfm.service;
 
 import com.project.fpt.sfm.common.Constant;
 import com.project.fpt.sfm.common.Utils;
@@ -9,6 +9,7 @@ import com.project.fpt.sfm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,9 @@ import java.util.UUID;
  * Created by Khắc Vỹ on 10/13/2015.
  */
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
+    @Autowired
+    ScheduledTaskExample example;
     @Autowired
     TaskScheduler taskScheduler;
     @Autowired
@@ -34,6 +37,8 @@ public class StudentServiceImpl implements StudentService{
     StudyStageRepo studyStageRepo;
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    TermRepo termRepo;
     @Autowired
     RoleRepo roleRepo;
     @Autowired
@@ -133,7 +138,6 @@ public class StudentServiceImpl implements StudentService{
             }
 
         }
-
         /**
          * Create Course
          */
@@ -163,20 +167,26 @@ public class StudentServiceImpl implements StudentService{
          * Failed Course Tuition Plan
          */
         retakeCourseTuitionPlan(student, term);
+
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean addNewStudent(StudentModel model) {
-        System.out.println(model);
         Student student = studentRepo.findByStudentCode(model.getStudentCode());
-        if(student != null){
+        if (student != null) {
             //Update Student
-        }else{
+        } else {
             student = new Student();
             student.setFullName(model.getStudentName());
-            student.setStudentCode(model.getStudentCode());
+            //handle unformat student code
+            String studentCode = model.getStudentCode();
+            if(studentCode.contains(".")){
+                studentCode = studentCode.substring(0, studentCode.lastIndexOf("."));
+            }
+            student.setStudentCode(studentCode);
             student.setNote(model.getNote());
-              student.setStatus(Constant.STUDENT_STATUS_WAITING);
+            student.setStatus(Constant.STUDENT_STATUS_WAITING);
             student.setTerm(model.getAcademicYear());
             student.setDateOfBirth(new Date());
             student.setEmail(model.getStudentCode() + "@fpt.edu.vn");
@@ -192,9 +202,9 @@ public class StudentServiceImpl implements StudentService{
              */
             String majorCode = model.getMajor();
             Major major;
-            if(majorCode.equals("-") || majorCode.length() > 10){
+            if ("".equals(majorCode) || majorCode.equals("-") || majorCode.length() > 10) {
                 major = majorRepo.findByMajorCode(Constant.DEFAULT_MISSING_DATA);
-            }else{
+            } else {
                 major = majorRepo.findByMajorCode(majorCode);
             }
             student.setMajor(major);
@@ -224,14 +234,18 @@ public class StudentServiceImpl implements StudentService{
             if (studyStageCode.equals(Constant.DEFAULT_STRING_VALUE)) {
                 student.setCurrentStudyStage("SEM1");
             } else {
-                student.setCurrentStudyStage(studyStageCode);
+                if(studyStageCode.length() > 10){
+                    student.setCurrentStudyStage(Constant.DEFAULT_MISSING_DATA);
+                }else{
+                    student.setCurrentStudyStage(studyStageCode);
+                }
             }
             /**
              * Create fake user and save student
              */
             User user = new User();
             user.setUsername(model.getStudentCode());
-            user.setPassword(Utils.generatePassword());
+            user.setPassword("123456");
             userRepo.save(user);
             /**
              * User Role
@@ -244,13 +258,12 @@ public class StudentServiceImpl implements StudentService{
 
             student.setUser(user);
             studentRepo.save(student);
-
             /**
              * Create new Class
              */
             //Class
-            Clazz clazz = null;
-            if (model.getClazz().equals("-")) {
+            Clazz clazz;
+            if (model.getClazz().equals(Constant.DEFAULT_STRING_VALUE)) {
                 clazz = classRepo.findByClassName("CHUA_XEP_LOP");
             } else {
                 clazz = classRepo.findByClassName(model.getClazz());
@@ -276,7 +289,7 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public void tuitionPlanForNewStudent(Student student, StudyStage stage, Term term) {
         Semester semester = semesterRepo.findByTermAndMajorAndStudyStage(term, student.getMajor(), stage);
-        if(semester != null){
+        if (semester != null) {
             TuitionPlan semPlan = new TuitionPlan();
             semPlan.setStudent(student);
             semPlan.setTerm(term);
@@ -285,15 +298,14 @@ public class StudentServiceImpl implements StudentService{
             int totalTuition = semester.getStageTuitionUsd();
             int actualTuition;
             int financialRate = student.getFinancialType().getFinancialRate();
-            if(financialRate == 100){
+            if (financialRate == 100) {
                 actualTuition = 0;
-            }else if(financialRate == 0){
+            } else if (financialRate == 0) {
                 actualTuition = totalTuition;
-            }else{
-                actualTuition = (int)((1 - (float)financialRate/100)*totalTuition);
+            } else {
+                actualTuition = (int) ((1 - (float) financialRate / 100) * totalTuition);
             }
             semPlan.setTuition(actualTuition);
-            System.out.println(Constant.ANSI_RED + "ACTUAL TUITION : " + actualTuition + Constant.ANSI_RESET);
 
             tuitionPlanRepo.save(semPlan);
         }
@@ -301,9 +313,9 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public void retakeCourseTuitionPlan(Student student, Term term) {
-        List<Course> listFailedCourse = courseService.getAllFailedCourseOfStudent(student, term);
+        List<Course> listFailedCourse = courseService.getAllFailedCourseOfStudent(student);
         System.out.println("LIST FAILED SIZE : " + listFailedCourse.size());
-        if(listFailedCourse.size() > 0){
+        if (listFailedCourse.size() > 0) {
             TuitionPlan plan;
             Subject subject;
             for (Course course : listFailedCourse) {
@@ -322,7 +334,13 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+
     public List<RetakeSubjectPayment> getListResitCourse(int studentId) {
         return retakeSubjectPaymentRepo.findByStudentStudentId(studentId);
     }
+
+    public List<Student> getListNewStudent() {
+        return studentRepo.findByStatus(Constant.STUDENT_STATUS_WAITING);
+    }
+
 }

@@ -8,7 +8,7 @@
         </a>
         <ul class="treeview-menu" th:style="${!check} ? 'display: none' : ''">
             <li th:class="${content == 'student/study-history'} ? 'active' : ''"><a href="/sinh-vien/cac-ky-da-hoc"><i class="fa fa-circle-o"></i>Những Kỳ Đã Học</a></li>
-            <li th:class="${content == 'student/resit-course-history'} ? 'active' : ''"><a href="/sinh-vien/cac-mon-no"><i class="fa fa-circle-o"></i>Các Môn Đang Nợ</a></li>
+            <li th:class="${content == 'student/resit-course-history'} ? 'active' : ''"><a href="#"><i class="fa fa-circle-o"></i>Các Môn Đang Nợ</a></li>
         </ul>
     </li>
     <!--THONG TIN TAI CHINH-->
@@ -19,49 +19,10 @@
         <ul class="treeview-menu" th:style="${!check} ? 'display: none' : ''">
             <li th:class="${content == 'student/tuition-overview'} ? 'active' : ''"><a href="/sinh-vien/hoc-phi-du-kien"><i class="fa fa-circle-o"></i>Học Phí Dự Kiến</a></li>
             <li th:class="${content == 'student/tuition-history'} ? 'active' : ''"><a href="/sinh-vien/hoc-phi-cac-ky"><i class="fa fa-circle-o"></i>Trạng Thái Đóng Học Phí</a></li>
-            <li th:class="${content == 'student/resit-course-financial-history'} ? 'active' : ''"><a href="/sinh-vien/danh-sach-dong-tien-hoc-lai"><i class="fa fa-circle-o"></i>Trạng Thái Đóng Tiền Học Lại</a></li>
+            <li th:class="${content == 'student/resit-course-financial-history'} ? 'active' : ''"><a href="#"><i class="fa fa-circle-o"></i>Trạng Thái Đóng Tiền Học Lại</a></li>
         </ul>
     </li>
 
-
-<!--
-
-
-    <li class="treeview">
-        <a href="/student/hoc-phi-du-kien">
-            <i class="fa fa-laptop"></i>
-            <span>Học Phí Dự Kiến</span>
-        </a>
-    </li>
-
-    <li class="treeview">
-        <a href="/student/cac-ky-da-hoc">
-            <i class="fa fa-laptop"></i>
-            <span>Những Kỳ Đã Học</span>
-        </a>
-    </li>
-
-    <li class="treeview">
-        <a href="/student/cac-mon-no">
-            <i class="fa fa-laptop"></i>
-            <span>Các Môn Đang Nợ</span>
-        </a>
-    </li>
-
-    <li class="treeview">
-        <a th:href="@{/student/hoc-phi-cac-ky}">
-            <i class="fa fa-laptop"></i>
-            <span>Trạng Thái Đóng Học Phí</span>
-        </a>
-    </li>
-
-    <li class="treeview">
-        <a th:href="@{/student/danh-sach-dong-tien-hoc-lai}">
-            <i class="fa fa-laptop"></i>
-            <span>Trạng Thái Đóng Tiền Học Lại</span>
-        </a>
-    </li>
--->
 
     <li class="treeview" th:if="${#authorization.expression('hasRole(''LOANSCREDIT_STUDENT'')')}">
         <a href="/student/xemlaivay">
@@ -76,5 +37,14 @@
             <span>Thông Tin Cá Nhân</span>
         </a>
     </li>
+
+
+    <li th:if="${session.plan != null}">
+        <a href="/sinh-vien/ke-hoach-nop-hoc-phi">
+            <i class="fa fa-laptop"></i>
+            <span>Kế Hoạch Nộp Học Phí</span>
+        </a>
+    </li>
+
 
 </ul>

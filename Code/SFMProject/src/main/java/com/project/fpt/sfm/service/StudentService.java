@@ -1,4 +1,4 @@
-package com.project.fpt.sfm.service;
+﻿package com.project.fpt.sfm.service;
 
 import com.project.fpt.sfm.entities.RetakeSubjectPayment;
 import com.project.fpt.sfm.entities.Student;
@@ -30,5 +30,9 @@ public interface StudentService {
 
     void retakeCourseTuitionPlan(Student student, Term term);
 
+
     List<RetakeSubjectPayment> getListResitCourse(int studentId);
+
+    List<Student> getListNewStudent();
+
 }

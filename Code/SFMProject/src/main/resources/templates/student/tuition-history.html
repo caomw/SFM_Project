@@ -17,16 +17,16 @@
                             <th>Ngày Chuyển Khoản</th>
                             <th>Xem Chi Tiết</th>
                         </tr>
-                        <tr th:if="${listPayment.size() == 0}">
+                        <tr th:if="${list.size() == 0}">
                             <td colspan="6" class="text-center"><b>ĐANG CẬP NHẬT</b>
                             </td>
                         </tr>
 
-                        <th:block th:each="item, i : ${listPayment}">
+                        <th:block th:each="item, i : ${list}">
                             <tr data-toggle="collapse"
                                 th:attr="data-target='#row'+${i.count}"  class="accordion-toggle">
                                 <td th:text="${i.count}">1.</td>
-                                <td th:text="${item.tuition.tuitionName}">
+                                <td th:text="${item.semester.studyStage.stageCode}">
                                     CHuyên Ngành 1
                                 </td>
 
@@ -72,12 +72,12 @@
                                                 <tr>
                                                     <td><label>Nội Dung Đóng
                                                         Tiền</label></td>
-                                                    <td th:text="${item.tuition.tuitionName}">Chuyên Ngành 1</td>
+                                                    <td th:text="${item.semester.studyStage.stageCode}">Chuyên Ngành 1</td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Học Kỳ</label>
                                                     </td>
-                                                    <td th:text="${sem.season.seasonName} + ' ( ' + ${#dates.format(sem.season.startDate, 'dd-MM-yyyy')} + ' - ' + ${#dates.format(sem.season.endDate, 'dd-MM-yyyy')} + ' ) '">Fall 2015 (03/05/2015 -
+                                                    <td th:text="${sem.term.termName} + ' ( ' + ${#dates.format(sem.term.startDate, 'dd-MM-yyyy')} + ' - ' + ${#dates.format(sem.term.endDate, 'dd-MM-yyyy')} + ' ) '">Fall 2015 (03/05/2015 -
                                                         03/08/2015)
                                                     </td>
                                                 </tr>
@@ -86,16 +86,16 @@
                                                         Phí</label></td>
                                                     <td th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(item.totalTuition)} + ' VNĐ'">24,000,000 VNĐ</td>
                                                 </tr>
-                                                <tr th:with="subtract=${item.subtractTuition}">
+                                                <tr th:with="subtract=${item.subtractTuitions}">
                                                     <td><label>Các Khoản Trừ</label></td>
                                                     <td>
                                                         <p th:each="row : ${subtract}" th:text="${row.subtractTuitionName} + ' : ' + ${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(row.subtractTuition)} + ' VNĐ'"></p>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                               <!-- <tr>
                                                     <td><label>Học Phí Cần Nộp</label></td>
                                                     <td th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(item.actualTuition)} + ' VNĐ'">12,000,000 VNĐ</td>
-                                                </tr>
+                                                </tr>-->
                                                 <tr>
                                                     <td><label>Học Phí Đã Nộp</label></td>
                                                     <td th:text="${T(com.project.fpt.sfm.common.NumberUtils).formatCurrency(item.paidTuition)} + ' VNĐ'">12,000,000 VNĐ</td>
@@ -104,10 +104,10 @@
                                                     <td><label>Trạng Thái</label></td>
                                                     <td th:text="${item.status} ? 'Đã Nộp' : 'Nộp Thiếu'">Nộp Đủ</td>
                                                 </tr>
-                                                <tr>
+                                               <!-- <tr>
                                                     <td><label>Thiếu/Dư</label></td>
                                                     <td>0 VNĐ</td>
-                                                </tr>
+                                                </tr>-->
                                                 <tr>
                                                     <td ><label>Ngày Chuyển
                                                         Khoản</label></td>

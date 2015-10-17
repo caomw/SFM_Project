@@ -18,4 +18,6 @@ public interface StudentRepo extends JpaRepository<Student, Integer>{
     List<Student> listStudyingStudent();
 
     Student findByStudentCode(String studentCode);
+
+    List<Student> findByStatus(String status);
 }

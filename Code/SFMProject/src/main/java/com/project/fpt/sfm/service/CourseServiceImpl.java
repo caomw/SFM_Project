@@ -3,7 +3,6 @@ package com.project.fpt.sfm.service;
 import com.project.fpt.sfm.common.Constant;
 import com.project.fpt.sfm.entities.*;
 import com.project.fpt.sfm.processexcel.development.model.CourseResultModel;
-import com.project.fpt.sfm.processexcel.model.StudyResultTemplate;
 import com.project.fpt.sfm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,12 +37,18 @@ public class CourseServiceImpl implements CourseService {
      * @return
      */
     @Override
-    public List<Course> getAllFailedCourseOfStudent(Student student, Term term) {
-        List<Course> listFailedCourse = courseRepo.findByPassAndRetakeInTerm(false, false, term);
-        System.out.println("SIZE : " + listFailedCourse.size());
-        List<Course> listPassedRetakeCourse = courseRepo.findByPassAndRetakeInTerm(true, true, term);
+    public List<Course> getAllFailedCourseOfStudent(Student student) {
+        List<Course> listFailedCourse = courseRepo.findByStudentAndIsPassAndIsRetake(student, false, false);
+        System.out.println("Not pass and not retake : " + listFailedCourse.size());
+        List<Course> listPassedRetakeCourse = courseRepo.findByStudentAndIsPassAndIsRetake(student, true, true);
+        System.out.println("Pass and is retake" + listPassedRetakeCourse.size());
         List<Course> result = new ArrayList<>();
-        if (listFailedCourse.size() > 0 && listPassedRetakeCourse.size() > 0) {
+        /**
+         * Khong co mon nao retake pass => k co mon nao bi retake
+         */
+        if(listPassedRetakeCourse.size() == 0){
+            return  listFailedCourse;
+        }else{
             for (Course failedCourse : listFailedCourse) {
                 if (!listPassedRetakeCourse.contains(failedCourse)) {
                     result.add(failedCourse);
@@ -82,6 +87,8 @@ public class CourseServiceImpl implements CourseService {
                     courseRepo.save(course);
                 }
             }
+        }else{
+            System.out.println("Semester bi null roi");
         }
     }
 

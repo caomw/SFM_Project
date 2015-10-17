@@ -1,17 +1,16 @@
 package com.project.fpt.sfm.entities;
-// Generated Oct 12, 2015 2:10:19 AM by Hibernate Tools 4.3.1
+// Generated Oct 15, 2015 7:12:40 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,34 +26,31 @@ public class SubtractTuition  implements java.io.Serializable {
 
 
      private Integer subtractTuitionId;
+     private TuitionPayment tuitionPayment;
      private String subtractTuitionName;
      private int subtractTuition;
      private String note;
      private Boolean isActive;
      private Date dateCreated;
      private Date dateUpdated;
-     private Set<TuitionPayment> tuitionPayments = new HashSet<TuitionPayment>(0);
 
     public SubtractTuition() {
-        this.dateCreated = new Date();
-        this.dateUpdated = new Date();
-        this.isActive = true;
-        this.note = "-";
     }
 
 	
-    public SubtractTuition(String subtractTuitionName, int subtractTuition) {
+    public SubtractTuition(TuitionPayment tuitionPayment, String subtractTuitionName, int subtractTuition) {
+        this.tuitionPayment = tuitionPayment;
         this.subtractTuitionName = subtractTuitionName;
         this.subtractTuition = subtractTuition;
     }
-    public SubtractTuition(String subtractTuitionName, int subtractTuition, String note, Boolean isActive, Date dateCreated, Date dateUpdated, Set<TuitionPayment> tuitionPayments) {
+    public SubtractTuition(TuitionPayment tuitionPayment, String subtractTuitionName, int subtractTuition, String note, Boolean isActive, Date dateCreated, Date dateUpdated) {
+       this.tuitionPayment = tuitionPayment;
        this.subtractTuitionName = subtractTuitionName;
        this.subtractTuition = subtractTuition;
        this.note = note;
        this.isActive = isActive;
        this.dateCreated = dateCreated;
        this.dateUpdated = dateUpdated;
-       this.tuitionPayments = tuitionPayments;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -67,6 +63,16 @@ public class SubtractTuition  implements java.io.Serializable {
     
     public void setSubtractTuitionId(Integer subtractTuitionId) {
         this.subtractTuitionId = subtractTuitionId;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="TuitionPaymentID", nullable=false)
+    public TuitionPayment getTuitionPayment() {
+        return this.tuitionPayment;
+    }
+    
+    public void setTuitionPayment(TuitionPayment tuitionPayment) {
+        this.tuitionPayment = tuitionPayment;
     }
 
     
@@ -129,24 +135,9 @@ public class SubtractTuition  implements java.io.Serializable {
         this.dateUpdated = dateUpdated;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="subtractTuition")
-    public Set<TuitionPayment> getTuitionPayments() {
-        return this.tuitionPayments;
-    }
-    
-    public void setTuitionPayments(Set<TuitionPayment> tuitionPayments) {
-        this.tuitionPayments = tuitionPayments;
-    }
 
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("SubtractTuition{");
-        sb.append("subtractTuitionName='").append(subtractTuitionName).append('\'');
-        sb.append(", subtractTuition=").append(subtractTuition);
-        sb.append('}');
-        return sb.toString();
-    }
+
 }
 
 
